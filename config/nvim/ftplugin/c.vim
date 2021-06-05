@@ -17,4 +17,5 @@ ab case case:<CR><++><CR>break;<Esc>kki
 ab incq #include ""<Left>
 ab inc #include <><Left>
 
-imap <C-k> <Esc>a
+imap <C-k> <C-]>
+

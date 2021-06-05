@@ -30,10 +30,9 @@ export SHELL zsh
 export _JAVA_AWT_WM_NONREPARENTING 1
 
 export XDG_CONFIG_HOME ${~}/.config
+
 export ZDOTDIR ${~}/.config/zsh
-
 export PASSWORD_STORE_DIR ${~}/.local/password-store
-
 export LESSHISTFILE ${~}/.cache/lesshst
 
 # if $1 is greater than 1 that means this is not run for the first time
@@ -153,3 +152,7 @@ foreground { bspc rule -a Zathura state=tiling }
 foreground { echo -e "\\e[34m\\e[1m::\\e[37m Finished\\e[0m" }
 
 rm /tmp/wm/rc.lck # clean up lock
+
+# vim: ft=sh
+# vim does not have an execline filetype
+# and 'sh' is the closest

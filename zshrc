@@ -5,20 +5,27 @@ HISTFILE=~/.cache/zsh/zshhistory
 
 autoload -Uz compinit; compinit
 source ~/programs/xplr/xplr.zsh
-
 bindkey -v
 bindkey '^?' backward-delete-char
 
 export SKIM_DEFAULT_OPTIONS="--height=70% --reverse --tiebreak=length,index --prompt=\"λ \""
-alias cf="cd \`fd -t d | sk $SKIM_DEFAULT_OPTIONS\`"
-alias nf="nvim \`fd -t f | sk $SKIM_DEFAULT_OPTIONS\`"
+
+alias cf="cd \`find -type d | sk $SKIM_DEFAULT_OPTIONS\`"
+alias nf="nvim \`find -type f | sk $SKIM_DEFAULT_OPTIONS\`"
+
+af () {
+	output=$(sk -e --ansi -c "ag '{}' --color" $SKIM_DEFAULT_OPTIONS -i)
+	line="$(echo $output | cut -d: -f2)"
+	file="$(echo $output | cut -d: -f1)"
+	nvim -c "set nofoldenable" "+$line" "$file"
+}
 
 alias n="nvim"
 alias ctagsgen="ctags --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++"
 alias tsm="transmission-remote"
-alias sudo="doas"
 alias netchk="gping google.com facebook.com youtube.com"
 alias zthr="zathura"
+alias nj="ninja"
 
 # git aliases
 alias gs="git status"
@@ -34,7 +41,7 @@ alias gb="git branch"
 alias am="automake"
 alias ac="autoconf"
 alias arc="autoreconf"
-alias arci="autoreconfi"
+alias arci="autoreconf"
 
 alias cp="cp -i"
 alias rm="rm -i"

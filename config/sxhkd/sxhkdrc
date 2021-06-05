@@ -108,7 +108,7 @@ super + o; super + g # super + g used because brave is only for google services
 
 # open passmenu
 @super + p
-	~/.scripts/dmenu/passmenu
+	passmenu -p "pass: "
 
 ###############################
 # Hide and unhide stuff

@@ -13,6 +13,8 @@ set nohls
 set encoding=utf-8
 set linebreak
 set nowrap
+set nu
+set rnu
 
 "UI rendering
 set noruler
@@ -56,6 +58,7 @@ set clipboard=unnamedplus
 set shell=zsh
 set noerrorbells
 set mouse=nv "enable mouse in normal mode only
+set makeprg=ninja
 
 "autocomplete
 set completeopt=longest,menuone
