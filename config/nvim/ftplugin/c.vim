@@ -8,6 +8,7 @@ ab elseif else if() {<CR><++><CR>} <++> <Esc>kkf(a
 
 "common functions
 ab main int main(int argc, char** argv) {<CR>return 0;<CR>}<Esc>kO
+ab func (<++>) {<CR><++><CR>}<Esc>kki
 
 "switch statements
 ab switch switch() {<CR>case <++>:<CR><++><CR>break;<CR>default:<CR><++><CR>break;<CR>}<CR><++><Esc>kkkkkkkkf(a

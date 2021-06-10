@@ -10,6 +10,7 @@ options="
 "
 
 sel=$(echo -en $options | dmenu -p "screenshot:" -l 15 -i)
+test -z $sel && notify-send -a screenshot "No option was selected" "Exiting without doing anything" && exit
 
 case $(echo $sel | cut -d\: -f1)
 in
@@ -17,9 +18,11 @@ in
 		tmp=$(mktemp -p /tmp/wm screenshot.XXXXXXX.png || error "failed to create temporary file")
 		import "$tmp"
 
+		xclip -selection clipboard -t image/png $tmp
+		rm $tmp
+
 		notify-send -a screenshot "Success!" \
 			"The Screenshot was successfully taken, it is in the clipboard."
-		rm $tmp
 		;;
 	*)
 		error "option not implemented yet"

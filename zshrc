@@ -10,8 +10,8 @@ bindkey '^?' backward-delete-char
 
 export SKIM_DEFAULT_OPTIONS="--height=70% --reverse --tiebreak=length,index --prompt=\"λ \""
 
-alias cf="cd \`find -type d | sk $SKIM_DEFAULT_OPTIONS\`"
-alias nf="nvim \`find -type f | sk $SKIM_DEFAULT_OPTIONS\`"
+alias cf="cd \`fd -t d | sk $SKIM_DEFAULT_OPTIONS\`"
+alias nf="nvim \`fd -t f | sk $SKIM_DEFAULT_OPTIONS\`"
 
 af () {
 	output=$(sk -e --ansi -c "ag '{}' --color" $SKIM_DEFAULT_OPTIONS -i)
