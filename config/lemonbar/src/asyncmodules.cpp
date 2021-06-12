@@ -1,30 +1,34 @@
 #include <unistd.h>
 #include <signal.h>
-#include <string.h>
-#include <stdio.h>
-#include <X11/Xlib.h>
-#include <X11/Xutil.h>
+#include <cstring>
+#include <cstdio>
+#include <xcb/xcb.h>
+#include <xcb/xcb_icccm.h>
+#include <math.h>
 
 #include "helpers.h"
 
 char * desktops = new char[1024];
 char * windowname = new char[64];
 
-Display * dpy;
+xcb_connection_t * dpy;
 
 void WindowModule(int) {
 	// get focused window
-	Window focused;
-	int revert_to;
-	XGetInputFocus(dpy, &focused, &revert_to);
+	auto focused = xcb_get_input_focus_reply(dpy, xcb_get_input_focus(dpy), 0);
+	
+	size_t len;
 
-	// get focused window name
-	XTextProperty text;
-	XGetWMName(dpy, focused, &text);
+	xcb_icccm_get_text_property_reply_t itr;
+	xcb_icccm_get_wm_name_reply(dpy, xcb_icccm_get_wm_name(dpy, focused->focus), &itr, NULL);
+	// strncpy(name, itr.name, MIN(len, itr.name_len));
 
-	char * name = (char *)text.value;
+	snprintf(windowname, itr.name_len + 1, "%s", itr.name); 
 
-	snprintf(windowname, 64, "%s", name); 
+	// cleanup
+	delete focused;
+	// delete name_id;
+	// delete name_prop;
 }
 
 void DesktopModule(int) {

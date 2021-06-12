@@ -24,7 +24,8 @@ importas ~ HOME
 export EDITOR nvim
 export BROWSER firefox
 export TERMINAL st
-export SHELL zsh
+export USER_SHELL zsh
+export SHELL sh
 
 # fixes some java application issues
 export _JAVA_AWT_WM_NONREPARENTING 1
@@ -38,20 +39,18 @@ export LESSHISTFILE ${~}/.cache/lesshst
 # if $1 is greater than 1 that means this is not run for the first time
 ifthenelse { test ${1} -gt 1 } {
 	foreground { echo -e "\\e[34m\\e[1m::\\e[37m killing duplicate processess..\\e[0m" }
-	foreground { 
-		killall "picom"
-			"sxhkd"
-			"lemonbar"
-			"dunst"
+	killall "picom"
+		"sxhkd"
+		"lemonbar"
+		"dunst"
 
-			"bspc"
-			"xcape"
+		"bspc"
+		"xcape"
 
-			"loopwhilex"
-			"foreground"
+		"loopwhilex"
+		"foreground"
 
-			"controllemonbar"
-	}
+		"controllemonbar"
 } { true }
 
 
@@ -61,12 +60,12 @@ ifthenelse { test ${1} -gt 1 } {
 foreground { echo -e "\\e[34m\\e[1m::\\e[37m Starting daemons...\\e[0m" }
 
 background { sxhkd }
-background { picom --backend glx --experimental-backend }
+background { picom --experimental-backend }
 background { dunst }
 
 background { 
-	pipeline { ${~}/.config/lemonbar/controllemonbar }
-	lemonbar -gx17 "-fmononoki Nerd Font:pixelsize=13" -B#2E3440 -F#D8DEE9 -U#88C0D0 -o2
+pipeline { ${~}/.config/lemonbar/controllemonbar }
+lemonbar -gx17 "-fmononoki Nerd Font:pixelsize=13" -B#2E3440 -F#D8DEE9 -U#88C0D0 -o2
 }
 
 # some backgroud scripts
@@ -85,9 +84,7 @@ background { xrdb -I${~}/.config/Xres ${~}/.config/Xres/main.xres } # load Xreso
 # xorg stuff
 #####################
 foreground { echo -e "\\e[34m\\e[1m::\\e[37m Setting wallpaper...\\e[0m" }
-background { sh -c 
-"hsetroot -solid '#3B4252' -fill ~/Pictures/wallpapers/banner.png -center ~/Pictures/wallpapers/center.png"
-}
+background { sh -c "hsetroot -solid '#3B4252' -center ~/Pictures/wallpapers/center.png" }
 
 foreground { echo -e "\\e[34m\\e[1m::\\e[37m Configuring X...\\e[0m" }
 background { xrandr -s 1366x768 }
@@ -137,9 +134,7 @@ foreground { bspc config pointer_action2 resize_corner }
 foreground { echo -e "\\e[34m\\e[1m::\\e[37m Setting window rules...\\e[0m" }
 
 foreground { bspc rule -a Screenkey manage=off }
-foreground { bspc rule -a Notification manage=off }
 foreground { bspc rule -a Notes state=floating sticky=on }
-foreground { bspc rule -a *:*:TLauncher state=floating }
 foreground { bspc rule -a firefox:\*:Picture-in-Picture state=floating sticky=on }
 
 # force some windows into tiling mode
@@ -153,6 +148,6 @@ foreground { echo -e "\\e[34m\\e[1m::\\e[37m Finished\\e[0m" }
 
 rm /tmp/wm/rc.lck # clean up lock
 
-# vim: ft=sh
 # vim does not have an execline filetype
 # and 'sh' is the closest
+# vim: ft=sh

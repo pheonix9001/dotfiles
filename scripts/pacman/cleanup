@@ -1,10 +1,9 @@
 #!/bin/bash
 
-pacman -Qdtq | sudo pacman -Rns - &> /dev/null || echo "no orphan packages found"
+dir=/usr/bin
+cd $dir
 
-cd /usr
-
-for file in $(fd . /usr)
+for file in $(fd . $dir)
 do
 	echo -ne "\e[2K\e[G" 
 	echo -n "checking $file"

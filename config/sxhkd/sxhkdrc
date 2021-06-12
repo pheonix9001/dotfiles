@@ -4,11 +4,11 @@
 
 # terminal emulator
 super + Return
-	$TERMINAL -e $SHELL
+	$TERMINAL -e $USER_SHELL &> /dev/null
 
 # secondary terminal emulator
 super + shift + Return
-	termite -e $SHELL
+	alacritty -e $USER_SHELL
 
 # program launcher
 super + @space
@@ -104,7 +104,7 @@ super + o; super + n
 
 # open brave
 super + o; super + g # super + g used because brave is only for google services
-	brave --new-window
+	brave --new-window > /dev/null
 
 # open passmenu
 @super + p
@@ -187,27 +187,25 @@ super + {h,j,k,l}
 super + c
 	bspc node -f next.\!focused.leaf.local.\!hidden
 	
-# only for floating window
+# only for floating windows
 super + f
 	bspc node -f next.\!focused.leaf.local.\!hidden.floating
 	
 # go up and down the node tree
 super + u
-	bspc node -f @parent && sleep 0.1 && bspc config border_width 2 && \
-	bspc subscribe -c 1 node_focus && \
-	bspc config border_width 0
+	bspc node -f @parent && bspc config border_width 2 && \
+	bspc subscribe node_focus -c 1 > /dev/null && \
+	bspc query -N -n focused.window > /dev/null && bspc config border_width 0
 
+# go down the tree
 super + d
 	bspc node -f biggest.descendant_of.window
-
-# switch to biggest desktop
-super + b
-	bspc node -f biggest.local
 
 ###############################
 # swap and insert windows
 ###############################
 
+# swap nodes
 super + shift + {h,j,k,l}
 	bspc node -s {west,south,north,east}
 
@@ -246,7 +244,7 @@ super + i; super + c
 super + r
 	bspc node focused -s @brother
 
-# resize window size
+# resize windowsize
 alt + ctrl + {h,j,k,l}
 	bspc node -z {right -20 0, top 0 20, bottom 0 -20, left 20 0}
 
@@ -285,7 +283,7 @@ super + s; super + m
 
 # tiling mode
 super + s; super + t
-	bspc node -t tiled && xdo show -dr
+	bspc node -t tiled
 
 # floating mode
 super + s; super + f
@@ -299,7 +297,7 @@ super + s; super + p
 # change all flags
 ###############################
 
-# stick and unstick windows super + s 
+# stick and unstick windows super + g
 super + g
 	bspc node -g sticky=on
 

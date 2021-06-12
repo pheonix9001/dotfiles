@@ -31,8 +31,8 @@ progress_bar_min_width = 150
 progress_bar_max_width = 300
 
 ### Frame options ###
-frame_width = 1
-frame_color = "#aaaaaa"
+frame_width = 2
+frame_color = "#434C5E"
 
 ### Misc ###
 sort = yes # sort by urgency
@@ -93,7 +93,7 @@ min_icon_size = 0
 max_icon_size = 32
 
 # Paths to default icons.
-icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
+icon_path = /usr/share/icons/Zafiro-icons-blue/status/22/
 
 ### History ###
 # Should a notification popped up from history be sticky or timeout
@@ -104,7 +104,7 @@ history_length = 20
 
 ### Advanced ###
 dmenu = /usr/bin/dmenu -p dunst: # dmenu options
-browser = /usr/bin/firefox -new-tab # browser
+browser = /usr/bin/firefox --new-tab # browser
 
 # Always run rule-defined scripts, even if the notification is suppressed
 always_run_script = true
@@ -160,28 +160,7 @@ mouse_right_click = close_all
 #    frame_color
 #    fullscreen
 #    new_icon
-#    set_stack_tag
-#    set_transient
-#    timeout
-#    urgency
-#
-# Shell-like globbing will get expanded.
-#
-# Instead of the appname filter, it's recommended to use the desktop_entry filter.
-# GLib based applications export their desktop-entry name. In comparison to the appname,
-# the desktop-entry won't get localized.
-#
-# SCRIPTING
-# You can specify a script that gets run when the rule matches by
-# setting the "script" option.
-# The script will be called as follows:
-#   script appname summary body icon urgency
-# where urgency can be "LOW", "NORMAL" or "CRITICAL".
-#
-# NOTE: if you don't want a notification to be displayed, set the format
-# to "".
-# NOTE: It might be helpful to run dunst -print in a terminal in order
-# to find fitting options for rules.
+#    set_stack_tag set_transient timeout urgency Shell-like globbing will get expanded.  Instead of the appname filter, it's recommended to use the desktop_entry filter.  GLib based applications export their desktop-entry name. In comparison to the appname, the desktop-entry won't get localized.  SCRIPTING You can specify a script that gets run when the rule matches by setting the "script" option.  The script will be called as follows: script appname summary body icon urgency where urgency can be "LOW", "NORMAL" or "CRITICAL".  NOTE: if you don't want a notification to be displayed, set the format to "".  NOTE: It might be helpful to run dunst -print in a terminal in order to find fitting options for rules.
 
 # Disable the transient hint so that idle_threshold cannot be bypassed from the
 # client

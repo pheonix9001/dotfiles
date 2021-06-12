@@ -2,7 +2,7 @@
 #include <signal.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include <X11/Xlib.h>
+#include <xcb/xcb.h>
 
 #include <iostream>
 
@@ -13,7 +13,7 @@
 
 extern char * desktops;
 extern char * windowname;
-extern Display * dpy;
+extern xcb_connection_t * dpy;
 
 extern int rx_bytes_fd, tx_bytes_fd;
 extern int temperature_fd;
@@ -21,11 +21,12 @@ extern int temperature_fd;
 // generic signal handler
 void sigint_handler(int){
   write(2, "ending", 6);
+	xcb_disconnect(dpy);
   _exit(0);
 }
 
 int main(){
-	dpy = XOpenDisplay(0);
+	dpy = xcb_connect(0, 0);
 
   // register signal handlers
   signal(SIGINT, sigint_handler);

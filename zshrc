@@ -10,11 +10,12 @@ bindkey '^?' backward-delete-char
 
 export SKIM_DEFAULT_OPTIONS="--height=70% --reverse --tiebreak=length,index --prompt=\"λ \""
 
-alias cf="cd \`fd -t d | sk $SKIM_DEFAULT_OPTIONS\`"
-alias nf="nvim \`fd -t f | sk $SKIM_DEFAULT_OPTIONS\`"
+alias cf="cd \`fd -t d | sk\`"
+alias nf="nvim \`fd -t f | sk\`"
+alias of="xdg-open \`fd -t f | sk\`"
 
 af () {
-	output=$(sk -e --ansi -c "ag '{}' --color" $SKIM_DEFAULT_OPTIONS -i)
+	output=$(sk -e --ansi -c "ag '{}' --color" -i)
 	line="$(echo $output | cut -d: -f2)"
 	file="$(echo $output | cut -d: -f1)"
 	nvim -c "set nofoldenable" "+$line" "$file"
@@ -23,7 +24,6 @@ af () {
 alias n="nvim"
 alias ctagsgen="ctags --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++"
 alias tsm="transmission-remote"
-alias netchk="gping google.com facebook.com youtube.com"
 alias zthr="zathura"
 alias nj="ninja"
 
@@ -37,12 +37,6 @@ alias gcm="git commit -m"
 alias gch="git checkout"
 alias gb="git branch"
 
-# autotools aliases
-alias am="automake"
-alias ac="autoconf"
-alias arc="autoreconf"
-alias arci="autoreconf"
-
 alias cp="cp -i"
 alias rm="rm -i"
 
@@ -54,7 +48,7 @@ chpwd () {
   pwd > /dev/shm/pwd
 }
 
-cd $(cat /dev/shm/pwd) || chpwd
+cd $(cat /dev/shm/pwd)
 
 #nordic tty?
 if [[ $TERM = "linux" ]]

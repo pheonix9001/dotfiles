@@ -1,5 +1,5 @@
 CC=g++ 
-LIBS=-lX11
+LIBS=-lxcb -lxcb-util -lxcb-icccm
 
 %.o: %.cpp
 	$(CC) -O3 -c $<

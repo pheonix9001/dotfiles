@@ -10,7 +10,7 @@ options="
 "
 
 sel=$(echo -en $options | dmenu -p "screenshot:" -l 15 -i)
-test -z $sel && notify-send -a screenshot "No option was selected" "Exiting without doing anything" && exit
+test -z "$sel" && notify-send -a screenshot "No option was selected" "Exiting without doing anything" && exit
 
 case $(echo $sel | cut -d\: -f1)
 in
