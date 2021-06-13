@@ -2,9 +2,6 @@
 filetype indent plugin on
 syntax enable
 
-"editing stuff
-set backspace=2
-
 "search stuff
 set incsearch
 set nohls
@@ -13,8 +10,8 @@ set nohls
 set encoding=utf-8
 set linebreak
 set nowrap
-set nu
-set rnu
+set nonu
+set nornu
 
 "UI rendering
 set noruler
@@ -32,26 +29,18 @@ set noexpandtab
 
 "swapfile and undo stuff
 set swapfile
-set dir=$HOME/.cache/swapfiles
-set undodir=$HOME/.cache/undos/
+set dir=$HOME/.cache/nvim/swapfiles
+set undodir=$HOME/.cache/nvim/undos/
 set undofile
 
 "code folding options
 set foldmethod=indent
 set foldnestmax=3
 
-"fuzzy search
-set path+=**
-set wildmenu
-set wildignore+=**/node_modules/**
-set wildignore+=*.o
-
 "spliting windows and tabs
 set splitright
-set splitbelow
-set stal=1
 
-"useful stuff
+"misc
 let g:mapleader=" "
 set nocp
 set clipboard=unnamedplus
@@ -59,15 +48,43 @@ set shell=zsh
 set noerrorbells
 set mouse=nv "enable mouse in normal mode only
 set makeprg=ninja
-
-"autocomplete
-set completeopt=longest,menuone
-set tags=./tags
+set backspace=2
 
 call plug#begin()
+"nord theme
 Plug 'arcticicestudio/nord-vim'
+
+"lsp stuff
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
+
 call plug#end()
 
+" autocomplete
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+set completeopt=menuone,noinsert,noselect
+let g:completion_sorting = "length"
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+let g:completion_matching_smart_case = 1
+let g:completion_trigger_on_delete = 1
+
+"lsp
+nnoremap gD :lua vim.lsp.buf.declaration()<CR>
+nnoremap gd :lua gd vim.lsp.buf.definition()<CR>
+nnoremap K :lua vim.lsp.buf.hover()<CR>
+nnoremap gi :lua vim.lsp.buf.implementation()<CR>
+nnoremap <C-k> :lua vim.lsp.buf.signature_help()<CR>
+nnoremap <Leader>D :lua vim.lsp.buf.type_definition()<CR>
+nnoremap <Leader>rn :lua vim.lsp.buf.rename()<CR>
+nnoremap gr :lua vim.lsp.buf.referances()<CR>
+
+nnoremap [d :lua vim.lsp.diagnostic.goto_prev()<CR>
+nnoremap ]d :lua vim.lsp.diagnostic.goto_next()<CR>
+
+" Avoid showing message extra message when using completion
+set shortmess+=c
 "color stuff
 set termguicolors
 let g:nord_cursor_line_number_background = 1
@@ -75,7 +92,6 @@ let g:nord_bold = 1
 let g:nord_italic = 1
 let g:nord_italic_comments = 1
 colorscheme nord
-
 
 "netrw config
 let g:netrw_liststyle=3
@@ -98,6 +114,7 @@ nnoremap <F6> :so %<CR>
 nnoremap <Leader><C-e> :15Lexplore<CR>
 nnoremap <Leader>n :nohls<CR>
 nnoremap <Leader><Leader> /<++><CR>ca<
+nnoremap <Leader>f :SK<CR>
 inoremap <C-space> <Esc>/<++><CR>ca<
 
 "filetype based commands

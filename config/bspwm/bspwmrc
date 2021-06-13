@@ -69,7 +69,7 @@ lemonbar -gx17 "-fmononoki Nerd Font:pixelsize=13" -B#2E3440 -F#D8DEE9 -U#88C0D0
 }
 
 # some backgroud scripts
-background { ${~}/.scripts/lemonbar/updatedesktopmodule }
+# background { ${~}/.scripts/lemonbar/updatedesktopmodule }
 background { ${~}/.scripts/lemonbar/updatewindowmodule }
 
 #####################

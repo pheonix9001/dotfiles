@@ -21,14 +21,11 @@ void WindowModule(int) {
 
 	xcb_icccm_get_text_property_reply_t itr;
 	xcb_icccm_get_wm_name_reply(dpy, xcb_icccm_get_wm_name(dpy, focused->focus), &itr, NULL);
-	// strncpy(name, itr.name, MIN(len, itr.name_len));
 
 	snprintf(windowname, itr.name_len + 1, "%s", itr.name); 
 
 	// cleanup
 	delete focused;
-	// delete name_id;
-	// delete name_prop;
 }
 
 void DesktopModule(int) {

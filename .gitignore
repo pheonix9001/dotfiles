@@ -14,3 +14,4 @@ transmission-daemon
 gtk-*
 config/BraveSoftware
 config/transmission
+*.old
