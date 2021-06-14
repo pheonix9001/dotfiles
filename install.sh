@@ -10,8 +10,8 @@ $UPDATE
 # install stuff
 $INSTALL neovim zsh
 $INSTALL bspwm sxhkd
-$INSTALL picom hsetroot
-$INSTALL dmenu skim xdotool xdo fd yad dex
+$INSTALL hsetroot
+$INSTALL dmenu skim xdotool fd dex
 $INSTALL termite neofetch
 
 mkdir ~/.packs
