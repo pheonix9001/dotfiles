@@ -12,17 +12,24 @@ char * desktops = new char[1024];
 char * windowname = new char[64];
 
 xcb_connection_t * dpy;
+xcb_window_t root;
 
 void WindowModule(int) {
+	xcb_get_input_focus_reply_t * focused;
+
 	// get focused window
-	auto focused = xcb_get_input_focus_reply(dpy, xcb_get_input_focus(dpy), 0);
-	
-	size_t len;
+	auto focusedcookie = xcb_get_input_focus(dpy);
+	focused = xcb_get_input_focus_reply(dpy, focusedcookie, 0);
+
+	if(focused->focus == root) {
+		snprintf(windowname, 64, "");
+		return;
+	}
 
 	xcb_icccm_get_text_property_reply_t itr;
 	xcb_icccm_get_wm_name_reply(dpy, xcb_icccm_get_wm_name(dpy, focused->focus), &itr, NULL);
 
-	snprintf(windowname, itr.name_len + 1, "%s", itr.name); 
+	snprintf(windowname, 64, "%s", itr.name); 
 
 	// cleanup
 	delete focused;

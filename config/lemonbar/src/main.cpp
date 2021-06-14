@@ -14,6 +14,7 @@
 extern char * desktops;
 extern char * windowname;
 extern xcb_connection_t * dpy;
+extern xcb_window_t root;
 
 extern int rx_bytes_fd, tx_bytes_fd;
 extern int temperature_fd;
@@ -26,7 +27,9 @@ void sigint_handler(int){
 }
 
 int main(){
+	// xcb stuff
 	dpy = xcb_connect(0, 0);
+	root = xcb_setup_roots_iterator(xcb_get_setup(dpy)).data->root;
 
   // register signal handlers
   signal(SIGINT, sigint_handler);
@@ -37,10 +40,11 @@ int main(){
 	temperature_fd = open("/sys/class/thermal/thermal_zone1/temp", O_RDONLY);
 
   // async modules
-  signal(SIGUSR1, DesktopModule);
+  // signal(SIGUSR1, DesktopModule);
   signal(SIGUSR2, WindowModule);
+  signal(SIGUSR1, DesktopModule);
+	WindowModule(SIGUSR2);
 	DesktopModule(SIGUSR1);
-	WindowModule(SIGUSR1);
 
   for(;;){
 		std::cout << " "

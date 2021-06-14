@@ -2,7 +2,8 @@
 
 redirfd -a 1 /dev/null
 
+foreground { killall -SIGUSR2 controllemonbar }
 loopwhilex foreground {
-	foreground { bspc subscribe -c 1 node_add node_remove node_focus desktop_focus } 
+	foreground { bspc subscribe -c 1 node_add node_remove node_focus } 
 	killall -SIGUSR2 controllemonbar
 }
