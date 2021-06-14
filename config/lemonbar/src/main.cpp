@@ -51,22 +51,20 @@ int main(){
 			// "\xef\x8c\x9a" tux: 
 			"\xef\x8c\x83" // arch logo: 
 			" "
-    << desktops
-    << " "
-    << windowname;
+			<< desktops << " " << windowname;
 
-    // center aligned modules
-    std::cout << "%{c}";
-    TimeModule();
+		// center aligned modules
+		std::cout << "%{c}";
+		TimeModule();
 
-    // right aligned modules
+		// right aligned modules
 		std::cout << "%{r}";
 		TempModule();
 		std::cout << " ";
-    NetworkModule();
+		NetworkModule();
 
 		std::cout << " \n";
 		std::cout.flush();
-    sleep(1);
-  }
+		sleep(1);
+	}
 }
