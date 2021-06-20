@@ -1,17 +1,1 @@
-config/lemonbar/controllemonbar
-*GIMP*
-*pulse*
-controllemonbar
-*/.netrwhist
-plug.vim
-dconf
-mpv
-*.o
-urls
-.zcompdump*
-transmission-daemon
-.netrwhist
-gtk-*
-config/BraveSoftware
-config/transmission
 *.old

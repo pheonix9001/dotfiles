@@ -13,7 +13,7 @@ foreground { echo -e "\\e[34m\\e[1m::\\e[37m Initialized bspwm log...\\e[0m" }
 # create lock so only one instance can exist
 #########################################
 if -n { test -e /tmp/wm/rc.lck }
-foreground { touch /tmp/wm/rc.lck }
+ foreground { touch /tmp/wm/rc.lck }
 
 #####################
 # set up enviornment variables

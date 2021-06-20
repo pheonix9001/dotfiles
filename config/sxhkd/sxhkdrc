@@ -72,6 +72,10 @@ super + a; super + t
 super + a; super + v
 	~/.scripts/general/youtube
 
+# generate password
+super + a; super + p
+	~/.scripts/pass/genpass
+
 ###############################
 # open apps
 ###############################
@@ -104,10 +108,10 @@ super + o; super + n
 
 # open brave
 super + o; super + g # super + g used because brave is only for google services
-	brave --new-window > /dev/null
+	brave &> /dev/null
 
 # open passmenu
-@super + p
+super + p
 	passmenu -p "pass: "
 
 ###############################

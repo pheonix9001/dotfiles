@@ -1,0 +1,22 @@
+#!/bin/execlineb -P
+
+backtick -E pass-len {
+	pipeline { echo -en "50\n20" }
+	dmenu -p "enter password length"
+}
+
+backtick -E pass {
+	pipeline { cat /dev/urandom }
+	pipeline { tr -cd "!-~[:alpha:]" }
+	head -c ${pass-len}
+}
+
+backtick -E pass-name {
+	pipeline { echo "" }
+	dmenu -p "enter password name:"
+}
+
+foreground { pipeline { echo ${pass} } pass insert -e ${pass-name} }
+
+notify-send -a pass "Password generation successful!" 
+"Your password for '${pass-name}' of length ${pass-len} was succesfully generated. it is in your clipboard"

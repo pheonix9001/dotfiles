@@ -1,9 +1,9 @@
 #!/bin/execlineb
 
-export userresources=~/.Xresources
-export usermodmap=~/.Xmodmap
-export sysresources=/etc/X11/xinit/.Xresources
-export sysmodmap=/etc/X11/xinit/.Xmodmap
+export USERRESOURCES=~/.config/Xres/main.xres
+export USERMODMAP=~/.config/X11/Xmodmap
+export SYSRESOURCES=/etc/X11/xinit/.Xresources
+export SYSMODMAP=/etc/X11/xinit/.Xmodmap
 export XDG_CONFIG_HOME=~/.config
 
 exec bspwm

@@ -23,4 +23,3 @@ ab incq #include ""<Left>
 ab inc #include <><Left>
 
 imap <C-k> <C-]>
-

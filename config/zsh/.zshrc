@@ -1,1 +1,1 @@
-/home/sundaran/dotfiles/zshrc
+/home/asdf/dotfiles/zshrc

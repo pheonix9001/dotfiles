@@ -25,11 +25,13 @@ void WindowModule(int) {
 	auto focusedcookie = xcb_get_input_focus(dpy);
 	focused = xcb_get_input_focus_reply(dpy, focusedcookie, 0);
 
+	// check if window is root
 	if(focused->focus == root) {
 		snprintf(windowname, 64, "Root");
 		return;
 	}
 
+	// get window title
 	xcb_icccm_get_wm_name_reply(dpy, xcb_icccm_get_wm_name(dpy, focused->focus), &itr, NULL);
 
 	snprintf(windowname, MIN(64, itr.name_len + 1), "%s", itr.name); 
@@ -39,6 +41,6 @@ void WindowModule(int) {
 }
 
 void DesktopModule(int) {
-	LoadModule("/home/sundaran/.scripts/lemonbar/desktopmodule" , desktops, 1024);
+	LoadModule("/home/asdf/.scripts/lemonbar/desktopmodule" , desktops, 1024);
 	kill(getpid(), SIGUSR2);
 }

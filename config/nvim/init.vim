@@ -58,6 +58,8 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 
+"snippets
+
 call plug#end()
 
 " autocomplete
@@ -71,8 +73,8 @@ let g:completion_matching_smart_case = 1
 let g:completion_trigger_on_delete = 1
 
 "lsp
-nnoremap gD :lua vim.lsp.buf.declaration()<CR>
-nnoremap gd :lua gd vim.lsp.buf.definition()<CR>
+nnoremap gd :lua vim.lsp.buf.declaration()<CR>
+nnoremap <C-]> :lua vim.lsp.buf.definition()<CR>
 nnoremap K :lua vim.lsp.buf.hover()<CR>
 nnoremap gi :lua vim.lsp.buf.implementation()<CR>
 nnoremap <C-k> :lua vim.lsp.buf.signature_help()<CR>
