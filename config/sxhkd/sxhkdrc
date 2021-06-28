@@ -32,6 +32,15 @@ super + alt + x
 super + alt + q
 	~/.scripts/bspwm/quitbspwm
 
+# reload keyboard shortcuts
+super + alt + i
+	xset r rate 250 100 && \
+	setxkbmap -option caps:super && \
+	xcape -e Super_L=Escape && \
+	killall -SIGUSR1 sxhkd && \
+	xmodmap ~/.config/X11/Xmodmap && notify-send -a Sxhkd "Succesfully reloaded keybindings" \
+	"Your custom keyboard shortcuts have been reloaded."
+
 # change window gap
 super + alt + equal
 	bspc config window_gap $(expr $(bspc config window_gap) - 3)
@@ -108,7 +117,7 @@ super + o; super + n
 
 # open brave
 super + o; super + g # super + g used because brave is only for google services
-	brave &> /dev/null
+	brave-nightly &> /dev/null
 
 # open passmenu
 super + p
@@ -213,19 +222,16 @@ super + d
 super + shift + {h,j,k,l}
 	bspc node -s {west,south,north,east}
 
-super + m; super + {h,j,k,l}
-	bspc node -s {west,south,north,east}
-
 # swap with biggest node
-super + m; super + b
+super + shift + b
 	bspc node focused -s biggest.local.tiled.\!hidden
 
 # swap with previous node
-super + m; super + p
+super + shift + p
 	bspc node focused -s last --follow
 
 # swap with marked node
-super + m; super + e
+super + shift + e
 	bspc node -s any.marked
 
 # insert windows
@@ -301,9 +307,9 @@ super + s; super + p
 # change all flags
 ###############################
 
-# stick and unstick windows super + g
+# stick and unstick windows
 super + g
-	bspc node -g sticky=on
+	bspc query -N -n focused.sticky > /dev/null && bspc node -g sticky=off || bspc node -g sticky=on
 
 super + shift + g
 	bspc node -g sticky=off

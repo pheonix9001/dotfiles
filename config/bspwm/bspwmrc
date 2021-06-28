@@ -13,7 +13,7 @@ foreground { echo -e "\\e[34m\\e[1m::\\e[37m Initialized bspwm log...\\e[0m" }
 # create lock so only one instance can exist
 #########################################
 if -n { test -e /tmp/wm/rc.lck }
- foreground { touch /tmp/wm/rc.lck }
+foreground { touch /tmp/wm/rc.lck }
 
 #####################
 # set up enviornment variables
@@ -35,6 +35,7 @@ export XDG_CONFIG_HOME ${~}/.config
 export ZDOTDIR ${~}/.config/zsh
 export PASSWORD_STORE_DIR ${~}/.local/password-store
 export LESSHISTFILE ${~}/.cache/lesshst
+export GNUPGHOME ${~}/.local/share/.gnupg
 
 # if $1 is greater than 1 that means this is not run for the first time
 ifthenelse { test ${1} -gt 1 } {
@@ -84,7 +85,9 @@ background { xrdb -I${~}/.config/Xres ${~}/.config/Xres/main.xres } # load Xreso
 # xorg stuff
 #####################
 foreground { echo -e "\\e[34m\\e[1m::\\e[37m Setting wallpaper...\\e[0m" }
-background { sh -c "hsetroot -solid '#3B4252' -center ~/Pictures/wallpapers/center.png" }
+background {
+	sh -c "hsetroot -solid '#3B4252' -fill ~/Pictures/wallpapers/fill.png" 
+}
 
 foreground { echo -e "\\e[34m\\e[1m::\\e[37m Configuring X...\\e[0m" }
 background { xrandr -s 1366x768 }
@@ -147,7 +150,3 @@ foreground { bspc rule -a Zathura state=tiling }
 foreground { echo -e "\\e[34m\\e[1m::\\e[37m Finished\\e[0m" }
 
 rm /tmp/wm/rc.lck # clean up lock
-
-# vim does not have an execline filetype
-# and 'sh' is the closest
-# vim: ft=sh

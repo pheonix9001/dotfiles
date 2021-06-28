@@ -1,6 +1,5 @@
 "lsp
-lua require('lspconfig').clangd.setup{}
-lua require'lspconfig'.clangd.setup{ on_attach = require'completion'.on_attach }
+lua require('lspconfig').clangd.setup{ on_attach = on_attach }
 
 "set autoformat
 set formatprg="clang-format -style=file"

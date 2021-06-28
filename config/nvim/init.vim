@@ -63,8 +63,11 @@ Plug 'nvim-lua/completion-nvim'
 call plug#end()
 
 " autocomplete
+set shortmess+=c
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" fix c autocomplete
+au BufEnter *.c lua require('lspconfig').clangd.setup{ on_attach = on_attach }
 
 set completeopt=menuone,noinsert,noselect
 let g:completion_sorting = "length"
@@ -72,21 +75,9 @@ let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 let g:completion_matching_smart_case = 1
 let g:completion_trigger_on_delete = 1
 
-"lsp
-nnoremap gd :lua vim.lsp.buf.declaration()<CR>
-nnoremap <C-]> :lua vim.lsp.buf.definition()<CR>
-nnoremap K :lua vim.lsp.buf.hover()<CR>
-nnoremap gi :lua vim.lsp.buf.implementation()<CR>
-nnoremap <C-k> :lua vim.lsp.buf.signature_help()<CR>
-nnoremap <Leader>D :lua vim.lsp.buf.type_definition()<CR>
-nnoremap <Leader>rn :lua vim.lsp.buf.rename()<CR>
-nnoremap gr :lua vim.lsp.buf.referances()<CR>
+"lua
+luafile ~/.config/nvim/lua/lsp.lua
 
-nnoremap [d :lua vim.lsp.diagnostic.goto_prev()<CR>
-nnoremap ]d :lua vim.lsp.diagnostic.goto_next()<CR>
-
-" Avoid showing message extra message when using completion
-set shortmess+=c
 "color stuff
 set termguicolors
 let g:nord_cursor_line_number_background = 1

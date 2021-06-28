@@ -3,6 +3,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <xcb/xcb.h>
+#include <string.h>
 
 #include <iostream>
 
@@ -40,13 +41,16 @@ int main(){
 	temperature_fd = open("/sys/class/thermal/thermal_zone1/temp", O_RDONLY);
 
   // async modules
-  // signal(SIGUSR1, DesktopModule);
-  signal(SIGUSR2, WindowModule);
-  signal(SIGUSR1, DesktopModule);
-	WindowModule(SIGUSR2);
-	DesktopModule(SIGUSR1);
+	bzero(windowname, 64);
+	bzero(desktops, 1024);
 
-  for(;;){
+	// Desktop Module calls window module with a signal
+	signal(SIGUSR2, WindowModule);
+	DesktopModule(0); 
+
+	signal(SIGUSR1, DesktopModule);
+
+	for(;;){
 		std::cout << " "
 			// "\xef\x8c\x9a" tux: 
 			"\xef\x8c\x83" // arch logo: 
