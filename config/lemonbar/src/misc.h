@@ -1,1 +1,2 @@
 void TempModule();
+void TimeModule();

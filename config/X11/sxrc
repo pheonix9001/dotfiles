@@ -1,0 +1,4 @@
+#!/bin/sh
+export XDG_CONFIG_HOME=~/.config
+
+exec bspwm

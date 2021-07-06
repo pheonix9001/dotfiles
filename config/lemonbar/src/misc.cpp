@@ -1,9 +1,14 @@
+#include <stdio.h>
+#include <time.h>
+
 #include <string.h>
 #include <unistd.h>
 #include <iostream>
 
 #include "helpers.h"
 
+time_t rawtime;
+tm timestruct;
 int temperature_fd;
 
 void TempModule() {
@@ -26,4 +31,14 @@ void TempModule() {
 
 	std::cout << "\xc2\xb0" "C" "%{F-}";
 	MODULE_END;
+}
+void TimeModule(){
+  rawtime = time(0);
+  timestruct = *localtime(&rawtime);
+
+  printf("%02d:%02d:%02d",
+      timestruct.tm_hour ,
+      timestruct.tm_min,
+      timestruct.tm_sec
+      );
 }

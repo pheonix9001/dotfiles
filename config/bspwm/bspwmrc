@@ -64,20 +64,21 @@ background { sxhkd }
 background { picom --experimental-backend }
 background { dunst }
 
+# some backgroud scripts
+background { ${~}/.scripts/lemonbar/updatedesktopmodule }
+background { ${~}/.scripts/lemonbar/updatewindowmodule }
+
 background { 
 pipeline { ${~}/.config/lemonbar/controllemonbar }
 lemonbar -gx17 "-fmononoki Nerd Font:pixelsize=13" -B#2E3440 -F#D8DEE9 -U#88C0D0 -o2
 }
-
-# some backgroud scripts
-background { ${~}/.scripts/lemonbar/updatedesktopmodule }
-background { ${~}/.scripts/lemonbar/updatewindowmodule }
 
 #####################
 # xdg stuff
 #####################
 foreground { echo -e "\\e[34m\\e[1m::\\e[37m Autostarting processess...\\e[0m" }
 background { dex -a } # autostart
+
 foreground { echo -e "\\e[34m\\e[1m::\\e[37m Loading Xresources...\\e[0m" }
 background { xrdb -I${~}/.config/Xres ${~}/.config/Xres/main.xres } # load Xresources
 

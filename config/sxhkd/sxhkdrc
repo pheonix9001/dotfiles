@@ -83,7 +83,7 @@ super + a; super + v
 
 # generate password
 super + a; super + p
-	~/.scripts/pass/genpass
+	~/.scripts/dmenu/genpass
 
 ###############################
 # open apps
@@ -95,7 +95,7 @@ super + o; super + c
 
 # open browser
 super + o; super + b
-	$BROWSER --new-tab
+	 notify-send -a Sxhkd "Opening $BROWSER" && $BROWSER --new-tab
 
 # open alsamixer
 super + o; super + a
@@ -117,7 +117,7 @@ super + o; super + n
 
 # open brave
 super + o; super + g # super + g used because brave is only for google services
-	brave-nightly &> /dev/null
+	notify-send -a Sxhkd "Opening brave" && brave-nightly &> /dev/null
 
 # open passmenu
 super + p

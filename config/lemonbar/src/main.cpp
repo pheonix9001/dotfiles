@@ -8,9 +8,8 @@
 #include <iostream>
 
 #include "network.h"
-#include "time.h"
+#include "misc.h"
 #include "asyncmodules.h"
-#include "temp.h"
 
 extern char * desktops;
 extern char * windowname;
@@ -20,11 +19,10 @@ extern xcb_window_t root;
 extern int rx_bytes_fd, tx_bytes_fd;
 extern int temperature_fd;
 
-// generic signal handler
-void sigint_handler(int){
+// on exit function
+void onExit(int, void *) {
   write(2, "ending", 6);
 	xcb_disconnect(dpy);
-  _exit(0);
 }
 
 int main(){
@@ -33,7 +31,7 @@ int main(){
 	root = xcb_setup_roots_iterator(xcb_get_setup(dpy)).data->root;
 
   // register signal handlers
-  signal(SIGINT, sigint_handler);
+  on_exit(onExit, 0);
 
 	// open some file descriptors
   rx_bytes_fd = open("/sys/class/net/wlp2s0/statistics/rx_bytes", O_RDONLY);
@@ -50,7 +48,7 @@ int main(){
 
 	signal(SIGUSR1, DesktopModule);
 
-	for(;;){
+	for(;;) {
 		std::cout << " "
 			// "\xef\x8c\x9a" tux: 
 			"\xef\x8c\x83" // arch logo: 
