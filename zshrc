@@ -48,7 +48,6 @@ DISABLE_AUTO_TITLE="true"
 touch /dev/shm/pwd
 chpwd () {
   print -Pn "\e]0;zsh:%~\a"
-  killall "controllemonbar" -SIGUSR2
   pwd > /dev/shm/pwd
 }
 cd $(cat /dev/shm/pwd)

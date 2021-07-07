@@ -4,12 +4,15 @@
 #include <unistd.h>
 #include <xcb/xcb.h>
 #include <string.h>
+#include <thread>
 
 #include <iostream>
 
 #include "network.h"
 #include "misc.h"
 #include "asyncmodules.h"
+#include "x.h"
+#include "helpers.h"
 
 extern char * desktops;
 extern char * windowname;
@@ -42,31 +45,14 @@ int main(){
 	bzero(windowname, 64);
 	bzero(desktops, 1024);
 
-	// Desktop Module calls window module with a signal
-	signal(SIGUSR2, WindowModule);
-	DesktopModule(0); 
+	// handles X events
+	std::thread eventHandler{eventHandlerFunc};
 
-	signal(SIGUSR1, DesktopModule);
+	WindowModule();
+	DesktopModule();
 
 	for(;;) {
-		std::cout << " "
-			// "\xef\x8c\x9a" tux: 
-			"\xef\x8c\x83" // arch logo: 
-			" "
-			<< desktops << " " << windowname;
-
-		// center aligned modules
-		std::cout << "%{c}";
-		TimeModule();
-
-		// right aligned modules
-		std::cout << "%{r}";
-		TempModule();
-		std::cout << " ";
-		NetworkModule();
-
-		std::cout << " \n";
-		std::cout.flush();
+		redraw();
 		sleep(1);
 	}
 }

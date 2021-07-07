@@ -4,17 +4,16 @@
 #include <cstdio>
 #include <xcb/xcb.h>
 #include <xcb/xcb_icccm.h>
-#include <math.h>
 
 #include "helpers.h"
 
 char * desktops = new char[1024];
-char * windowname = new char[64];
+extern char * windowname;
 
-xcb_connection_t * dpy;
-xcb_window_t root;
+extern xcb_connection_t * dpy;
+extern xcb_window_t root;
 
-void WindowModule(int) {
+void WindowModule() {
 	xcb_get_input_focus_reply_t * focused;
 	xcb_icccm_get_text_property_reply_t itr;
 
@@ -38,9 +37,10 @@ void WindowModule(int) {
 
 	// cleanup
 	delete focused;
+	redraw();
 }
 
-void DesktopModule(int) {
-	LoadModule("/home/asdf/.scripts/lemonbar/desktopmodule" , desktops, 1024);
-	kill(getpid(), SIGUSR2);
+void DesktopModule() {
+	loadModule("/home/asdf/.scripts/lemonbar/desktopmodule" , desktops, 1024);
+	redraw();
 }

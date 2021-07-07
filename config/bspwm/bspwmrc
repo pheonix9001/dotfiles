@@ -65,8 +65,7 @@ background { picom --experimental-backend }
 background { dunst }
 
 # some backgroud scripts
-background { ${~}/.scripts/lemonbar/updatedesktopmodule }
-background { ${~}/.scripts/lemonbar/updatewindowmodule }
+#background { ${~}/.scripts/lemonbar/updatedesktopmodule }
 
 background { 
 pipeline { ${~}/.config/lemonbar/controllemonbar }

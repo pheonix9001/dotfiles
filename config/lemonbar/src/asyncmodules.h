@@ -1,2 +1,2 @@
-void DesktopModule(int);
-void WindowModule(int);
+void DesktopModule();
+void WindowModule();

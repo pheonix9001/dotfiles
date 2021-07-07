@@ -7,4 +7,4 @@ export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export GNUPGHOME="$XDG_DATA_HOME/.gnupg"
 export PATH=$PATH:~/.local/bin
 export MEMES=~/memes
-export SKIM_DEFAULT_OPTIONS="--height=70% --reverse --tiebreak=score,length,end,index --prompt=\"λ \""
+export SKIM_DEFAULT_OPTIONS="--height=70% --reverse --tiebreak=score,end,length,index --prompt=\"λ \""
