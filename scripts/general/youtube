@@ -2,8 +2,8 @@
 
 video=$(xclip -selection clipboard -o) ;
 
-notify-send -a "youtube-dl" "started downloading" "started downloading $video"
+dunstify -a "youtube-dl" "started downloading" "started downloading $video"
 
 youtube-dl -o "~/Downloads/youtube-dl/video" "$video"
 
-notify-send -a "youtube-dl" "downloaded" "downloaded $video"
+dunstify -a "youtube-dl" "downloaded" "downloaded $video"

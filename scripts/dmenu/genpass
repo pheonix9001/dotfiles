@@ -18,5 +18,5 @@ backtick -E pass-name {
 
 foreground { pipeline { echo ${pass} } pass insert -e ${pass-name} }
 
-notify-send -a pass "Password generation successful!" 
+dunstify -a pass "Password generation successful!" 
 "Your password for '${pass-name}' of length ${pass-len} was succesfully generated. it is in your clipboard"

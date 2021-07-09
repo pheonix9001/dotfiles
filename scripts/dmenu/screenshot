@@ -1,7 +1,7 @@
 #!/bin/bash
 
 error () {
-	notify-send -a screenshot "Error" "$1"
+	dunstify -a screenshot "Error" "$1"
 }
 
 options="
@@ -10,7 +10,7 @@ options="
 "
 
 sel=$(echo -en $options | dmenu -p "screenshot:" -l 15 -i)
-test -z "$sel" && notify-send -a screenshot "No option was selected" "Exiting without doing anything" && exit
+test -z "$sel" && dunstify -a screenshot "No option was selected" "Exiting without doing anything" && exit
 
 case $(echo $sel | cut -d\: -f1)
 in
@@ -21,7 +21,7 @@ in
 		xclip -selection clipboard -t image/png $tmp
 		rm $tmp
 
-		notify-send -a screenshot "Success!" \
+		dunstify -a screenshot "Success!" \
 			"The Screenshot was successfully taken, it is in the clipboard."
 		;;
 	*)

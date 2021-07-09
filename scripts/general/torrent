@@ -2,6 +2,6 @@
 
 torrent=$(xclip -selection clipboard -o) ;
 
-notify-send -a "transmission" "started downloading" "started downloading $torrent"
+dunstify -a "transmission" "started downloading" "started downloading $torrent"
 
 transmission-remote -a "$torrent"

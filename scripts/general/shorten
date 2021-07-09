@@ -4,4 +4,4 @@ link="$(xclip -selection clipboard -o)"
 
 curl -s -F "shorten=$link" 0x0.st | xclip -selection clipboard -i -r
 
-notify-send -a Sxhkd "Shortened $link" "shortened version of $link is in the clipboard"
+dunstify -a Sxhkd "Shortened $link" "shortened version of $link is in the clipboard"

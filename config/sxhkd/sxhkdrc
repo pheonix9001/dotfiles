@@ -25,7 +25,7 @@ super + alt + r
 # reload Xresources
 super + alt + x
 	xrdb -I$HOME/.config/Xres ~/.config/Xres/main.xres && \
-	notify-send -a Sxhkd "Xresources Reloaded" \
+	dunstify -a Sxhkd "Xresources Reloaded" \
 	"Xresources were successfully reloaded"
 
 # quit bspwm
@@ -40,7 +40,7 @@ super + alt + i
 	xcape -e Super_L=Escape && \
 	xmodmap ~/.config/X11/Xmodmap && \
 	killall -SIGUSR1 sxhkd && \
-	notify-send -a Sxhkd "Reloaded keybindings" \
+	dunstify -a Sxhkd "Reloaded keybindings" \
 	"Your custom keyboard shortcuts have been reloaded."
 
 # change window gap
@@ -101,7 +101,7 @@ super + o; super + c
 
 # open browser
 super + o; super + b
-	 notify-send -a Sxhkd "Opening $BROWSER" && $BROWSER --new-tab
+	 dunstify -a Sxhkd "Opening $BROWSER" && $BROWSER --new-tab
 
 # open alsamixer
 super + o; super + a
@@ -123,7 +123,7 @@ super + o; super + n
 
 # open brave
 super + o; super + g # super + g used because brave is only for google services
-	notify-send -a Sxhkd "Opening brave" && brave-nightly &> /dev/null
+	dunstify -a Sxhkd "Opening brave" && brave-nightly &> /dev/null
 
 # open passmenu
 super + p
