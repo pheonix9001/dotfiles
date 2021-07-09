@@ -87,6 +87,10 @@ super + a; super + v
 super + a; super + p
 	~/.scripts/dmenu/genpass
 
+# shorten links
+super + a; super + 0
+	~/.scripts/general/shorten
+
 ###############################
 # open apps
 ###############################

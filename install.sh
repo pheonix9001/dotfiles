@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# enviornment variables
+# environment variables
 export INSTALL="pacman -S"
 export UPDATE="pacman -Syu"
 

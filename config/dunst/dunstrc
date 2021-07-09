@@ -13,7 +13,7 @@ notification_height = 0
 
 # more complex geometry
 separator_height = 2 # seperator between multiple notifications
-indicate_hidden = yes # messages hidden because geometry
+indicate_hidden = yes # messages hidden
 
 # padding
 padding = 8

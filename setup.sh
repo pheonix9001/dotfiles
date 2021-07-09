@@ -11,4 +11,4 @@ ln -sf ~/dotfiles/zshenv ~/.zsenv
 ln -sf ~/dotfiles/scripts ~/.scripts
 
 # wallpapers!
-mkdir -p ~/wallpapers
+mkdir -p ~/Pictures/wallpapers
