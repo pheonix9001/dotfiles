@@ -2,15 +2,25 @@
 #include <sys/wait.h>
 #include <string.h>
 #include <iostream>
+#include <vector>
 
 #include "network.h"
 #include "misc.h"
 #include "asyncmodules.h"
+#include "helpers.h"
 
 extern char * desktops;
 extern char * windowname;
 
-void loadModule(const char * modulepath, char * buffer, int size){
+std::vector<Module> rmodules = {
+	{TempModule}, {NetworkModule}
+};
+
+Module::Module(void (*callback)()) {
+	this->draw = callback;
+}
+
+void loadModuleFromFile(const char * modulepath, char * buffer, int size){
   int output[2];
   pipe(output);
 
@@ -29,10 +39,8 @@ void loadModule(const char * modulepath, char * buffer, int size){
 }
 
 void redraw() {
-	std::cout << " "
-		// "\xef\x8c\x9a" tux: 
-		"\xef\x8c\x83" // arch logo: 
-		" "
+	std::cout <<
+		"%{A:dmenu_run -p 'run\\:' -i -F:} %{F#88C0D0}\uf303%{F-}%{A} "
 		<< desktops << " " << windowname;
 
 	// center aligned modules
@@ -41,10 +49,9 @@ void redraw() {
 
 	// right aligned modules
 	std::cout << "%{r}";
-	TempModule();
-	std::cout << " ";
-	NetworkModule();
-
-	std::cout << " \n";
+	for(Module mod: rmodules) {
+		mod.draw();
+	}
+	std::cout << "\n";
 	std::cout.flush();
 };

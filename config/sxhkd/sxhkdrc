@@ -1,4 +1,4 @@
-###############################
+##############################
 # wm independent hotkeys
 ###############################
 
@@ -34,11 +34,13 @@ super + alt + q
 
 # reload keyboard shortcuts
 super + alt + i
+	killall xcape && \
 	xset r rate 250 100 && \
 	setxkbmap -option caps:super && \
 	xcape -e Super_L=Escape && \
+	xmodmap ~/.config/X11/Xmodmap && \
 	killall -SIGUSR1 sxhkd && \
-	xmodmap ~/.config/X11/Xmodmap && notify-send -a Sxhkd "Succesfully reloaded keybindings" \
+	notify-send -a Sxhkd "Reloaded keybindings" \
 	"Your custom keyboard shortcuts have been reloaded."
 
 # change window gap

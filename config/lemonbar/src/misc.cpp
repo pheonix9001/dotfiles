@@ -20,6 +20,7 @@ void TempModule() {
 	temp = atol(buf);
 
 	MODULE_START;
+	std::cout << "%{A:st -e htop:}";
 	if(temp >= 45000) {
 		std::cout << "%{F#EBCB8B}";
 	} else if(temp > 65000) {
@@ -29,14 +30,13 @@ void TempModule() {
 
 	std::cout << temp / 1000.0;
 
-	std::cout << "\xc2\xb0" "C" "%{F-}";
-	MODULE_END;
+	std::cout << "\xc2\xb0" "C" " %{A}%{F-}%{B-}%{-u} ";
 }
 void TimeModule(){
   rawtime = time(0);
   timestruct = *localtime(&rawtime);
 
-  printf("%02d:%02d:%02d",
+  printf("%%{A:st -e calcurse:}" "%02d:%02d:%02d" "%%{A}",
       timestruct.tm_hour ,
       timestruct.tm_min,
       timestruct.tm_sec

@@ -30,6 +30,7 @@ alias n="nvim"
 alias tsm="transmission-remote"
 alias zthr="zathura"
 alias nj="ninja"
+alias njb="ninja -C build"
 
 # git aliases
 alias ga="git add"

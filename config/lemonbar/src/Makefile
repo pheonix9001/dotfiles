@@ -1,5 +1,5 @@
 CC=g++ 
-LIBS=-lxcb -lxcb-util -lxcb-icccm -lpthread
+LIBS=-lxcb -lxcb-util -lxcb-icccm -lpthread -std=c++14
 
 %.o: %.cpp
 	$(CC) -O3 -c $<

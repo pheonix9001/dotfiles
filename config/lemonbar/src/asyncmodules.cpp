@@ -27,6 +27,7 @@ void WindowModule() {
 	// check if window is root
 	if(focused->focus == root) {
 		snprintf(windowname, 64, "Root");
+		redraw();
 		return;
 	}
 
@@ -41,6 +42,6 @@ void WindowModule() {
 }
 
 void DesktopModule() {
-	loadModule("/home/asdf/.scripts/lemonbar/desktopmodule" , desktops, 1024);
+	loadModuleFromFile("/home/asdf/.scripts/lemonbar/desktopmodule" , desktops, 1024);
 	redraw();
 }
