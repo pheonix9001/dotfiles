@@ -1,5 +1,6 @@
 "lsp
-lua require('lspconfig').clangd.setup{ on_attach = on_attach }
+luafile ~/.config/nvim/lua/lsp.lua
+lua require'lspconfig'.ccls.setup{ on_attach = on_attach }
 
 "set autoformat
 set formatprg="clang-format -style=file"
