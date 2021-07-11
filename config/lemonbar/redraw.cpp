@@ -7,7 +7,7 @@
 #include "network.h"
 #include "misc.h"
 #include "asyncmodules.h"
-#include "helpers.h"
+#include "redraw.h"
 
 extern char * desktops;
 extern char * windowname;

@@ -4,8 +4,9 @@
 #include <string.h>
 #include <unistd.h>
 #include <iostream>
+#include <string>
 
-#include "helpers.h"
+#include "redraw.h"
 
 time_t rawtime;
 tm timestruct;
@@ -14,23 +15,34 @@ int temperature_fd;
 void TempModule() {
 	char buf[16];
 	long temp;
+	bool fg_isblack;
+	std::string bg = "#3B4252";
 
   lseek(temperature_fd, 0, SEEK_SET);
 	read(temperature_fd, buf, 16);
 	temp = atol(buf);
 
-	MODULE_START;
-	std::cout << "%{A:st -e htop:}";
 	if(temp >= 45000) {
-		std::cout << "%{F#EBCB8B}";
+		bg = "#EBCB8B";
+		fg_isblack = true;
 	} else if(temp > 65000) {
-		std::cout << "%{F#BF616A}";
+		bg = "#BF616A";
 	}
 	
 
-	std::cout << temp / 1000.0;
+	std::cout << "%{F" << bg << '}'
+		<< "\ue0b2" 
+		<< "%{B" << bg << '}' <<
+		"%{F-}" " "
+	<< "%{A:st -e htop:}";
 
-	std::cout << "\xc2\xb0" "C" " %{A}%{F-}%{B-}%{-u} ";
+	// set foreground
+	const char * fg = fg_isblack ? "%{F#2E3440" : "%{F-}";
+	std::cout << fg;
+
+	std::cout << "%{B" << bg << '}' << temp / 1000;
+
+	std::cout << "\xc2\xb0 C" " " "%{A}" "%{F-}";
 }
 void TimeModule(){
   rawtime = time(0);

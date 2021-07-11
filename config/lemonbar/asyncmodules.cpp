@@ -5,7 +5,7 @@
 #include <xcb/xcb.h>
 #include <xcb/xcb_icccm.h>
 
-#include "helpers.h"
+#include "redraw.h"
 
 char * desktops = new char[1024];
 extern char * windowname;

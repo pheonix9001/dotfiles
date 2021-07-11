@@ -6,8 +6,6 @@
 
 #include <iostream>
 
-#include "helpers.h"
-
 int rx_bytes_fd, tx_bytes_fd;
 
 static int rx_bytes, tx_bytes;
@@ -24,14 +22,14 @@ void NetworkModule(){
   rx_bytes = atoi(rx_bytes_str);
   tx_bytes = atoi(tx_bytes_str);
 
-  MODULE_START;
-  printf("v %.2fK ", (rx_bytes - rx_prev_bytes) / 1000.0);
-	std::cout << "%{B-} ";
-  MODULE_START;
-  printf("^ %.2fK", (tx_bytes - tx_prev_bytes) / 1000.0);
+	std::cout << "%{F#81A1C1}" "\ue0b2" "%{F-}" "%{B#81A1C1}" "%{F#2E3440}";
+  printf("\uf544 %.2fK", (rx_bytes - rx_prev_bytes) / 1000.0);
+	std::cout << "\ue0b3"
+	<< "%{B#81A1C1}";
+  printf("\uf55c %.2fK", (tx_bytes - tx_prev_bytes) / 1000.0);
 
   rx_prev_bytes = rx_bytes;
   tx_prev_bytes = tx_bytes;
 
-  MODULE_END;
+	std::cout << "%{B-}" "%{F-}";
 }

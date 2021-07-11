@@ -17,14 +17,15 @@ static xcb_atom_t my_intern_atom(const char * name) {
 
 	reply = xcb_intern_atom_reply(dpy, xcb_intern_atom(dpy, false, strlen(name), name), 0);
 
-	if(reply) {
-		result = reply->atom;
+	if(!reply) {
+		delete reply;
 	} 
 
 	delete reply;
-	return result;
+	return reply->atom;
 }
 
+// TODO: fix this
 static void * get_atom_value(xcb_window_t win, xcb_atom_t prop, xcb_atom_t type) {
 	void * ret;
 

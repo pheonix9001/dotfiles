@@ -9,7 +9,7 @@
 #include <iostream>
 
 #include "x.h"
-#include "helpers.h"
+#include "redraw.h"
 #include "asyncmodules.h"
 
 extern char * windowname;
