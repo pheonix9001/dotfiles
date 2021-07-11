@@ -1,0 +1,5 @@
+cxx = g++
+ldflags = -lxcb -lxcb-util -lxcb-icccm -lpthread
+cxxflags = -std=c++14
+: foreach *.cpp |> $(cxx) $(cxxflags) -c -Wall %f -o %o |> %B.o
+: *.o |> $(cxx) $(ldflags) $(cxxflags) %f -o %o |> controllemonbar

@@ -39,9 +39,7 @@ void loadModuleFromFile(const char * modulepath, char * buffer, int size){
 }
 
 void redraw() {
-	std::cout <<
-		"%{A:dmenu_run -p 'run\\:' -i -F:} %{F#88C0D0}\uf303%{F-}%{A} "
-		<< desktops << " " << windowname;
+	std::cout << " " << desktops << " " << windowname;
 
 	// center aligned modules
 	std::cout << "%{c}";
