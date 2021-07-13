@@ -25,15 +25,16 @@ void TempModule() {
 	if(temp >= 45000) {
 		bg = "#EBCB8B";
 		fg_isblack = true;
-	} else if(temp > 65000) {
+	} else if(temp >= 65000) {
 		bg = "#BF616A";
+		fg_isblack = true;
 	}
 	
 
+	// Powerline is cool
 	std::cout << "%{F" << bg << '}'
-		<< "\ue0b2" 
-		<< "%{B" << bg << '}' <<
-		"%{F-}" " "
+		<< "\ue0b2%{B" << bg << '}' <<
+		"%{F-}"
 	<< "%{A:st -e htop:}";
 
 	// set foreground
@@ -42,8 +43,9 @@ void TempModule() {
 
 	std::cout << "%{B" << bg << '}' << temp / 1000;
 
-	std::cout << "\xc2\xb0 C" " " "%{A}" "%{F-}";
+	std::cout << "\xc2\xb0 C %{A}%{F-}";
 }
+
 void TimeModule(){
   rawtime = time(0);
   timestruct = *localtime(&rawtime);

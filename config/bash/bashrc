@@ -1,13 +1,15 @@
-#!/bin/zsh
+#!/bin/bash
 
-PROMPT="%F{1}%f %F{12}%~%F{8}>
- %F{2}λ%f "
-HISTFILE=~/.cache/zsh/zshhistory
+export PAGER="less"
+export MANPAGER="nvim -c 'set ft=man'"
 
-autoload -Uz compinit; compinit
-source ~/programs/xplr/xplr.zsh
-bindkey -v
-bindkey '^?' backward-delete-char
+export LESSHISTFILE=".cache/less/history"
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export GNUPGHOME="$XDG_DATA_HOME/.gnupg"
+export PATH=$PATH:~/.local/bin
+export SKIM_DEFAULT_OPTIONS="--height=70% --reverse --tiebreak=score,end,length,index --prompt=\"λ \""
+HISTFILE=~/.cache/bash/zshhistory
+export PS1=" \e[36m\w\e[37;2m>\e[0m\n \e[32mλ \e[0m"
 
 # generic fuzzer
 gf () {
@@ -51,7 +53,7 @@ alias rm="rm -i"
 DISABLE_AUTO_TITLE="true"
 touch /dev/shm/pwd
 chpwd () {
-  print -Pn "\e]0;zsh:%~\a"
+  echo -en "\e]0;bash:\W\a"
   pwd > /dev/shm/pwd
 }
 cd $(cat /dev/shm/pwd)
@@ -59,9 +61,6 @@ cd $(cat /dev/shm/pwd)
 #nordic tty?
 if [[ $TERM = "linux" ]]
 then
-	export PROMPT="%F{1}%f %F{10}%~%F{8}>
-	%F{2}>%f "
-
 	echo -en "\e]P02E3440"
 	echo -en "\e]P1BF616A"
 	echo -en "\e]P2A3BE8C"

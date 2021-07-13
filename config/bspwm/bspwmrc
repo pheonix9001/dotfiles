@@ -24,7 +24,7 @@ importas ~ HOME
 export EDITOR nvim
 export BROWSER firefox
 export TERMINAL st
-export USER_SHELL zsh
+export USER_SHELL bash
 export SHELL sh
 
 # fixes some java application issues
