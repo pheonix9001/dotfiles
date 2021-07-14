@@ -8,7 +8,7 @@ export UPDATE="pacman -Syu"
 $UPDATE
 
 # install stuff
-$INSTALL neovim zsh
+$INSTALL neovim
 $INSTALL bspwm sxhkd
 $INSTALL hsetroot
 $INSTALL dmenu skim xdotool fd dex

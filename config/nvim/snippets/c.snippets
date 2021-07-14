@@ -4,7 +4,7 @@ snippet sst
   #include <stdio.h>
 
 	int main(int argc, char *argv[]) {
-		${0:printf("Hello World");}
+		${0:printf("Hello World")};
 		return 0;
 	}
 
@@ -18,12 +18,6 @@ snippet inc
 # #include "..."
 snippet incq
 	#include "${1:`vim_snippets#Filename("$1.h")`}"
-
-# ifndef...define...endif
-snippet ndef
-	#ifndef $1
-	#define ${1:SYMBOL} ${2:value}
-	#endif /* ifndef $1 */
 
 # define
 snippet def
@@ -41,15 +35,14 @@ snippet #if
 		${0:${VISUAL}}
 	#endif
 
-# header include guard
+# ifndef...define...endif
 snippet once
 	#ifndef ${1:`toupper(vim_snippets#Filename('$1_H', 'UNTITLED_H'))`}
+	#define $1 ${2:value}
 
-	#define $1
+  ${0}
 
-	${0}
-
-	#endif /* end of include guard: $1 */
+	#endif /* ifndef $1 */
 
 # Disable C++ name mangling in C headers
 snippet nocxx
@@ -280,18 +273,9 @@ snippet getopt
 ## Miscellaneous
 ##
 
-# This is kind of convenient
-snippet .
-	[${1}]
-
 snippet asm
 	__asm__ __volatile__(
 	"${0}\n\t"
 	:
 	:
 	);
-
-snippet todo
-	/*! TODO: ${1:Todo description here}
-	 *  \todo $1
-	 */

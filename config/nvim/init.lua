@@ -39,7 +39,7 @@ set_opt('shortmess', get_opt('shortmess')..'c')
 map_key('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', opts)
 map_key('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"', opts)
 
-set_opt('completeopt', 'menuone,noinsert')
+set_opt('completeopt', 'menuone,noinsert,noselect')
 set_var('completion_sorting', 'length')
 set_var('completion_matching_strategy_list', {'exact', 'substring', 'fuzzy'})
 set_var('completion_matching_smart_case', 1)

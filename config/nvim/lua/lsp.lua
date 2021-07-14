@@ -55,7 +55,6 @@ local lsp = {
 			}
 		end
 	}
-
 }
 
 return lsp
