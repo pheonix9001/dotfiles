@@ -19,31 +19,33 @@ static xcb_atom_t my_intern_atom(const char * name) {
 
 	if(!reply) {
 		delete reply;
+		return -1;
 	} 
 
+	result = reply->atom;
 	delete reply;
-	return reply->atom;
+	return result;
 }
 
 // TODO: fix this
-static void * get_atom_value(xcb_window_t win, xcb_atom_t prop, xcb_atom_t type) {
-	void * ret;
+// static void * get_atom_value(xcb_window_t win, xcb_atom_t prop, xcb_atom_t type) {
+	// void * ret;
 
-	auto *reply = xcb_get_property_reply(dpy,
-			xcb_get_property(dpy, false, win, prop, type, 0, 0)
-			, 0);
+	// auto *reply = xcb_get_property_reply(dpy,
+			// xcb_get_property(dpy, false, win, prop, type, 0, 0)
+			// , 0);
 
-	int len = xcb_get_property_value_length(reply);
+	// int len = xcb_get_property_value_length(reply);
 	// if(len == 0) {
 		// std::cerr << "controllemonbar: Error retrieving value in atom " << prop << std::endl;
 		// return 0;
 	// }
 
-	ret = xcb_get_property_value(reply);
+	// ret = xcb_get_property_value(reply);
 
-	delete reply;
-	return ret;
-}
+	// delete reply;
+	// return ret;
+// }
 
 // handles X events
 void eventHandlerFunc() {
