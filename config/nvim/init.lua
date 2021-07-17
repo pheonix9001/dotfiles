@@ -11,20 +11,21 @@ require'set-commands'
 ----------------------
 -- Plugins
 ----------------------
-vim.cmd[[
-call plug#begin()
-"snippets
-Plug 'Shougo/neosnippet.vim'
+packman = require'packman'
 
-"lsp stuff
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
+-- snippets
+packman.get'Shougo/neosnippet.vim'
 
-"theme
-Plug 'arcticicestudio/nord-vim'
+-- lsp
+packman.get'neovim/nvim-lspconfig'
+packman.get'nvim-lua/completion-nvim'
 
-call plug#end()
-]]
+-- tree sitter
+packman.get'nvim-treesitter/nvim-treesitter'
+packman.get'nvim-treesitter/playground'
+
+-- theme
+packman.get'arcticicestudio/nord-vim'
 
 opts = { noremap = false, expr = true }
 
@@ -46,24 +47,29 @@ set_var('completion_matching_smart_case', 1)
 set_var('completion_trigger_on_delete', 1)
 set_var('completion_enable_snippet', 'Neosnippet')
 
+-- Tree sitter
+
 -- Nord
 set_opt('termguicolors', true)
 set_var('nord_cursor_line_number_background', 1)
 set_var('nord_bold', 1)
 set_var('nord_italic', 1)
 set_var('nord_italic_comments', 1)
-vim.cmd('colorscheme nord')
+vim.cmd'colorscheme nord'
 
 -- Netrw
-set_var('netrw_liststyle=3', 3)
+set_var('netrw_liststyle', 3)
 set_var('netrw_banner', 0)
+
+------------
 -- Keymaps
+------------
 require'set-mappings'
 
 ----------------------
 -- Auto commands
 ----------------------
-vim.cmd([[
+vim.cmd[[
 au BufNewFile,BufRead *.md set wrap
 au BufRead,BufNewFile *.c lua require'lsp'.ccpp.setup()
-]])
+]]

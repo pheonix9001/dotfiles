@@ -34,7 +34,7 @@ map_key('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
 
 -- Misc
 map_key('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-map_key("n", "gq", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+map_key('n', "gq", '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
 --------------------
 -- Setup lsp servers
@@ -50,7 +50,7 @@ local lsp = {
 	-- C/C++ lsp
 	ccpp = {
 		setup = function()
-			lspconfig.ccls.setup{
+			lspconfig.clangd.setup{
 				on_attach = require'completion'.on_attach()
 			}
 		end
