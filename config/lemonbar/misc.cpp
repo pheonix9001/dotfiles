@@ -8,15 +8,13 @@
 
 #include "redraw.h"
 
-time_t rawtime;
-tm timestruct;
 int temperature_fd;
 
 void TempModule() {
 	char buf[16];
 	long temp;
 	bool fg_isblack;
-	std::string bg = "#3B4252";
+	const char* bg = "#3B4252";
 
   lseek(temperature_fd, 0, SEEK_SET);
 	read(temperature_fd, buf, 16);
@@ -28,24 +26,28 @@ void TempModule() {
 	} else if(temp >= 65000) {
 		bg = "#BF616A";
 		fg_isblack = true;
+	} else {
+		fg_isblack = false;
 	}
 	
 
 	// Powerline is cool
 	std::cout << "%{F" << bg << '}'
-		<< "\ue0b2%{B" << bg << '}' <<
-		"%{F-}"
-	<< "%{A:st -e htop:}";
+		<< "\ue0b2" <<
+		"%{R}"
+	<< "%{A:st -e htop:}" << ' ';
 
 	// set foreground
-	const char * fg = fg_isblack ? "%{F#2E3440" : "%{F-}";
+	const char * fg = fg_isblack ? "%{F#2E3440}" : "%{F-}";
 	std::cout << fg;
 
-	std::cout << "%{B" << bg << '}' << temp / 1000;
+	std::cout << temp / 1000;
 
 	std::cout << "\xc2\xb0 C %{A}%{F-}";
 }
 
+time_t rawtime;
+tm timestruct;
 void TimeModule(){
   rawtime = time(0);
   timestruct = *localtime(&rawtime);

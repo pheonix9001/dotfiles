@@ -1,14 +1,33 @@
-#include <iostream>
+#ifndef REDRAW_H
+#define REDRAW_H
 
-#define MODULE_START std::cout << "%{B#3B4252}%{+u} "
-#define MODULE_END std::cout << " %{B-}%{-u}"
-#define MIN(A, B)         ((A) < (B) ? (A) : (B))
+#include <iostream>
+#include <uv.h>
 
 void loadModuleFromFile(const char *, char *, int);
-void redraw();
+void redraw(uv_timer_t *handle);
 
-struct Module {
-	void (*draw)();
-
-	Module(void (*)());
+// struct to store modules
+class Module {
+	public:
+		void (*draw)();
+		Module(void (*_draw)()) : draw(_draw){};
 };
+
+// struct to store async modules
+class AsyncModule {
+	protected:
+		void (*draw)(uv_async_t *);
+
+	public:
+		char *buf;
+		uv_async_t async;
+
+		AsyncModule(void (*draw)(uv_async_t *)) {
+			this->draw = draw;
+
+			uv_async_init(uv_default_loop(), &async, this->draw);
+		}
+};
+
+#endif /* ifndef REDRAW_H */

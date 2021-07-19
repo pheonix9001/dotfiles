@@ -12,34 +12,31 @@
 extern char * desktops;
 extern char * windowname;
 
+extern AsyncModule windowModule;
+
 std::vector<Module> rmodules = {
 	{TempModule}, {NetworkModule}
 };
 
-Module::Module(void (*callback)()) {
-	this->draw = callback;
-}
-
-void loadModuleFromFile(const char * modulepath, char * buffer, int size){
+void loadModuleFromFile(const char* modulepath, char* buffer, int size) {
   int output[2];
   pipe(output);
 
   int pid = fork();
   if(pid == 0){
     dup2(output[1], 1);
-    execlp("bash", "bash", modulepath);
+    execlp("sh", "sh", modulepath);
   }
   wait(0);
 
-  memset(buffer, 0, size);
+  bzero(buffer, size);
   read(output[0], buffer, size);
   close(output[0]);
   close(output[1]);
-  return;
 }
 
-void redraw() {
-	std::cout << " " << desktops << " " << windowname;
+void redraw(uv_timer_t* handle) {
+	std::cout << desktops << " " << windowname;
 
 	// center aligned modules
 	std::cout << "%{c}";

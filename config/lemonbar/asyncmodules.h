@@ -1,2 +1,0 @@
-void DesktopModule();
-void WindowModule();

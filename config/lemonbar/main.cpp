@@ -1,10 +1,10 @@
 #include <fcntl.h>
-#include <signal.h>
 #include <sys/types.h>
 #include <unistd.h>
 #include <xcb/xcb.h>
 #include <string.h>
 #include <thread>
+#include <uv.h>
 
 #include <iostream>
 
@@ -12,13 +12,19 @@
 #include "redraw.h"
 #include "asyncmodules.h"
 
-extern char * windowname;
-extern char * desktops;
-extern xcb_connection_t * dpy;
+extern char* windowname;
+extern char* desktops;
+extern xcb_connection_t* dpy;
 extern xcb_window_t root;
 
 extern int rx_bytes_fd, tx_bytes_fd;
 extern int temperature_fd;
+
+extern AsyncModule windowModule;
+extern AsyncModule desktopModule;
+
+uv_loop_t* defloop;
+uv_timer_t drawtimer;
 
 // on exit function
 void onExit(int, void *) {
@@ -31,6 +37,9 @@ int main(){
 	dpy = xcb_connect(0, 0);
 	root = xcb_setup_roots_iterator(xcb_get_setup(dpy)).data->root;
 
+	// libuv stuff
+	defloop = uv_default_loop();
+
   // register signal handlers
   on_exit(onExit, 0);
 
@@ -39,18 +48,17 @@ int main(){
   tx_bytes_fd = open("/sys/class/net/wlp2s0/statistics/tx_bytes", O_RDONLY);
 	temperature_fd = open("/sys/class/thermal/thermal_zone1/temp", O_RDONLY);
 
-  // async modules
-	bzero(windowname, 64);
-	bzero(desktops, 1024);
+	// async modules
+	uv_async_send(&windowModule.async);
+	uv_async_send(&desktopModule.async);
 
 	// handles X events
 	std::thread eventHandler{eventHandlerFunc};
 
-	WindowModule();
-	DesktopModule();
+	// setup default timer
+	// uv_timer_init(defloop, &drawtimer);
+	uv_timer_init(defloop, &drawtimer);
+	uv_timer_start(&drawtimer, redraw, 0, 1000);
 
-	for(;;) {
-		redraw();
-		sleep(1);
-	}
+	return uv_run(defloop, UV_RUN_DEFAULT);
 }
