@@ -9,10 +9,8 @@
 #include "asyncmodules.h"
 #include "redraw.h"
 
-extern char * desktops;
-extern char * windowname;
-
 extern AsyncModule windowModule;
+extern AsyncModule desktopModule;
 
 std::vector<Module> rmodules = {
 	{TempModule}, {NetworkModule}
@@ -36,7 +34,7 @@ void loadModuleFromFile(const char* modulepath, char* buffer, int size) {
 }
 
 void redraw(uv_timer_t* handle) {
-	std::cout << desktops << " " << windowname;
+	std::cout << " " << desktopModule.buf << " " << windowModule.buf;
 
 	// center aligned modules
 	std::cout << "%{c}";

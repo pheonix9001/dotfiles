@@ -23,10 +23,15 @@ class AsyncModule {
 		char *buf;
 		uv_async_t async;
 
-		AsyncModule(void (*draw)(uv_async_t *)) {
+		AsyncModule(void (*draw)(uv_async_t *), size_t size) {
 			this->draw = draw;
+			buf = new char[size];
 
 			uv_async_init(uv_default_loop(), &async, this->draw);
+		}
+
+		~AsyncModule() {
+			delete buf;
 		}
 };
 

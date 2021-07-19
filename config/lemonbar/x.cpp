@@ -11,8 +11,6 @@
 xcb_connection_t *dpy;
 xcb_window_t root;
 
-char *windowname = new char[64];
-
 extern AsyncModule windowModule;
 extern AsyncModule desktopModule;
 

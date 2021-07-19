@@ -12,8 +12,6 @@
 #include "redraw.h"
 #include "asyncmodules.h"
 
-extern char* windowname;
-extern char* desktops;
 extern xcb_connection_t* dpy;
 extern xcb_window_t root;
 
