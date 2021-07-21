@@ -24,7 +24,7 @@ map_key('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
 map_key('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 
 -- Signature help
-map_key('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+map_key('n', '<C-j>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
 map_key('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
 
 -- Diagnostics

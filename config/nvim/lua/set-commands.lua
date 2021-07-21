@@ -26,7 +26,7 @@ set_opt('showcmd', true)
 set_opt('lazyredraw', true)
 set_opt('confirm', true)
 set_opt('cursorline', true)
-set_opt('laststatus', 0)
+set_opt('laststatus', 2)
 
 -- Indentation
 vim.cmd'set shiftwidth=2'
@@ -54,3 +54,4 @@ set_opt('shell', 'zsh')
 set_opt('backspace', '2')
 set_opt('mouse', 'n') -- enables mouse in normal mode only
 set_opt('makeprg', 'ninja')
+set_opt('hidden', false)
