@@ -1,18 +1,18 @@
 #!/bin/bash
 
-DESKTOPS=$(xdotool get_num_desktops)
-FOCUSDESKTOP=$(xdotool get_desktop)
-OUTPUT=""
+desktops=$(xdotool get_num_desktops)
+focusdesktop=$(xdotool get_desktop)
+output=""
 
-for I in $(seq 0 $( expr $DESKTOPS - 1))
+for i in $(seq 0 $( expr $desktops - 1))
 do
-  if [[ $I == $FOCUSDESKTOP ]]
+  if [[ $i == $focusdesktop ]]
   then
-    OUTPUT="$OUTPUT %{+u}%{F#ECEFF4}%{B#3B4252} · %{B-}%{F-}%{-u}"
+    output="$output %{+u}%{F#ECEFF4}%{B#3B4252} · %{B-}%{F-}%{-u}"
     continue
   fi
 
-  OUTPUT="$OUTPUT·"
+  output="$output·"
 done
 
-echo $OUTPUT | tr -d "\n"
+echo $output | tr -d "\n"

@@ -5,7 +5,6 @@ export MANPAGER="nvim -c 'set ft=man'"
 
 export LESSHISTFILE=".cache/less/history"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
-export GNUPGHOME="$XDG_DATA_HOME/.gnupg"
 export PATH=$PATH:~/.local/bin
 export SKIM_DEFAULT_OPTIONS="--height=70% --reverse --tiebreak=score,end,length,index --prompt=\"λ \""
 HISTFILE="~/.cache/bash/history"
@@ -53,10 +52,11 @@ alias rm="rm -i"
 DISABLE_AUTO_TITLE="true"
 touch /dev/shm/pwd
 chpwd () {
-  echo -en "\e]0;bash:\W\a"
+	echo -en "\e]0;bash: $(pwd)\a"
   pwd > /dev/shm/pwd
 }
 cd $(cat /dev/shm/pwd)
+chpwd
 
 #nordic tty?
 if [[ $TERM = "linux" ]]

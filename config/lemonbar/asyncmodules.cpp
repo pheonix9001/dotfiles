@@ -15,7 +15,7 @@ void windowModuleFunc(uv_async_t*);
 void desktopModuleFunc(uv_async_t*);
 
 AsyncModule windowModule{windowModuleFunc, 64};
-AsyncModule desktopModule{desktopModuleFunc, 1024};
+AsyncModule desktopModule{desktopModuleFunc, 256};
 
 void windowModuleFunc(uv_async_t* handle) {
 	xcb_get_input_focus_reply_t* focused;
@@ -48,6 +48,6 @@ void windowModuleFunc(uv_async_t* handle) {
 }
 
 void desktopModuleFunc(uv_async_t* handle) {
-	loadModuleFromFile("/home/asdf/.scripts/lemonbar/desktopmodule" , desktopModule.buf, 1024);
+	loadModuleFromFile("/home/asdf/.scripts/lemonbar/desktopmodule" , desktopModule.buf, 256);
 	redraw(0);
 }

@@ -15,8 +15,8 @@ test -z "$sel" && dunstify -a screenshot "No option was selected" "Exiting witho
 case $(echo $sel | cut -d\: -f1)
 in
 	1)
-		tmp=$(mktemp -p /tmp/wm screenshot.XXXXXXX.png || error "failed to create temporary file")
-		import "$tmp"
+		tmp=$(mktemp -p /tmp/wm screenshot.XXXXXXX || error "failed to create temporary file")
+		import -type png "$tmp"
 
 		xclip -selection clipboard -t image/png $tmp
 		rm $tmp

@@ -60,7 +60,7 @@ super + alt + c
 
 # lock screen
 super + z
-	~/.scripts/general/lockscreen
+	~/.scripts/misc/lockscreen
 
 # screenshot
 super + a; super + s
@@ -77,11 +77,11 @@ super + a; super + e
 
 # torrent something
 super + a; super + t
-	~/.scripts/general/torrent
+	~/.scripts/xclip/torrent
 
 # download youtube
 super + a; super + v
-	~/.scripts/general/youtube
+	~/.scripts/xclip/youtube
 
 # generate password
 super + a; super + p
@@ -89,7 +89,7 @@ super + a; super + p
 
 # shorten links
 super + a; super + 0
-	~/.scripts/general/shorten
+	~/.scripts/xclip/shorten
 
 ###############################
 # open apps
@@ -122,8 +122,9 @@ super + o; super + n
 	$TERMINAL -e newsboat
 
 # open brave
-super + o; super + g # super + g used because brave is only for google services
-	dunstify -a Sxhkd "Opening brave" && brave-nightly &> /dev/null
+# super + g used because brave is only for google services
+super + o; super + g
+	dunstify -a Sxhkd "Opening brave" && brave-browser-nightly
 
 # open passmenu
 super + p

@@ -75,9 +75,7 @@ return require'packer'.startup(function()
 			lualine_y = {},
 			lualine_z = {}
 		},
-		tabline = {
-			lualine_a = {'filename'},
-		},
+		tabline = {},
 		extensions = {}
 	}
 
