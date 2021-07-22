@@ -25,7 +25,7 @@ set_opt('rnu', false)
 set_opt('showcmd', true)
 set_opt('lazyredraw', true)
 set_opt('confirm', true)
-set_opt('cursorline', true)
+vim.cmd'set cursorline'
 set_opt('laststatus', 2)
 
 -- Indentation
