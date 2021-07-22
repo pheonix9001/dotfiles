@@ -8,7 +8,7 @@ for i in $(seq 0 $( expr $desktops - 1))
 do
   if [[ $i == $focusdesktop ]]
   then
-    output="$output %{+u}%{F#ECEFF4}%{B#3B4252} · %{B-}%{F-}%{-u}"
+    output="$output %{+u}%{F#eceff4}%{B#3b4252} · %{B-}%{F-}%{-u}"
     continue
   fi
 

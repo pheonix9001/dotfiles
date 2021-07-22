@@ -3,22 +3,22 @@
 !!!!!!!!!!!!!!!!!!!!!
 
 ! colors
-st.color0: #2E3440
-st.color1: #BF616A
-st.color2: #A3BE8C
-st.color3: #EBCB8B
-st.color4: #81A1C1
-st.color5: #B48EAD
-st.color6: #88C0D0
-st.color7: #E5E9F0
-st.color8: #3B4252
-st.color9: #BF616A
-st.color10: #A3BE8C
-st.color11: #EBCB8B
-st.color12: #81A1C1
-st.color13: #B48EAD
-st.color14: #8FBCBB
-st.color15: #ECEFF4
+st.color0: #2e3440
+st.color1: #bf616a
+st.color2: #a3be8c
+st.color3: #ebcb8b
+st.color4: #81a1c1
+st.color5: #b48ead
+st.color6: #88c0d0
+st.color7: #e5e9f0
+st.color8: #3b4252
+st.color9: #bf616a
+st.color10: #a3be8c
+st.color11: #ebcb8b
+st.color12: #81a1c1
+st.color13: #b48ead
+st.color14: #8fbcbb
+st.color15: #eceff4
 st.background: 7
 st.foreground: 0
 

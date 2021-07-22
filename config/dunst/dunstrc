@@ -32,7 +32,7 @@ progress_bar_max_width = 300
 
 ### Frame options ###
 frame_width = 2
-frame_color = "#434C5E"
+frame_color = "#434c5e"
 
 ### Misc ###
 sort = yes # sort by urgency
@@ -189,8 +189,8 @@ mouse_right_click = close_all
 
 ### Urgency settings ###
 [urgency_low]
-background = "#3B4252"
-foreground = "#D8DEE9"
+background = "#3b4252"
+foreground = "#d8dee9"
 timeout = 3
 fullscreen = pushback
 # Icon for notifications with low urgency, uncomment to enable
@@ -198,14 +198,14 @@ fullscreen = pushback
 #icon = /path/to/icon
 
 [urgency_normal]
-background = "#3B4252"
-foreground = "#E5E9F0"
+background = "#3b4252"
+foreground = "#e5e9f0"
 fullscreen = show
 timeout = 5
 
 [urgency_critical]
-background = "#3B4252"
-foreground = "#ECEFF4"
-frame_color = "#BF616A"
+background = "#3b4252"
+foreground = "#eceff4"
+frame_color = "#bf616a"
 fullscreen = show
 timeout = 10

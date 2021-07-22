@@ -14,17 +14,17 @@ void TempModule() {
 	char buf[16];
 	long temp;
 	bool fg_isblack;
-	const char* bg = "#3B4252";
+	const char* bg = "#3b4252";
 
   lseek(temperature_fd, 0, SEEK_SET);
 	read(temperature_fd, buf, 16);
 	temp = atol(buf);
 
 	if(temp >= 45000) {
-		bg = "#EBCB8B";
+		bg = "#ebcb8b";
 		fg_isblack = true;
 	} else if(temp >= 65000) {
-		bg = "#BF616A";
+		bg = "#bf616a";
 		fg_isblack = true;
 	} else {
 		fg_isblack = false;
@@ -38,7 +38,7 @@ void TempModule() {
 	<< "%{A:st -e htop:}" << ' ';
 
 	// set foreground
-	const char * fg = fg_isblack ? "%{F#2E3440}" : "%{F-}";
+	const char * fg = fg_isblack ? "%{F#2e3440}" : "%{F-}";
 	std::cout << fg;
 
 	std::cout << temp / 1000;
