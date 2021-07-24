@@ -1,8 +1,4 @@
--- Functions
-local function map_key(...) vim.api.nvim_set_keymap(...) end
-local function buf_set_option(...) vim.api.nvim_set_option(...) end
-local function set_var(...) vim.api.nvim_set_var(...) end
-local function map_key(...) vim.api.nvim_set_keymap(...) end
+require'global'
 
 -- Enable completion triggered by <c-x><c-o>
 buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -42,16 +38,17 @@ map_key('n', "gq", '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 local lspconfig = require'lspconfig'
 
 local on_attach = function(client, bufnr)
-	require'completion'.on_attach()
 end
 
-local lsp = {
+local capabilities = vim.lsp.protocol.make_client_capabilities()
 
+local lsp = {
 	-- C/C++ lsp
 	ccpp = {
 		setup = function()
 			lspconfig.clangd.setup{
-				on_attach = require'completion'.on_attach()
+				on_attach = on_attach,
+				capabilities = capabilities
 			}
 		end
 	}

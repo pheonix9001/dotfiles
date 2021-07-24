@@ -1,4 +1,3 @@
-local function set_opt(...) vim.api.nvim_set_option(...) end
 local function get_opt(...) return vim.api.nvim_get_option(...) end
 
 local function set_var(...) vim.api.nvim_set_var(...) end
@@ -14,26 +13,60 @@ return require'packer'.startup(function()
 	-------------------
 	-- Native lsp
 	use'neovim/nvim-lspconfig'
-	use'nvim-lua/completion-nvim'
+	use 'hrsh7th/nvim-compe'
 
-	set_opt('shortmess', get_opt('shortmess')..'c')
+	vim.opt.shortmess = get_opt('shortmess')..'c'
+	vim.opt.completeopt = 'menuone,noselect'
+	require'compe'.setup{
+		enabled = true;
+		autocomplete = true;
+		debug = false;
+		min_length = 1;
+		preselect = 'enable';
+		throttle_time = 80;
+		source_timeout = 200;
+		resolve_timeout = 800;
+		incomplete_delay = 400;
+		max_abbr_width = 100;
+		max_kind_width = 100;
+		max_menu_width = 100;
+		documentation = {
+			winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
+			max_width = 60,
+			min_width = 10,
+			max_height = math.floor(vim.o.lines * 0.3),
+			min_height = 1
+		},
+
+		source = {
+			path = true;
+			buffer = true;
+			calc = true;
+			nvim_lsp = true;
+			nvim_lua = true;
+			vsnip = true;
+			ultisnips = false;
+			luasnip = false;
+		};
+	}
+
+	opts = { noremap = false, silent = true, expr = true }
+	map_key('i', '<C-space>', "compe#complete()", opts)
+	map_key('i', '<CR>', "compe#confirm('<CR>')", opts)
+	map_key('i', '<C-e>', "compe#close('<C-e>')", opts)
+	map_key('i', '<C-f>', "compe#scroll({ 'delta': +4 })", opts)
+	map_key('i', '<C-b>', "compe#scroll({ 'delta': -4 })", opts)
+
+	-- Convineance
 	map_key('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', opts)
 	map_key('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"', opts)
 
-	set_opt('completeopt', 'menuone,noinsert,noselect')
-	vim.g.completion_sorting = 'length'
-	vim.g.completion_matching_strategy_list = {'exact', 'substring', 'fuzzy'}
-	vim.g.completion_matching_smart_case = 1
-	vim.g.completion_trigger_on_delete = 1
-	vim.g.completion_enable_snippet = 'Neosnippet'
-
-	-- Neosnippet
-	use'Shougo/neosnippet.vim'
-
-	set_var('neosnippet#snippets_directory', vim.env.XDG_CONFIG_HOME.."/nvim/snippets")
-	set_var('neosnippet#enable_snipmate_compatibility', 1)
-	map_key('i', '<C-k>', "neosnippet#expandable_or_jumpable() ?  '<Plug>(neosnippet_expand_or_jump)' : '<C-k>'", opts)
-	map_key('s', '<C-k>', "neosnippet#expandable_or_jumpable() ?  '<Plug>(neosnippet_expand_or_jump)' : '<C-k>'", opts)
+	-- Vsnip
+	use'hrsh7th/vim-vsnip'
+	opts = { noremap = false, expr = true }
+	vim.g.vsnip_snippet_dir = vim.env.XDG_CONFIG_HOME.."/nvim/snippets"
+	map_key('i', '<C-k>', 'vsnip#available() ?  "\\<Plug>(vsnip-expand-or-jump)" : "\\<C-k>"', opts)
+	map_key('s', '<C-k>', 'vsnip#available() ?  "\\<Plug>(vsnip-expand-or-jump)" : "\\<C-k>"', opts)
 
 	-- NERDTree
 	use'preservim/nerdtree'
@@ -44,7 +77,7 @@ return require'packer'.startup(function()
 	-- Nord
 	use'shaunsingh/nord.nvim'
 
-	set_opt('termguicolors', true)
+	vim.opt.termguicolors = true
 	vim.g.nord_contrast = true
 	vim.g.nord_borders = true
 	require'nord'.set()
