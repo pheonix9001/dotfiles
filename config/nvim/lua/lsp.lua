@@ -1,7 +1,7 @@
 require'global'
 
 -- Enable completion triggered by <c-x><c-o>
-buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+vim.opt.omnifunc = 'lua.vim.lsp.omnifunc'
 
 -----------------
 -- Key Mappings
@@ -12,6 +12,7 @@ local opts = { noremap=true, silent=true }
 map_key('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
 map_key('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
 map_key('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+map_key('n', '<space>s', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
 
 -- definitions and referances
 map_key('n', '<C-]>', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
@@ -20,7 +21,7 @@ map_key('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
 map_key('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 
 -- Signature help
-map_key('n', '<C-j>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+map_key('i', '<C-j>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
 map_key('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
 
 -- Diagnostics
@@ -41,7 +42,6 @@ local on_attach = function(client, bufnr)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-
 local lsp = {
 	-- C/C++ lsp
 	ccpp = {

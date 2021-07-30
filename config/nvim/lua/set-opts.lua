@@ -9,10 +9,10 @@ vim.opt.incsearch = true
 vim.opt.hlsearch = false
 
 -- syntax stuff
-vim.cmd([[
+vim.cmd[[
 filetype indent plugin on
 syntax enable
-]])
+]]
 
 -- Text
 vim.opt.linebreak = true
@@ -48,5 +48,5 @@ vim.g.mapleader = ' '
 vim.opt.clipboard = 'unnamedplus'
 vim.opt.mouse = 'n' -- enables mouse in normal mode only
 vim.opt.makeprg = 'ninja'
-vim.opt.hidden = false
+vim.opt.hidden = true
 vim.opt.shell = 'bash'

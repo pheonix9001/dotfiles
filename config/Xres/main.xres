@@ -9,7 +9,7 @@
 !!!!!!!!!!!!!!!!!!!!!
 ! some system xresources
 !!!!!!!!!!!!!!!!!!!!!
-Xcursor.size: 16
+Xcursor.size: 16 
 
 !!!!!!!!!!!!!!!!!!!!!
 ! load other xresources

@@ -2,12 +2,24 @@
 <!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">
 <fontconfig>
 	<!--
-	make mononoki more compressed
+	replace mononoki with Liga mononki Nerd Font
 	-->
+	<match target="font">
+		<test name="family" qual="any">
+			<string>mononoki</string>
+		</test>
+		<edit name="family" mode="assign">
+			<string>mononoki Nerd Font</string>
+		</edit>
+	</match>
+
 	<match target="font">
 		<test name="family" qual="any">
 			<string>mononoki Nerd Font</string>
 		</test>
+		<!--
+			Make mononoki more compressed
+		-->
 		<edit name="matrix" mode="assign">
 			<times>
 				<name>matrix</name>

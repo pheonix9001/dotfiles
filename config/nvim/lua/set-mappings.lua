@@ -16,7 +16,8 @@ map_key('n', '<Leader>K', '<C-w>K', opts)
 map_key('n', '<Leader>L', '<C-w>L', opts)
 
 -- Misc
-map_key('n', '<F6>', ':so %<CR>', opts)
-map_key('n', '<Leader>n', ':nohls<CR>', opts)
-map_key('n', '<C-p>', ':SK<CR>', opts)
-map_key('n', '<C-n>', ':NERDTreeToggle<CR>', opts)
+local opts = { noremap = true }
+map_key('n', '<F6>', '<Cmd>so %<CR>', opts)
+map_key('n', '<Leader>n', '<Cmd>nohls<CR>', opts)
+map_key('n', '<C-p>', '<Cmd>SK --no-multi<CR>', opts)
+map_key('n', '<C-n>', '<Cmd>NvimTreeToggle<CR>', opts)

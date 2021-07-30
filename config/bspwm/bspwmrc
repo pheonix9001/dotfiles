@@ -35,7 +35,7 @@ export XDG_CONFIG_HOME ${~}/.config
 export ZDOTDIR ${~}/.config/zsh
 export PASSWORD_STORE_DIR ${~}/.local/password-store
 export LESSHISTFILE ${~}/.cache/lesshst
-export GNUPGHOME ${~}/.local/share/.gnupg
+export GNUPGHOME ${~}/.local/share/gnupg
 
 # if $1 is greater than 1 that means this is not run for the first time
 ifthenelse { test ${1} -gt 1 } {
@@ -60,7 +60,7 @@ background { dunst }
 
 background { 
 pipeline { ${~}/.config/lemonbar/controllemonbar }
-pipeline { lemonbar -gx15 "-fmononoki Nerd Font:pixelsize=13:antialias=true" -B#2e3440 -F#d8dee9 -U#88c0d0 -o2 }
+pipeline { lemonbar -gx15 -f"mononoki Nerd Font:pixelsize=13:antialias=true" -B#2e3440 -F#d8dee9 -U#88c0d0 -o2 }
 ash -s
 }
 

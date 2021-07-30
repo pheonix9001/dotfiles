@@ -22,7 +22,7 @@ void NetworkModule(){
   rx_bytes = atoi(rx_bytes_str);
   tx_bytes = atoi(tx_bytes_str);
 
-	std::cout << "%{F#81a1c1}" "\ue0b2" "%{R}";
+	std::cout << "%{F#81a1c1}" "\ue0b2" "%{B-}" "%{R}";
   printf("\uf544 %.2fK", (rx_bytes - rx_prev_bytes) / 1000.0);
 	std::cout << "\ue0b3"
 	<< "%{B#81a1c1}";

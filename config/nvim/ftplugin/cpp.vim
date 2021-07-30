@@ -9,3 +9,4 @@ EOF
 imap <C-s> std::
 
 set makeprg=samu
+let vsnip_filetypes.cpp = ['c', 'ccpp']
