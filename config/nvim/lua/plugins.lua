@@ -12,7 +12,10 @@ return require'packer'.startup(function()
 	use'neovim/nvim-lspconfig'
 
 	-- Nvim-compe
-	use'hrsh7th/nvim-compe'
+	use {
+		'hrsh7th/nvim-compe',
+		requires = {'onsails/lspkind-nvim', opt = true}
+	}
 	require'compe-conf'
 
 	-- Vsnip

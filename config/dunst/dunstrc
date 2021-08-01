@@ -93,7 +93,7 @@ min_icon_size = 0
 max_icon_size = 32
 
 # Paths to default icons.
-icon_path = /usr/share/icons/Zafiro-icons-blue/status/22/
+icon_path = /usr/share/icons/Zafiro/status/22
 
 ### History ###
 # Should a notification popped up from history be sticky or timeout
