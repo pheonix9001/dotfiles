@@ -58,7 +58,7 @@
       "",
       "int main (int argc, char *argv[])",
       "{",
-      "\t${1:std::cout << \"Hello world\" << std::endl;}",
+      "\t${0:std::cout << \"Hello world\" << std::endl;}",
       "\treturn 0;",
       "}"
     ],

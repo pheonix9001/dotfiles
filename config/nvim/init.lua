@@ -1,7 +1,7 @@
 -----------------
 -- Set commands
 -----------------
-require'set-opts'
+require'opts'
 
 ----------------------
 -- Plugins
@@ -11,7 +11,7 @@ require'plugins'
 ------------
 -- Keymaps
 ------------
-require'set-mappings'
+require'mappings'
 
 ----------------------
 -- Auto commands

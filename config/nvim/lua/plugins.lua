@@ -16,7 +16,7 @@ return require'packer'.startup(function()
 		'hrsh7th/nvim-compe',
 		requires = {'onsails/lspkind-nvim', opt = true}
 	}
-	require'compe-conf'
+	require'config/compe'
 
 	-- Vsnip
 	use'hrsh7th/vim-vsnip'
@@ -32,12 +32,14 @@ return require'packer'.startup(function()
 	-- Looks
 	----------------------------
 	-- Nord
-	use'shaunsingh/nord.nvim'
+	use'arcticicestudio/nord-vim'
 
 	vim.opt.termguicolors = true
-	vim.g.nord_contrast = true
-	vim.g.nord_borders = true
-	require'nord'.set()
+	vim.g.nord_uniform_diff_background = true
+	vim.g.nord_bold = true
+	vim.g.nord_italic = true
+	vim.g.nord_italic_comments = true
+	vim.cmd'colorscheme nord'
 
 	-- Lualine
 	use'hoob3rt/lualine.nvim'
@@ -47,12 +49,13 @@ return require'packer'.startup(function()
 			theme = 'nord',
 			component_separators = {'', ''},
 			section_separators = {'', ''},
-			disabled_filetypes = {}
+			disabled_filetypes = {'NvimTree', 'packer'}
 		},
 		sections = {
 			lualine_a = {'mode'},
+			lualine_b = {'branch'},
 			lualine_c = {'filename'},
-			lualine_x = {'encoding', 'fileformat', 'filetype'},
+			lualine_x = {'encoding', 'fileformat', {'filetype', colored=true}},
 			lualine_y = {'progress'},
 			lualine_z = {'location'}
 		},
@@ -65,7 +68,12 @@ return require'packer'.startup(function()
 		extensions = {}
 	}
 
+	-- Startify
+	use'mhinz/vim-startify'
+	require'config/startify'
+
 	-- Misc
-	use'kyazdani42/nvim-web-devicons'
+	-- use'kyazdani42/nvim-web-devicons'
+	use'ryanoasis/vim-devicons'
 	use'onsails/lspkind-nvim'
 end)
