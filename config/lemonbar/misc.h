@@ -1,2 +1,2 @@
-void TempModule();
-void TimeModule();
+void tempModule();
+void timeModule();

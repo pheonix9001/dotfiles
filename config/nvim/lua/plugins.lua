@@ -8,13 +8,17 @@ return require'packer'.startup(function()
 	-------------------
 	-- Functionality
 	-------------------
-	-- Native lsp
-	use'neovim/nvim-lspconfig'
-
 	-- Nvim-compe
 	use {
-		'hrsh7th/nvim-compe',
-		requires = {'onsails/lspkind-nvim', opt = true}
+		'neovim/nvim-lspconfig',
+		requires = {
+			{
+				'hrsh7th/nvim-compe',
+				requires = {
+					{'onsails/lspkind-nvim'}
+				}
+			}
+		}
 	}
 	require'config/compe'
 
@@ -26,7 +30,10 @@ return require'packer'.startup(function()
 	map_key('s', '<C-k>', 'vsnip#available() ?  "\\<Plug>(vsnip-expand-or-jump)" : "\\<C-k>"', opts)
 
 	-- Misc
-	use'kyazdani42/nvim-tree.lua'
+	use {
+		'kyazdani42/nvim-tree.lua',
+		requires = {{'ryanoasis/vim-devicons'}}
+	}
 
 	---------------------------
 	-- Looks
@@ -69,11 +76,12 @@ return require'packer'.startup(function()
 	}
 
 	-- Startify
-	use'mhinz/vim-startify'
+	use {
+		'mhinz/vim-startify',
+	}
 	require'config/startify'
 
 	-- Misc
 	-- use'kyazdani42/nvim-web-devicons'
 	use'ryanoasis/vim-devicons'
-	use'onsails/lspkind-nvim'
 end)

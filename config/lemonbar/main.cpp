@@ -42,8 +42,8 @@ int main(){
   on_exit(onExit, 0);
 
 	// open some file descriptors
-  rx_bytes_fd = open("/sys/class/net/wlp2s0/statistics/rx_bytes", O_RDONLY);
-  tx_bytes_fd = open("/sys/class/net/wlp2s0/statistics/tx_bytes", O_RDONLY);
+  rx_bytes_fd = open("/sys/class/net/wlan0/statistics/rx_bytes", O_RDONLY);
+  tx_bytes_fd = open("/sys/class/net/wlan0/statistics/tx_bytes", O_RDONLY);
 	temperature_fd = open("/sys/class/thermal/thermal_zone1/temp", O_RDONLY);
 
 	// async modules

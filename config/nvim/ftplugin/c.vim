@@ -2,7 +2,7 @@
 lua << EOF
 require'global'
 
-require'lsp'.ccpp.setup()
+require'config/lsp'.ccpp.setup()
 EOF
 
 set formatprg="clang-format -style file"

@@ -4,13 +4,15 @@
 #include <string.h>
 #include <unistd.h>
 #include <iostream>
+#include <alsa/asoundlib.h>
+#include <alsa/mixer.h>
 #include <string>
 
 #include "redraw.h"
 
 int temperature_fd;
 
-void TempModule() {
+void tempModule() {
 	char buf[16];
 	long temp;
 	bool fg_isblack;
@@ -48,7 +50,7 @@ void TempModule() {
 
 time_t rawtime;
 tm timestruct;
-void TimeModule(){
+void timeModule() {
   rawtime = time(0);
   timestruct = *localtime(&rawtime);
 
@@ -57,4 +59,27 @@ void TimeModule(){
       timestruct.tm_min,
       timestruct.tm_sec
       );
+}
+
+void audioModule() {
+	long min, max;
+	snd_mixer_t* mixer;
+	snd_mixer_selem_id_t* sid;
+
+	const char* const card = "default";
+	const char* const selem_name = "Master";
+
+	snd_mixer_open(&mixer, 0);
+	snd_mixer_attach(mixer, card);
+	snd_mixer_selem_register(mixer, 0, 0);
+
+	snd_mixer_selem_id_alloca(&sid);
+	snd_mixer_selem_id_set_index(sid, 0);
+	snd_mixer_selem_id_set_name(sid, selem_name);
+
+	auto* elem = snd_mixer_find_selem(mixer, sid);
+
+	snd_mixer_selem_get_playback_volume_range(elem, &min, &max);
+
+	snd_mixer_close(mixer);
 }

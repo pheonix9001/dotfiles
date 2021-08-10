@@ -11,5 +11,5 @@ $UPDATE
 $INSTALL neovim
 $INSTALL bspwm sxhkd
 $INSTALL hsetroot
-$INSTALL dmenu skim xdotool fd dex
+$INSTALL dmenu fzf xdotool fd dex
 $INSTALL alacritty neofetch

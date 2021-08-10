@@ -13,7 +13,7 @@ extern AsyncModule windowModule;
 extern AsyncModule desktopModule;
 
 std::vector<Module> rmodules = {
-	{TempModule}, {NetworkModule}
+	{tempModule}, {networkModule}
 };
 
 void loadModuleFromFile(const char* modulepath, char* buffer, int size) {
@@ -38,7 +38,7 @@ void redraw(uv_timer_t* handle) {
 
 	// center aligned modules
 	std::cout << "%{c}";
-	TimeModule();
+	timeModule();
 
 	// right aligned modules
 	std::cout << "%{r}";

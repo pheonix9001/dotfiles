@@ -6,13 +6,14 @@ export MANPAGER="nvim -c 'set ft=man'"
 export LESSHISTFILE=".cache/less/history"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export PATH=$PATH:~/.local/bin
-export SKIM_DEFAULT_OPTIONS="--height=70% --reverse --tiebreak=score,end,length,index --prompt=\"λ \""
+
+export FZF_DEFAULT_OPTS="--height=70% --reverse --tiebreak=end,length,index --prompt=\"λ \""
 HISTFILE="~/.cache/bash/history"
 export PS1=" \e[36m\w\e[37;2m>\e[0m\n \e[32mλ \e[0m"
 
 # generic fuzzer
 gf () {
-	f="$(eval $1 | sk --ansi)"
+	f="$(eval $1 | fzf --disabled --ansi)"
 	[[ -n $f ]] && $2 $f
 }
 
@@ -21,7 +22,7 @@ alias cf="gf 'fd -t d --color always' 'cd'"
 alias of="gf 'fd -t f --color always' 'xdg-open'"
 
 af () {
-	output=$(sk -e --ansi -c "ag '{}' --color" -i)
+	output=$(fzf --disabled -e --ansi --bind "change:reload:ag --color {q} || true")
 	line="$(echo $output | cut -d: -f2)"
 	file="$(echo $output | cut -d: -f1)"
 	nvim -c "set nofoldenable" "+$line" "$file"
@@ -30,6 +31,10 @@ af () {
 alias n="nvim"
 alias tsm="transmission-remote"
 alias zthr="zathura"
+
+alias dv="dirs -v"
+alias pd="pushd"
+alias ppd="popd"
 
 alias nj="ninja"
 alias njb="ninja -C build"

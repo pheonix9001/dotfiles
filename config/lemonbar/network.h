@@ -1,2 +1,2 @@
-void NetworkModule();
+void networkModule();
 
