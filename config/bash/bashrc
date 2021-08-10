@@ -13,7 +13,7 @@ export PS1=" \e[36m\w\e[37;2m>\e[0m\n \e[32mλ \e[0m"
 
 # generic fuzzer
 gf () {
-	f="$(eval $1 | fzf --disabled --ansi)"
+	f="$(eval $1 | fzf --ansi)"
 	[[ -n $f ]] && $2 $f
 }
 
