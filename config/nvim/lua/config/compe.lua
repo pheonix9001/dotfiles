@@ -17,7 +17,7 @@ require'compe'.setup{
 	incomplete_delay = 400;
 	max_abbr_width = 100;
 	max_kind_width = 100;
-	max_menu_width = 60;
+	max_menu_width = 30;
 	documentation = {
 		winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
 		max_width = 60,
@@ -37,33 +37,6 @@ require'compe'.setup{
 		luasnip = false;
 		emoji = true;
 	};
-}
-require'lspkind'.init{
-	with_text = false,
-	preset = 'codicons',
-
-	symbol_map = {
-		Text = '',
-		Method = 'ƒ',
-		Function = '',
-		Constructor = '',
-		Variable = '',
-		Class = '',
-		Interface = 'ﰮ',
-		Module = '',
-		Property = '',
-		Unit = '',
-		Value = '',
-		Enum = '了',
-		Keyword = '',
-		Snippet = '﬌',
-		Color = '',
-		File = '',
-		Folder = '',
-		EnumMember = '',
-		Constant = '',
-		Struct = ''
-	}
 }
 
 opts = { noremap = false, silent = true, expr = true }

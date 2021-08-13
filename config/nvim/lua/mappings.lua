@@ -19,4 +19,5 @@ map_key('n', '<Leader>L', '<C-w>L', opts)
 local opts = { noremap = true }
 map_key('n', '<F6>', '<Cmd>so %<CR>', opts)
 map_key('n', '<Leader>n', '<Cmd>nohls<CR>', opts)
+map_key('n', '<C-p>', '<Cmd>FZF<CR>', opts)
 map_key('n', '<C-n>', '<Cmd>NvimTreeToggle<CR>', opts)

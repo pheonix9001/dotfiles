@@ -5,29 +5,13 @@ opts = { noremap = false, expr = true }
 return require'packer'.startup(function() 
 	use'wbthomason/packer.nvim'
 
-	-------------------
 	-- Functionality
-	-------------------
-	-- Nvim-compe
 	use {
 		'neovim/nvim-lspconfig',
-		requires = {
-			{
-				'hrsh7th/nvim-compe',
-				requires = {
-					{'onsails/lspkind-nvim'}
-				}
-			}
-		}
+		requires = {'hrsh7th/nvim-compe'}
 	}
-	require'config/compe'
 
-	-- Vsnip
 	use'hrsh7th/vim-vsnip'
-	opts = { noremap = false, expr = true }
-	vim.g.vsnip_snippet_dir = vim.env.XDG_CONFIG_HOME.."/nvim/snippets"
-	map_key('i', '<C-k>', 'vsnip#available() ?  "\\<Plug>(vsnip-expand-or-jump)" : "\\<C-k>"', opts)
-	map_key('s', '<C-k>', 'vsnip#available() ?  "\\<Plug>(vsnip-expand-or-jump)" : "\\<C-k>"', opts)
 
 	-- Misc
 	use {
@@ -35,12 +19,28 @@ return require'packer'.startup(function()
 		requires = {{'ryanoasis/vim-devicons'}}
 	}
 
+	-- Looks
+	use'mhinz/vim-startify'
+	use'arcticicestudio/nord-vim'
+	use'hoob3rt/lualine.nvim'
+
+	-------------------
+	-- Functionality
+	-------------------
+	-- Nvim-compe
+	require'config/compe'
+
+	-- Vsnip
+	opts = { noremap = false, expr = true }
+	vim.g.vsnip_snippet_dir = vim.env.XDG_CONFIG_HOME.."/nvim/snippets"
+	map_key('i', '<C-k>', 'vsnip#available() ?  "\\<Plug>(vsnip-expand-or-jump)" : "\\<C-k>"', opts)
+	map_key('s', '<C-k>', 'vsnip#available() ?  "\\<Plug>(vsnip-expand-or-jump)" : "\\<C-k>"', opts)
+
+
 	---------------------------
 	-- Looks
 	----------------------------
 	-- Nord
-	use'arcticicestudio/nord-vim'
-
 	vim.opt.termguicolors = true
 	vim.g.nord_uniform_diff_background = true
 	vim.g.nord_bold = true
@@ -49,7 +49,6 @@ return require'packer'.startup(function()
 	vim.cmd'colorscheme nord'
 
 	-- Lualine
-	use'hoob3rt/lualine.nvim'
 	require'lualine'.setup{
 		options = {
 			icons_enabled = true,
@@ -76,12 +75,5 @@ return require'packer'.startup(function()
 	}
 
 	-- Startify
-	use {
-		'mhinz/vim-startify',
-	}
 	require'config/startify'
-
-	-- Misc
-	-- use'kyazdani42/nvim-web-devicons'
-	use'ryanoasis/vim-devicons'
 end)
