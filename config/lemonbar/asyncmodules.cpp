@@ -29,17 +29,21 @@ void windowModuleFunc(uv_async_t* handle) {
 	focused = xcb_get_input_focus_reply(dpy, focusedcookie, 0);
 
 	// check if window is root
-	if(focused->focus == root) {
-		snprintf(windowModule.buf, 64, "Root");
-		redraw(0);
-		return;
-	}
+	// if(focused->focus == root) {
+		// snprintf(windowModule.buf, 64, "Root");
+		// redraw(0);
+		// return;
+	// }
 
 	// get window title
-	xcb_icccm_get_wm_name_reply(dpy, xcb_icccm_get_wm_name(dpy, focused->focus), &itr, NULL);
+	xcb_generic_error_t * e;
+	itr.name = 0;
+	xcb_icccm_get_wm_name_reply(dpy, xcb_icccm_get_wm_name(dpy, focused->focus), &itr, &e);
 
 	bzero(windowModule.buf, 64);
-	snprintf(windowModule.buf, MIN(64, itr.name_len + 1), "%s", itr.name); 
+	if(itr.name != 0) {
+		snprintf(windowModule.buf, MIN(64, itr.name_len + 1), "%s", itr.name); 
+	}
 
 	// cleanup
 	delete focused;

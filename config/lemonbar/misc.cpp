@@ -61,6 +61,7 @@ void timeModule() {
       );
 }
 
+/*
 void audioModule() {
 	long min, max;
 	snd_mixer_t* mixer;
@@ -83,3 +84,4 @@ void audioModule() {
 
 	snd_mixer_close(mixer);
 }
+*/
