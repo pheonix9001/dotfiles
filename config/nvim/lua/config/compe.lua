@@ -5,6 +5,7 @@ require'global'
 
 vim.opt.shortmess:append('c')
 vim.opt.completeopt = 'menuone,noselect'
+
 require'compe'.setup{
 	enabled = true;
 	autocomplete = true;
@@ -19,6 +20,7 @@ require'compe'.setup{
 	max_kind_width = 100;
 	max_menu_width = 30;
 	documentation = {
+		border = {'┌', '─', '┐', '│', '┘', '─', '└', '│'},
 		winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
 		max_width = 60,
 		min_width = 10,
@@ -36,8 +38,11 @@ require'compe'.setup{
 		ultisnips = false;
 		luasnip = false;
 		emoji = true;
-	};
+	}
 }
+
+vim.opt.pumheight = math.floor(vim.o.lines / 2)
+vim.opt.pumwidth = math.floor(vim.o.columns / 1.5)
 
 opts = { noremap = false, silent = true, expr = true }
 map_key('i', '<C-space>', "compe#complete()", opts)

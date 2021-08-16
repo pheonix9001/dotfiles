@@ -6,11 +6,7 @@ return require'packer'.startup(function()
 	use'wbthomason/packer.nvim'
 
 	-- Functionality
-	use {
-		'neovim/nvim-lspconfig',
-		requires = {'hrsh7th/nvim-compe'}
-	}
-
+	use'hrsh7th/nvim-compe'
 	use'hrsh7th/vim-vsnip'
 
 	-- Misc
@@ -36,6 +32,8 @@ return require'packer'.startup(function()
 	map_key('i', '<C-k>', 'vsnip#available() ?  "\\<Plug>(vsnip-expand-or-jump)" : "\\<C-k>"', opts)
 	map_key('s', '<C-k>', 'vsnip#available() ?  "\\<Plug>(vsnip-expand-or-jump)" : "\\<C-k>"', opts)
 
+	-- Fzf
+	require'config/fzf'
 
 	---------------------------
 	-- Looks

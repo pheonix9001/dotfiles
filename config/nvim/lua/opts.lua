@@ -17,6 +17,7 @@ syntax enable
 -- Text
 vim.opt.linebreak = true
 vim.opt.wrap = false
+vim.opt.hls = true
 
 -- UI
 vim.opt.number = false

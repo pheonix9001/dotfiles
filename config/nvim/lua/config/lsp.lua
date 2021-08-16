@@ -6,8 +6,6 @@ vim.opt.omnifunc = 'v:lua.vim.lsp.omnifunc'
 --------------------
 -- Setup lsp servers
 --------------------
-local lspconfig = require'lspconfig'
-
 local on_attach = function(client, bufnr)
 	----------------------
 	-- icons
@@ -40,7 +38,17 @@ local on_attach = function(client, bufnr)
 
 	local kinds = vim.lsp.protocol.CompletionItemKind
 	for i, kind in ipairs(kinds) do
-		kinds[i] = M.icons[kind]
+		kinds[i] = M.icons[kind] or kind
+	end
+
+	-----------------
+	-- Diagnostics
+	-----------------
+	local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
+
+	for type, icon in pairs(signs) do
+		local hl = "LspDiagnosticsSign" .. type
+		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 	end
 
 	-----------------
@@ -75,20 +83,19 @@ local on_attach = function(client, bufnr)
 	buf_map_key(bufnr, 'n', "<Leader>a", '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
 local lsp = {
 	-- C/C++ lsp
 	ccpp = {
 		setup = function()
-			lspconfig.clangd.setup{
-				on_attach = on_attach,
-				capabilities = capabilities,
-				-- could be useful in the future
+			local client_id = vim.lsp.start_client{
 				cmd = {
 					'clangd',
 					'--background-index'
-				}
+				},
+				root_dir = '.',
+				on_attach = on_attach
 			}
+			vim.lsp.buf_attach_client(0, client_id)
 		end
 	}
 }
