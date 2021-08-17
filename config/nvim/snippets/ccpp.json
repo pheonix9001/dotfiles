@@ -31,7 +31,7 @@
 
   "if": {
     "prefix": "if",
-    "body": ["if($1) {", "\t$2", "}"],
+    "body": ["if($1) {", "\t$2", "}$0"],
     "description": "Code snippet for if statement"
   },
   "else": {

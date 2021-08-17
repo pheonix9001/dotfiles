@@ -1,5 +1,5 @@
 {
-	"Standard Starter Template": {
+	"sst": {
 		"prefix": "sst",
 		"description": "A standard starter template for a C program",
 		"body": [

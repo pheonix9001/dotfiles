@@ -8,6 +8,7 @@ return require'packer'.startup(function()
 	-- Functionality
 	use'hrsh7th/nvim-compe'
 	use'hrsh7th/vim-vsnip'
+	use'L3MON4D3/LuaSnip'
 
 	-- Misc
 	use {
@@ -27,10 +28,15 @@ return require'packer'.startup(function()
 	require'config/compe'
 
 	-- Vsnip
+	--[[
 	opts = { noremap = false, expr = true }
 	vim.g.vsnip_snippet_dir = vim.env.XDG_CONFIG_HOME.."/nvim/snippets"
 	map_key('i', '<C-k>', 'vsnip#available() ?  "\\<Plug>(vsnip-expand-or-jump)" : "\\<C-k>"', opts)
 	map_key('s', '<C-k>', 'vsnip#available() ?  "\\<Plug>(vsnip-expand-or-jump)" : "\\<C-k>"', opts)
+	--]]
+
+	-- Luasnip
+	require'config/luasnip'
 
 	-- Fzf
 	require'config/fzf'
