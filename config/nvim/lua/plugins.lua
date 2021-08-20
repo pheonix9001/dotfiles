@@ -7,39 +7,44 @@ return require'packer'.startup(function()
 
 	-- Functionality
 	use'hrsh7th/nvim-compe'
-	use'hrsh7th/vim-vsnip'
 	use'L3MON4D3/LuaSnip'
 
-	-- Misc
 	use {
 		'kyazdani42/nvim-tree.lua',
-		requires = {{'ryanoasis/vim-devicons'}}
+		cmd = 'NvimTreeToggle'
+	}
+
+	-- Tree sitter
+	use {
+		'nvim-treesitter/nvim-treesitter',
+		run = ":TSUpdate"
+	}
+	use {
+		'nvim-treesitter/playground',
+		cmd = "TSPlaygroundToggle"
 	}
 
 	-- Looks
 	use'mhinz/vim-startify'
 	use'arcticicestudio/nord-vim'
-	use'hoob3rt/lualine.nvim'
+	--use'shaunsingh/nord.nvim'
+	use {
+		'hoob3rt/lualine.nvim',
+		requires = {'ryanoasis/vim-devicons'}
+	}
+	use {
+		'mattn/emmet-vim',
+		ft = {'css', 'html'},
+	}
+	vim.g.user_emmet_leader_key='<Leader>'
 
 	-------------------
 	-- Functionality
 	-------------------
-	-- Nvim-compe
 	require'config/compe'
-
-	-- Vsnip
-	--[[
-	opts = { noremap = false, expr = true }
-	vim.g.vsnip_snippet_dir = vim.env.XDG_CONFIG_HOME.."/nvim/snippets"
-	map_key('i', '<C-k>', 'vsnip#available() ?  "\\<Plug>(vsnip-expand-or-jump)" : "\\<C-k>"', opts)
-	map_key('s', '<C-k>', 'vsnip#available() ?  "\\<Plug>(vsnip-expand-or-jump)" : "\\<C-k>"', opts)
-	--]]
-
-	-- Luasnip
 	require'config/luasnip'
-
-	-- Fzf
 	require'config/fzf'
+	require'config/tree-sitter'
 
 	---------------------------
 	-- Looks
@@ -48,36 +53,22 @@ return require'packer'.startup(function()
 	vim.opt.termguicolors = true
 	vim.g.nord_uniform_diff_background = true
 	vim.g.nord_bold = true
-	vim.g.nord_italic = true
 	vim.g.nord_italic_comments = true
-	vim.cmd'colorscheme nord'
+
+	--vim.g.nord_italic = true
+	--vim.g.nord_contrast = true
+	vim.cmd[[colorscheme nord]]
 
 	-- Lualine
-	require'lualine'.setup{
-		options = {
-			icons_enabled = true,
-			theme = 'nord',
-			component_separators = {'', ''},
-			section_separators = {'', ''},
-			disabled_filetypes = {'NvimTree', 'packer'}
-		},
-		sections = {
-			lualine_a = {'mode'},
-			lualine_b = {'branch'},
-			lualine_c = {'filename'},
-			lualine_x = {'encoding', 'fileformat', {'filetype', colored=true}},
-			lualine_y = {'progress'},
-			lualine_z = {'location'}
-		},
-		inactive_sections = {
-			lualine_a = {'filename'},
-			lualine_y = {'progress'},
-			lualine_z = {'location'}
-		},
-		tabline = {},
-		extensions = {}
-	}
+	require'config/lualine'
 
 	-- Startify
-	require'config/startify'
+	vim.g.startify_custom_header = {
+		'                         .__         ',
+		'  ____   ____  _______  _|__| _____  ',
+		' /    \\_/ __ \\/  _ \\  \\/ /  |/     \\ ',
+		'|   |  \\  ___(  <_> )   /|  |  Y Y  \\',
+		'|___|  /\\___  >____/ \\_/ |__|__|_|  /',
+		'     \\/     \\/                    \\/ ',
+	}
 end)

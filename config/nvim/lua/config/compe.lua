@@ -37,7 +37,7 @@ require'compe'.setup{
 		vsnip = false;
 		ultisnips = false;
 		luasnip = true;
-		emoji = true;
+		emoji = false;
 	}
 }
 

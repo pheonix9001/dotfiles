@@ -20,7 +20,11 @@
       {
         "language": "cpp",
         "path": "./snippets/cpp.json"
-      }
+      },
+			{
+				"language": "html",
+				"path": "./snippets/html.json"
+			}
     ]
   }
 }

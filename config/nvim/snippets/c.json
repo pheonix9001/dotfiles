@@ -1,4 +1,9 @@
 {
+	"struct": {
+		"prefix": "struct",
+		"body": ["struct $1 {", "\t${0}", "};"],
+		"description": "Code snippet for struct"
+	},
 	"sst": {
 		"prefix": "sst",
 		"description": "A standard starter template for a C program",
@@ -6,7 +11,7 @@
 			"#include <stdio.h>",
 			"",
 			"int main (int argc, char *argv[]) {",
-				"\t${1:printf(\"Hello world\");}",
+				"\t${0:printf(\"Hello world\");}",
 				"\treturn 0;",
 				"}"
 		]

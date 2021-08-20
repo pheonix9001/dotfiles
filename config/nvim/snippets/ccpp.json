@@ -3,7 +3,7 @@
     "prefix": "for",
     "body": [
       "for (${size_t} ${i} = ${1:0}; ${i} < ${2:length}; ${i}++) {",
-      "\t$3",
+      "\t${3:$TM_SELECTED_TEXT}",
       "}"
     ],
     "description": "Code snippet for 'for' loop"
@@ -12,7 +12,7 @@
     "prefix": "forr",
     "body": [
       "for (int ${i} = ${1:length} - 1; ${i} >= ${2:0}; ${i}--) {",
-      "\t$3",
+      "\t${3:$TM_SELECTED_TEXT}",
       "}"
     ],
     "description": "Code snippet for reverse 'for' loop"
@@ -20,7 +20,7 @@
 
   "while": {
     "prefix": "while",
-    "body": ["while ($1) {", "\t$2", "}"],
+    "body": ["while ($1) {", "\t${2:$TM_SELECTED_TEXT}", "}$0"],
     "description": ""
   },
   "Do...while loop": {
@@ -31,17 +31,17 @@
 
   "if": {
     "prefix": "if",
-    "body": ["if($1) {", "\t$2", "}$0"],
+    "body": ["if($1) {", "\t${2:$TM_SELECTED_TEXT}", "}$0"],
     "description": "Code snippet for if statement"
   },
   "else": {
     "prefix": "else",
-    "body": ["else {", "\t$1", "}"],
+    "body": ["else {", "\t${1:$TM_SELECTED_TEXT}", "}"],
     "description": "Code snippet for else statement"
   },
   "elif": {
     "prefix": "else if",
-    "body": ["else if($1) {", "\t$2", "}"],
+    "body": ["else if($1) {", "\t${2:TM_SELECTED_TEXT}", "}"],
     "description": "Code snippet for else-if statement"
   },
 
@@ -65,11 +65,6 @@
 		"prefix": "enum",
 		"body": ["enum ${MyEnum} {", "\t$1", "};"],
 		"description": "Code snippet for enum"
-	},
-	"struct": {
-		"prefix": "struct",
-		"body": ["struct ${MyStruct} {", "\t${1}", "};"],
-		"description": "Code snippet for struct"
 	},
 
 	"#ifdef": {

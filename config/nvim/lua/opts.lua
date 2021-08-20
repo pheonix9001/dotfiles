@@ -34,7 +34,7 @@ vim.opt.tabstop = 2
 vim.opt.expandtab = false
 
 -- Swapfiles and undo
-vim.opt.swapfile = true
+vim.opt.swapfile = false
 vim.opt.dir = vim.env.HOME..'/.cache/nvim/swapfiles'
 vim.opt.undofile = true
 vim.opt.undodir = vim.env.HOME..'/.cache/nvim/undos'

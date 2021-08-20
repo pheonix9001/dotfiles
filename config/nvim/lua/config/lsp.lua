@@ -10,9 +10,7 @@ local on_attach = function(client, bufnr)
 	----------------------
 	-- icons
 	----------------------
-	local M = {}
-
-	M.icons = {
+	icons = {
 		Class = " ",
 		Color = " ",
 		Constant = " ",
@@ -38,7 +36,7 @@ local on_attach = function(client, bufnr)
 
 	local kinds = vim.lsp.protocol.CompletionItemKind
 	for i, kind in ipairs(kinds) do
-		kinds[i] = M.icons[kind] or kind
+		kinds[i] = icons[kind] or kind
 	end
 
 	-----------------
@@ -54,13 +52,13 @@ local on_attach = function(client, bufnr)
 	-----------------
 	-- Key Mappings
 	-----------------
-	local opts = { noremap=true, silent=true }
+	local opts = { noremap=true, silent=true, unique=true }
 
 	-- Workspaces
-	buf_map_key(bufnr, 'n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-	buf_map_key(bufnr, 'n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-	buf_map_key(bufnr, 'n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-	buf_map_key(bufnr, 'n', '<space>s', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
+	buf_map_key(bufnr, 'n', '<Leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+	buf_map_key(bufnr, 'n', '<Leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+	buf_map_key(bufnr, 'n', '<Leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+	buf_map_key(bufnr, 'n', '<Leader>s', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>', opts)
 
 	-- definitions and referances
 	buf_map_key(bufnr, 'n', '<C-]>', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
@@ -73,7 +71,7 @@ local on_attach = function(client, bufnr)
 	buf_map_key(bufnr, 'n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
 
 	-- Diagnostics
-	buf_map_key(bufnr, 'n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+	buf_map_key(bufnr, 'n', '<Leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
 	buf_map_key(bufnr, 'n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
 	buf_map_key(bufnr, 'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
 
@@ -83,19 +81,30 @@ local on_attach = function(client, bufnr)
 	buf_map_key(bufnr, 'n', "<Leader>a", '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 end
 
+local servers = {}
+local start_server = function(_cmd, _root_dir, id)
+	if servers[id] == nil then
+		local client_id = vim.lsp.start_client{
+			cmd = _cmd,
+			root_dir = _root_dir,
+			on_attach = on_attach
+		}
+		servers[id] = client_id
+	end
+
+	vim.lsp.buf_attach_client(0, servers[id])
+end
+
 local lsp = {
 	-- C/C++ lsp
 	ccpp = {
 		setup = function()
-			local client_id = vim.lsp.start_client{
-				cmd = {
-					'clangd',
-					'--background-index'
-				},
-				root_dir = '.',
-				on_attach = on_attach
-			}
-			vim.lsp.buf_attach_client(0, client_id)
+			start_server({'clangd', '--background-index'}, '.', 'ccpp')
+		end
+	},
+	ts = {
+		setup = function()
+			start_server({'typescript-language-server', '--stdio'}, '.', 'ts')
 		end
 	}
 }

@@ -14,13 +14,12 @@
   "class": {
     "prefix": "class",
     "body": [
-      "class ${MyClass}",
-      "{",
+      "class $1 {",
       "private:",
-      "\t$1",
+      "\t$0",
       "public:",
-      "\t${MyClass}();",
-      "\t~${MyClass}();",
+      "\t$1();",
+      "\t~$1();",
       "};"
     ],
     "description": "Code snippet for classes"
@@ -56,8 +55,7 @@
     "body": [
       "#include <iostream>",
       "",
-      "int main (int argc, char *argv[])",
-      "{",
+      "int main (int argc, char *argv[]) {",
       "\t${0:std::cout << \"Hello world\" << std::endl;}",
       "\treturn 0;",
       "}"
