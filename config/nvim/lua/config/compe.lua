@@ -42,15 +42,4 @@ require'compe'.setup{
 }
 
 vim.opt.pumheight = math.floor(vim.o.lines / 2)
-vim.opt.pumwidth = math.floor(vim.o.columns / 1.5)
-
-opts = { noremap = false, silent = true, expr = true }
-map_key('i', '<C-space>', "compe#complete()", opts)
-map_key('i', '<CR>', "compe#confirm('<CR>')", opts)
-map_key('i', '<C-e>', "compe#close('<C-e>')", opts)
-map_key('i', '<C-f>', "compe#scroll({ 'delta': +4 })", opts)
-map_key('i', '<C-b>', "compe#scroll({ 'delta': -4 })", opts)
-
--- Conveniance
-map_key('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', opts)
-map_key('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"', opts)
+vim.opt.pumwidth = math.floor(vim.o.columns / 2)

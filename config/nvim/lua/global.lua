@@ -5,3 +5,7 @@ function set_var(...) vim.api.nvim_set_var(...) end
 function map_key(...) vim.api.nvim_set_keymap(...) end
 
 function buf_map_key(bufnr, ...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+
+function term(str)
+	return vim.api.nvim_replace_termcodes(str, true, true, true);
+end

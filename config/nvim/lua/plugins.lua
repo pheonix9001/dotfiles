@@ -6,13 +6,20 @@ return require'packer'.startup(function()
 	use'wbthomason/packer.nvim'
 
 	-- Functionality
-	use'hrsh7th/nvim-compe'
 	use'L3MON4D3/LuaSnip'
-
+	use {
+		'mattn/emmet-vim',
+		ft = {'css', 'html'},
+	}
+	vim.g.user_emmet_leader_key='<C-k>'
 	use {
 		'kyazdani42/nvim-tree.lua',
 		cmd = 'NvimTreeToggle'
 	}
+
+	-- Lsp
+	use'hrsh7th/nvim-compe'
+	use'ray-x/lsp_signature.nvim'
 
 	-- Tree sitter
 	use {
@@ -32,11 +39,6 @@ return require'packer'.startup(function()
 		'hoob3rt/lualine.nvim',
 		requires = {'ryanoasis/vim-devicons'}
 	}
-	use {
-		'mattn/emmet-vim',
-		ft = {'css', 'html'},
-	}
-	vim.g.user_emmet_leader_key='<Leader>'
 
 	-------------------
 	-- Functionality

@@ -1,5 +1,4 @@
--- Function aliases
-local function map_key(...) vim.api.nvim_set_keymap(...) end
+require'global'
 
 local opts = { noremap = true }
 
@@ -21,3 +20,53 @@ map_key('n', '<F6>', '<Cmd>so %<CR>', opts)
 map_key('n', '<Leader>n', '<Cmd>nohls<CR>', opts)
 map_key('n', '<C-p>', "<Cmd>call fzf#run(fzf#wrap({'source': 'fd -t f'}))<CR>", opts)
 map_key('n', '<C-n>', '<Cmd>NvimTreeToggle<CR>', opts)
+
+-- luasnip
+opts = { noremap = false, expr = true }
+
+local function check_back_space()
+	local col = vim.fn.col('.') - 1
+	if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+		return true
+	else
+		return false
+	end
+end
+
+_G.si_tab = function()
+	if vim.fn.pumvisible() == 1
+	then
+		return term'<C-n>'
+	elseif check_back_space()
+	then
+		return term'<Tab>'
+	else
+		return vim.fn['compe#complete']()
+	end
+end
+
+_G.si_s_tab = function()
+	if vim.fn.pumvisible() == 1
+	then
+		return term'<C-p>'
+	else
+		return term'<S-Tab>'
+	end
+end
+
+map_key('s', '<C-k>', '<Plug>luasnip-expand-or-jump', {noremap = true})
+
+-- Tab
+map_key('i', '<Tab>', 'v:lua.si_tab()', opts)
+map_key('s', '<Tab>', 'v:lua.si_tab()', opts)
+map_key('i', '<S-Tab>', 'v:lua.si_s_tab()', opts)
+map_key('s', '<S-Tab>', 'v:lua.si_s_tab()', opts)
+
+-- Compe
+opts = { noremap = false, silent = true, expr = true }
+map_key('i', '<C-space>', "compe#complete()", opts)
+map_key('i', '<CR>', "compe#confirm('<CR>')", opts)
+
+map_key('i', '<C-e>', "compe#close('<C-e>')", opts)
+map_key('i', '<C-f>', "compe#scroll({ 'delta': +4 })", opts)
+map_key('i', '<C-b>', "compe#scroll({ 'delta': -4 })", opts)
