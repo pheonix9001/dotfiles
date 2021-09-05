@@ -41,7 +41,7 @@ _G.si_tab = function()
 	then
 		return term'<Tab>'
 	else
-		return vim.fn['compe#complete']()
+		return require'cmp'.complete()
 	end
 end
 
@@ -61,12 +61,3 @@ map_key('i', '<Tab>', 'v:lua.si_tab()', opts)
 map_key('s', '<Tab>', 'v:lua.si_tab()', opts)
 map_key('i', '<S-Tab>', 'v:lua.si_s_tab()', opts)
 map_key('s', '<S-Tab>', 'v:lua.si_s_tab()', opts)
-
--- Compe
-opts = { noremap = false, silent = true, expr = true }
-map_key('i', '<C-space>', "compe#complete()", opts)
-map_key('i', '<CR>', "compe#confirm('<CR>')", opts)
-
-map_key('i', '<C-e>', "compe#close('<C-e>')", opts)
-map_key('i', '<C-f>', "compe#scroll({ 'delta': +4 })", opts)
-map_key('i', '<C-b>', "compe#scroll({ 'delta': -4 })", opts)

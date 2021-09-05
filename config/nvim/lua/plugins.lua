@@ -8,18 +8,18 @@ return require'packer'.startup(function()
 	-- Functionality
 	use'L3MON4D3/LuaSnip'
 	use {
-		'mattn/emmet-vim',
-		ft = {'css', 'html'},
-	}
-	vim.g.user_emmet_leader_key='<C-k>'
-	use {
 		'kyazdani42/nvim-tree.lua',
 		cmd = 'NvimTreeToggle'
 	}
 
 	-- Lsp
-	use'hrsh7th/nvim-compe'
 	use'ray-x/lsp_signature.nvim'
+
+	-- cmp
+	use'hrsh7th/nvim-cmp'
+	use'hrsh7th/cmp-nvim-lsp'
+	use'hrsh7th/cmp-buffer'
+	use'saadparwaiz1/cmp_luasnip'
 
 	-- Tree sitter
 	use {
@@ -34,7 +34,6 @@ return require'packer'.startup(function()
 	-- Looks
 	use'mhinz/vim-startify'
 	use'arcticicestudio/nord-vim'
-	--use'shaunsingh/nord.nvim'
 	use {
 		'hoob3rt/lualine.nvim',
 		requires = {'ryanoasis/vim-devicons'}
@@ -43,7 +42,8 @@ return require'packer'.startup(function()
 	-------------------
 	-- Functionality
 	-------------------
-	require'config/compe'
+	-- require'config/compe'
+	require'config/cmp'
 	require'config/luasnip'
 	require'config/fzf'
 	require'config/tree-sitter'
