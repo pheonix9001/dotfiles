@@ -10,7 +10,6 @@
     "body": ["enum class ${MyClass} { };"],
     "description": "Code snippet for enum class (c++11)"
   },
-
   "class": {
     "prefix": "class",
     "body": [
@@ -22,44 +21,62 @@
       "\t~$1();",
       "};"
     ],
-    "description": "Code snippet for classes"
+    "description": "Creates a class"
   },
-
   "namespace": {
     "prefix": "namespace",
-    "body": ["namespace ${1:MyNamespace}", "{", "\t$0", "} /* namespace $1 */"]
+    "body": ["namespace ${1:MyNamespace} {", "\t${0:$TM_SELECTED_TEXT}", "} /* namespace $1 */"]
   },
 
   "try": {
     "prefix": "try",
     "body": [
-      "try",
-      "{",
-      "\t",
-      "}",
-      "catch (const std::exception&)",
-      "{",
+      "try {",
       "\t$1",
+      "}",
+      "catch (const std::exception&) {",
+      "\t$0",
       "}"
     ],
-    "description": "Code snippet for try catch"
-  },
-  "cout": {
-    "prefix": "cout",
-    "body": ["std::cout << \"${1:/* message */}\" << std::endl;"],
-    "description": "Code snippet for printing to std::cout, provided the header is set"
+    "description": "Creates a try-catch statement"
   },
 
-  "Standard Starter Template": {
-    "prefix": "sst",
-    "body": [
-      "#include <iostream>",
-      "",
-      "int main (int argc, char *argv[]) {",
-      "\t${0:std::cout << \"Hello world\" << std::endl;}",
-      "\treturn 0;",
-      "}"
-    ],
-    "description": "A standard starter template for a C program"
-  }
+  "std::cout": {
+    "prefix": "cout",
+    "body": ["std::cout << \"${0:/* message */}\" << std::endl;"],
+    "description": "Creates a std::cout statement"
+  },
+  "std::cerr": {
+    "prefix": "cerr",
+    "body": ["std::cerr << \"${0:/* message */}\" << std::endl;"],
+    "description": "Creates a std::cerr statement"
+  },
+	"#include <>": {
+		"prefix": "inc",
+		"body": ["#include <$0>"],
+		"description": "Creates an #include <>"
+	},
+
+	"Contructer": {
+		"prefix": "mem",
+		"body": [
+			"$1::$1($2) {",
+			"\t$0",
+			"}"
+			],
+		"description": "Creates a contructer"
+	},
+
+	"Standard Starter Template": {
+		"prefix": "sst",
+		"body": [
+			"#include <iostream>",
+			"",
+			"int main (int argc, char *argv[]) {",
+			"\t${0:std::cout << \"Hello world\" << std::endl;}",
+			"\treturn 0;",
+			"}"
+		],
+		"description": "A standard starter template for a C program"
+	}
 }

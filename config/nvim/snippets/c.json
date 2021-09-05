@@ -4,6 +4,11 @@
 		"body": ["struct $1 {", "\t${0}", "};"],
 		"description": "Code snippet for struct"
 	},
+	"#include <>": {
+		"prefix": "inc",
+		"body": ["#include <$0.h>"],
+		"description": "Creates an #include <.h>"
+	},
 	"sst": {
 		"prefix": "sst",
 		"description": "A standard starter template for a C program",
