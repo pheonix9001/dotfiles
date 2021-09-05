@@ -4,7 +4,7 @@ export PAGER="less"
 export MANPAGER="nvim -c 'set ft=man'"
 
 export LESSHISTFILE=".cache/less/history"
-export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export CARGO_HOME="~/.cache/cargo"
 export PATH=$PATH:~/.local/bin
 
 export FZF_DEFAULT_OPTS="--height=70% --reverse --tiebreak=end,length,index --prompt=\"λ \""
@@ -18,8 +18,11 @@ gf () {
 }
 
 alias nf="gf 'fd -t f --color always' 'nvim'"
-alias cf="gf 'fd -t d --color always' 'cd'"
 alias of="gf 'fd -t f --color always' 'xdg-open'"
+
+alias cf="gf 'fd -t d --color always' 'cd'"
+alias pf="gf 'fd -t d --color always' 'pushd'"
+alias pd="popd"
 
 af () {
 	output=$(fzf --disabled -e --ansi --bind "change:reload:ag --color {q} || true")
@@ -50,6 +53,7 @@ alias gd="git diff"
 alias gr="git reset"
 alias grm="git rm"
 alias gs="git status"
+alias gl="git log"
 
 alias cp="cp -i"
 alias rm="rm -i"

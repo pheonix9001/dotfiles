@@ -130,6 +130,10 @@ super + o; super + n
 super + o; super + g
 	dunstify -a Sxhkd "Opening brave" && brave-browser-nightly
 
+# open meet
+super + o; super + m
+	dex ~/Desktop/meet.desktop
+
 # open passmenu
 super + p
 	passmenu -p "pass: "

@@ -13,7 +13,7 @@ static int rx_prev_bytes, tx_prev_bytes;
 static char rx_bytes_str[32], tx_bytes_str[32];
 
 void networkModule() {
-  lseek(rx_bytes_fd, 0, SEEK_SET);
+	lseek(rx_bytes_fd, 0, SEEK_SET);
   lseek(tx_bytes_fd, 0, SEEK_SET);
 
   read(rx_bytes_fd, rx_bytes_str, 32);
