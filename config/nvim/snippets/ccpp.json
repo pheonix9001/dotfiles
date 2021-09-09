@@ -65,8 +65,8 @@
 		"body": [
 			"case $1:",
 			"\t$2",
-			"\tbreak;",
-			"$0"],
+			"\tbreak;$0"
+			],
 		"description": "Creates a case branch"
 	},
 

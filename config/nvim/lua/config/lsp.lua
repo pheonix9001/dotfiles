@@ -44,25 +44,9 @@ local on_attach = function(client, bufnr)
 	buf_map_key(bufnr, 'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
 
 	-- Misc
-	buf_map_key(bufnr, 'n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+	buf_map_key(bufnr, 'n', '<Leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 	buf_map_key(bufnr, 'n', "gq", '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 	buf_map_key(bufnr, 'n', "<Leader>a", '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-
-	-------------
-	-- Plugins
-	-------------
-	require'lsp_signature'.on_attach{
-		floating_window = false,
-		hint_enable = true,
-		hint_prefix = '>',
-		hint_scheme = 'String',
-		bind = true,
-		handler_opts = {
-			border = 'none'
-		},
-		padding = '',
-		trigger_on_newline = true
-	}
 end
 
 local servers = {}

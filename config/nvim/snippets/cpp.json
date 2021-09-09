@@ -1,8 +1,8 @@
 {
   "foreach": {
     "prefix": "foreach",
-    "body": ["for(auto ${var} : ${collection_to_loop})", "{", "\t$1", "}"],
-    "description": "Code snippet for range-based for loop (c++11) statement"
+    "body": ["for(auto $1 : $2) {", "\t$0", "}"],
+    "description": "Creates a range-based for loop (c++11) statement"
   },
 
   "enum class": {

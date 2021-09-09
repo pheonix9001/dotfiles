@@ -18,6 +18,10 @@ syntax enable
 vim.opt.linebreak = true
 vim.opt.wrap = false
 vim.opt.hls = true
+vim.opt.list = true
+vim.opt.listchars = {
+	tab = '..'
+}
 
 -- UI
 vim.opt.number = false

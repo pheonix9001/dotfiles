@@ -3,33 +3,58 @@ local function map_key(...) vim.api.nvim_set_keymap(...) end
 opts = { noremap = false, expr = true }
 
 return require'packer'.startup(function() 
+	--######################
+	-- Use definitions
+	--######################
 	use'wbthomason/packer.nvim'
 
 	-- Functionality
-	use'L3MON4D3/LuaSnip'
+	use {
+		'L3MON4D3/LuaSnip',
+		config = "require'config/lualine'"
+	}
+
+	use {
+	'tpope/vim-commentary',
+	config = "vim.cmd[[au FileType cpp setlocal commentstring =//\\ %s]]"
+	}
+	use'takac/vim-hardtime'
 	use {
 		'kyazdani42/nvim-tree.lua',
 		cmd = 'NvimTreeToggle'
 	}
 
-	-- Lsp
-	use'ray-x/lsp_signature.nvim'
-
 	-- cmp
-	use'hrsh7th/nvim-cmp'
-	use'hrsh7th/cmp-nvim-lsp'
-	use'hrsh7th/cmp-buffer'
-	use'saadparwaiz1/cmp_luasnip'
+	use {
+		'hrsh7th/nvim-cmp',
+		reqires = {
+			'hrsh7th/cmp-nvim-lsp',
+			'hrsh7th/cmp-buffer',
+			'saadparwaiz/cmp_lusnip'
+		},
+		config = "require'config/cmp'"
+	}
+
+	-- vim wiki
+	use {
+		'vimwiki/vimwiki',
+		run = "vim.cmd[[let g:vimwiki_list = [{'path': '~/Documents/vimwiki/'}] ]]"
+	}
 
 	-- Tree sitter
 	use {
 		'nvim-treesitter/nvim-treesitter',
-		run = ":TSUpdate"
+		run = ':TSUpdate',
+		config = "require'config/tree-sitter'"
 	}
 	use {
 		'nvim-treesitter/playground',
 		cmd = "TSPlaygroundToggle"
 	}
+
+	-- Misc
+	vim.g.hardtime_default_on = 1
+	vim.g.hardtime_maxcount = 4
 
 	-- Looks
 	use'mhinz/vim-startify'
@@ -39,15 +64,15 @@ return require'packer'.startup(function()
 		requires = {'ryanoasis/vim-devicons'}
 	}
 
+	--######################
+	-- Configs
+	--######################
+
 	-------------------
 	-- Functionality
 	-------------------
-	-- require'config/compe'
-	require'config/cmp'
-	require'config/luasnip'
-	require'config/fzf'
-	require'config/tree-sitter'
 
+	require'config/fzf'
 	---------------------------
 	-- Looks
 	----------------------------
@@ -60,9 +85,6 @@ return require'packer'.startup(function()
 	--vim.g.nord_italic = true
 	--vim.g.nord_contrast = true
 	vim.cmd[[colorscheme nord]]
-
-	-- Lualine
-	require'config/lualine'
 
 	-- Startify
 	vim.g.startify_custom_header = {
