@@ -20,6 +20,7 @@ x-scheme-handler/discord-589393213723246592=discord-589393213723246592.desktop
 image/jpg=sxiv.desktop
 image/=sxiv.desktop
 image/jpeg=sxiv.desktop
+application/pdf=org.pwmt.zathura.desktop
 
 [Added Associations]
 x-scheme-handler/http=firefox.desktop;

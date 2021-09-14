@@ -11,88 +11,81 @@ return require'packer'.startup(function()
 	-- Functionality
 	use {
 		'L3MON4D3/LuaSnip',
-		config = "require'config/lualine'"
+		ft = {'cpp', 'c'},
+		config = [[require'config/luasnip']]
 	}
 
+	-- Vim plugins
 	use {
-	'tpope/vim-commentary',
-	config = "vim.cmd[[au FileType cpp setlocal commentstring =//\\ %s]]"
+		'tpope/vim-commentary',
+		config = function()
+			vim.cmd[[au FileType cpp setlocal commentstring =//\ %s]]
+		end
 	}
-	use'takac/vim-hardtime'
+	use {
+		'takac/vim-hardtime',
+		config = function()
+			vim.g.hardtime_default_on = 1
+			vim.g.hardtime_maxcount = 4
+		end
+	}
+	use'wellle/targets.vim'
+
 	use {
 		'kyazdani42/nvim-tree.lua',
 		cmd = 'NvimTreeToggle'
 	}
 
-	-- cmp
+	-- Cmp
 	use {
 		'hrsh7th/nvim-cmp',
-		reqires = {
+		requires = {
 			'hrsh7th/cmp-nvim-lsp',
 			'hrsh7th/cmp-buffer',
-			'saadparwaiz/cmp_lusnip'
+			'saadparwaiz1/cmp_luasnip'
 		},
-		config = "require'config/cmp'"
+		config = [[require'config/cmp']]
 	}
+
+	-- lsp
 
 	-- vim wiki
 	use {
 		'vimwiki/vimwiki',
-		run = "vim.cmd[[let g:vimwiki_list = [{'path': '~/Documents/vimwiki/'}] ]]"
+		run = function()
+			vim.cmd[[let g:vimwiki_list = [{'path': '~/Documents/vimwiki/'}] ]]
+		end
 	}
 
 	-- Tree sitter
 	use {
 		'nvim-treesitter/nvim-treesitter',
 		run = ':TSUpdate',
-		config = "require'config/tree-sitter'"
+		config = [[require'config/tree-sitter']]
 	}
 	use {
 		'nvim-treesitter/playground',
-		cmd = "TSPlaygroundToggle"
+		cmd = 'TSPlaygroundToggle'
 	}
 
-	-- Misc
-	vim.g.hardtime_default_on = 1
-	vim.g.hardtime_maxcount = 4
-
 	-- Looks
-	use'mhinz/vim-startify'
-	use'arcticicestudio/nord-vim'
+	use {
+		'arcticicestudio/nord-vim',
+		config = function()
+			-- Nord
+			vim.opt.termguicolors = true
+			vim.g.nord_uniform_diff_background = true
+			vim.g.nord_bold = true
+			vim.g.nord_italic_comments = true
+
+			vim.cmd[[colorscheme nord]]
+		end
+	}
 	use {
 		'hoob3rt/lualine.nvim',
-		requires = {'ryanoasis/vim-devicons'}
+		requires = {'ryanoasis/vim-devicons'},
+		config = [[require'config/lualine']]
 	}
-
-	--######################
-	-- Configs
-	--######################
-
-	-------------------
-	-- Functionality
-	-------------------
 
 	require'config/fzf'
-	---------------------------
-	-- Looks
-	----------------------------
-	-- Nord
-	vim.opt.termguicolors = true
-	vim.g.nord_uniform_diff_background = true
-	vim.g.nord_bold = true
-	vim.g.nord_italic_comments = true
-
-	--vim.g.nord_italic = true
-	--vim.g.nord_contrast = true
-	vim.cmd[[colorscheme nord]]
-
-	-- Startify
-	vim.g.startify_custom_header = {
-		'                         .__         ',
-		'  ____   ____  _______  _|__| _____  ',
-		' /    \\_/ __ \\/  _ \\  \\/ /  |/     \\ ',
-		'|   |  \\  ___(  <_> )   /|  |  Y Y  \\',
-		'|___|  /\\___  >____/ \\_/ |__|__|_|  /',
-		'     \\/     \\/                    \\/ ',
-	}
 end)

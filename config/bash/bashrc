@@ -1,7 +1,6 @@
 #!/bin/bash
 
 export PAGER="less"
-export MANPAGER="nvim -c 'set ft=man'"
 
 export LESSHISTFILE=".cache/less/history"
 export CARGO_HOME="~/.cache/cargo"
@@ -10,6 +9,10 @@ export PATH=$PATH:~/.local/bin
 export FZF_DEFAULT_OPTS="--height=70% --reverse --tiebreak=end,length,index --prompt=\"λ \""
 HISTFILE="~/.cache/bash/history"
 export PS1=" \e[36m\w\e[37;2m>\e[0m\n \e[32mλ \e[0m"
+
+#alias aliases
+alias watch='watch '
+alias doas='doas '
 
 # generic fuzzer
 gf () {
@@ -34,6 +37,7 @@ af () {
 alias n="nvim"
 alias tsm="transmission-remote"
 alias zthr="zathura"
+alias neofetch="neofetch --ascii ~/.config/neofetch/ascii/scp.ascii"
 
 alias dv="dirs -v"
 alias pd="pushd"

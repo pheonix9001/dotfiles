@@ -44,9 +44,14 @@ local on_attach = function(client, bufnr)
 	buf_map_key(bufnr, 'n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
 
 	-- Misc
-	buf_map_key(bufnr, 'n', '<Leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+	buf_map_key(bufnr, 'n', 'gR', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 	buf_map_key(bufnr, 'n', "gq", '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 	buf_map_key(bufnr, 'n', "<Leader>a", '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+
+	--------------------
+	-- Lsp plugins
+	-------------------
+	require'virtualtypes'.on_attach(client, bufnr)
 end
 
 local servers = {}
