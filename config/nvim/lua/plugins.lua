@@ -52,9 +52,19 @@ return require'packer'.startup(function()
 	-- vim wiki
 	use {
 		'vimwiki/vimwiki',
-		run = function()
+		config = function()
 			vim.cmd[[let g:vimwiki_list = [{'path': '~/Documents/vimwiki/'}] ]]
 		end
+	}
+
+	-- nvim dap
+	use {
+		'mfussenegger/nvim-dap',
+		config = [[require'config/dap']],
+		ft = {'c', 'cpp'},
+		requires = {
+			'rcarriga/nvim-dap-ui'
+		}
 	}
 
 	-- Tree sitter

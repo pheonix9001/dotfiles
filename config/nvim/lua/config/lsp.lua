@@ -3,9 +3,6 @@ require'global'
 -- Enable completion triggered by <c-x><c-o>
 vim.opt.omnifunc = 'v:lua.vim.lsp.omnifunc'
 
---------------------
--- Setup lsp servers
---------------------
 local on_attach = function(client, bufnr)
 	-----------------
 	-- Diagnostics
@@ -47,39 +44,44 @@ local on_attach = function(client, bufnr)
 	buf_map_key(bufnr, 'n', 'gR', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 	buf_map_key(bufnr, 'n', "gq", '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 	buf_map_key(bufnr, 'n', "<Leader>a", '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-
-	--------------------
-	-- Lsp plugins
-	-------------------
-	require'virtualtypes'.on_attach(client, bufnr)
 end
 
 local servers = {}
-local start_server = function(_cmd, _root_dir, id)
-	if servers[id] == nil then
-		local client_id = vim.lsp.start_client{
-			cmd = _cmd,
-			root_dir = _root_dir,
-			on_attach = on_attach
-		}
-		servers[id] = client_id
-	end
+local start_server = function(_client_obj, id)
+	local client_obj = _client_obj
+	client_obj['on_attach'] = client_obj['on_attach'] or on_attach
+
+	servers[id] = servers[id] or vim.lsp.start_client(client_obj)
 
 	vim.lsp.buf_attach_client(0, servers[id])
 end
 
+--------------------
+-- Lsp servers
+--------------------
 local lsp = {
 	-- C/C++ lsp
 	ccpp = {
 		setup = function()
-			start_server({'clangd', '--background-index'}, '.', 'ccpp')
+			start_server({
+				cmd = {'ccls'},
+				root_dir = vim.fn.getcwd(),
+
+				init_options = {
+					compilationDatabaseDirectory = 'build',
+					diagnostic = {
+						onChange = 0
+					}
+				}
+			}, 'ccpp')
 		end
 	},
+
 	ts = {
 		setup = function()
 			start_server({'typescript-language-server', '--stdio'}, '.', 'ts')
 		end
-	}
+	},
 }
 
 return lsp
