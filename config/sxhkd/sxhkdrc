@@ -66,11 +66,6 @@ super + alt + c
 super + z
 	~/.scripts/misc/lockscreen
 
-# sleep lock screen
-super + alt + s
-	~/.scripts/misc/lockscreen & \
-	xset dpms force off
-
 # screenshot
 super + a; super + s
 	~/.scripts/dmenu/screenshot

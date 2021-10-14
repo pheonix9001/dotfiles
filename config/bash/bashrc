@@ -12,7 +12,7 @@ export PS1=" \e[36m\w\e[37;2m>\e[0m\n \e[32mλ \e[0m"
 
 #alias aliases
 alias watch='watch '
-alias doas='asroot '
+alias doas='doas '
 
 # generic fuzzer
 gf () {
@@ -20,28 +20,18 @@ gf () {
 	[[ -n $f ]] && $2 $f
 }
 
-# fuzzy aliases
 alias nf="gf 'fd -t f --color always' 'nvim'"
 alias of="gf 'fd -t f --color always' 'xdg-open'"
 
 alias cf="gf 'fd -t d --color always' 'cd'"
-alias lcf="gf 'fd -t d --color always' 'lcd'"
+alias pf="gf 'fd -t d --color always' 'pushd'"
+alias pd="popd"
 
-af() {
+af () {
 	output=$(fzf --disabled -e --ansi --bind "change:reload:ag --color {q} || true")
 	line="$(echo $output | cut -d: -f2)"
 	file="$(echo $output | cut -d: -f1)"
 	nvim -c "set nofoldenable" "+$line" "$file"
-}
-
-mf() {
-	page=$(fd -t f --color always --base-directory=/usr/share/man . | \
-		fzf --ansi --tiebreak length,index \
-		--preview 'cat /usr/share/man/{} |
-		gunzip | groff -man -Tascii |
-		bat -l man --pager=never --color always --decorations never')
-
-	cat "/usr/share/man/$page" | gunzip | groff -man -Tascii | bat -l man | less
 }
 
 alias n="nvim"
@@ -53,7 +43,6 @@ alias dv="dirs -v"
 alias pd="pushd"
 alias ppd="popd"
 
-# c++ build aliases
 alias nj="ninja"
 alias njb="ninja -C build"
 alias mb="meson build"
@@ -78,17 +67,9 @@ touch /dev/shm/pwd
 function cd () {
 	builtin cd $@
 	echo -en "\e]0;bash: $(pwd)\a"
-	pwd > /dev/shm/pwd
+  pwd > /dev/shm/pwd
 }
-
-function lcd() {
-	builtin cd $@
-}
-
-if [[ $(pwd) == '/tmp/wm' ]]
-then
-	cd $(cat /dev/shm/pwd)
-fi
+cd $(cat /dev/shm/pwd)
 
 #nordic tty?
 if [[ $TERM = "linux" ]]

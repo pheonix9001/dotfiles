@@ -9,7 +9,6 @@
 #include <string>
 
 #include "redraw.h"
-#include "modules.h"
 
 int temperature_fd;
 
@@ -51,7 +50,7 @@ void tempModule() {
 
 time_t rawtime;
 tm timestruct;
-FunctionModule timeModule{[](Module* self) {
+void timeModule() {
   rawtime = time(0);
   timestruct = *localtime(&rawtime);
 
@@ -60,7 +59,7 @@ FunctionModule timeModule{[](Module* self) {
       timestruct.tm_min,
       timestruct.tm_sec
       );
-}};
+}
 
 /*
 void audioModule() {

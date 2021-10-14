@@ -6,8 +6,15 @@
 
 #include "network.h"
 #include "misc.h"
-#include "moduledefs.h"
+#include "asyncmodules.h"
 #include "redraw.h"
+
+extern AsyncModule windowModule;
+extern AsyncModule desktopModule;
+
+std::vector<Module> rmodules = {
+	{tempModule}, {networkModule}
+};
 
 void loadModuleFromFile(const char* modulepath, char* buffer, int size) {
   int output[2];
@@ -25,3 +32,19 @@ void loadModuleFromFile(const char* modulepath, char* buffer, int size) {
   close(output[0]);
   close(output[1]);
 }
+
+void redraw(uv_timer_t* handle) {
+	std::cout << " " << desktopModule.buf << " " << windowModule.buf;
+
+	// center aligned modules
+	std::cout << "%{c}";
+	timeModule();
+
+	// right aligned modules
+	std::cout << "%{r}";
+	for(Module mod: rmodules) {
+		mod.draw();
+	}
+	std::cout << "\n";
+	std::cout.flush();
+};

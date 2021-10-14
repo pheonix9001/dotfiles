@@ -43,7 +43,7 @@
 
   "std::cout": {
     "prefix": "cout",
-    "body": ["std::cout << ${0:\"/* message */\"} << std::endl;"],
+    "body": ["std::cout << \"${0:/* message */}\" << std::endl;"],
     "description": "Creates a std::cout statement"
   },
   "std::cerr": {

@@ -3,13 +3,13 @@
 #include <memory>
 #include <xcb/xcb.h>
 #include <stdio.h>
+#include <uv.h>
 
-#include "moduledefs.h"
+#include "asyncmodules.h"
 #include "redraw.h"
-#include "modules.h"
 
-xcb_connection_t *dpy = xcb_connect(0, 0);
-xcb_window_t root = xcb_setup_roots_iterator(xcb_get_setup(dpy)).data->root;
+xcb_connection_t *dpy;
+xcb_window_t root;
 
 extern AsyncModule windowModule;
 extern AsyncModule desktopModule;
@@ -70,6 +70,7 @@ void eventHandlerFunc() {
   // get atoms
   xcb_atom_t active_win = my_intern_atom("_NET_ACTIVE_WINDOW");
   xcb_atom_t active_desktop = my_intern_atom("_NET_CURRENT_DESKTOP");
+	xcb_atom_t window_name = XCB_ATOM_WM_NAME;
 
   xcb_generic_event_t *ev;
   while ((ev = xcb_wait_for_event(dpy))) {
@@ -77,18 +78,29 @@ void eventHandlerFunc() {
     case XCB_PROPERTY_NOTIFY: {
       auto e = (xcb_property_notify_event_t *)ev;
 
-				if (e->atom == active_win) {
-					windowModule.update();
-				} else if (e->atom == active_desktop) {
-					desktopModule.update();
-				}
-				break;
-			}
-			default:
-				// do nothing
-				break;
-		}
+      if (e->atom == active_win) {
+				uv_async_send(&windowModule.async);
+				// auto focus = xcb_get_input_focus_reply(dpy,
+						// xcb_get_input_focus(dpy),
+						// 0);
 
-		delete ev;
-	}
+				// int len;
+				// char * ret = (char *)get_atom_value(focus->focus, window_name, len);
+				// snprintf(windowname, 64, "WM_NAME: %s",
+						// ret
+						// );
+
+				// delete focus;
+      } else if (e->atom == active_desktop) {
+				uv_async_send(&desktopModule.async);
+      }
+      break;
+    }
+    default:
+      // do nothing
+      break;
+    }
+
+    delete ev;
+  }
 }
