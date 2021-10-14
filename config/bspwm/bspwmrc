@@ -59,9 +59,11 @@ background { picom --experimental-backend }
 background { dunst }
 
 background { 
-pipeline { ${~}/.config/lemonbar/controllemonbar }
-pipeline { lemonbar -gx15 -f"mononoki Nerd Font:pixelsize=13:antialias=true" -B#2e3440 -F#d8dee9 -U#88c0d0 -o2 }
-ash -s
+	pipeline { ${~}/.config/lemonbar/controllemonbar }
+	pipeline {
+		lemonbar -gx15 -f"mononoki Nerd Font:pixelsize=13:antialias=true" -B#2e3440 -F#d8dee9 -U#88c0d0 -o2
+	}
+	ash -s
 }
 
 #####################
@@ -69,7 +71,7 @@ ash -s
 #####################
 foreground { echo -e "\\e[34m\\e[1m::\\e[37m Setting wallpaper...\\e[0m" }
 background {
-	sh -c "hsetroot -solid '#2e3440' -center ~/Pictures/wallpapers/center.png" 
+	sh -c "hsetroot -solid '#2e3440' -fill ~/Pictures/wallpapers/fill.png -center ~/Pictures/wallpapers/center.png" 
 }
 
 foreground { echo -e "\\e[34m\\e[1m::\\e[37m Configuring X...\\e[0m" }
@@ -93,6 +95,7 @@ background { xrdb -I${~}/.config/Xres ${~}/.config/Xres/main.xres } # load Xreso
 #####################
 foreground { echo -e "\\e[34m\\e[1m::\\e[37m Configuring bspwm...\\e[0m" }
 
+# directly talk with bspwm
 foreground { bspc config border_width					0 }
 foreground { bspc config window_gap						1 }
 foreground { bspc config left_padding					0 }

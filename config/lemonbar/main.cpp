@@ -4,13 +4,13 @@
 #include <xcb/xcb.h>
 #include <string.h>
 #include <thread>
-#include <uv.h>
 
 #include <iostream>
 
 #include "x.h"
 #include "redraw.h"
-#include "asyncmodules.h"
+#include "moduledefs.h"
+#include "modules.h"
 
 extern xcb_connection_t* dpy;
 extern xcb_window_t root;
@@ -20,43 +20,44 @@ extern int temperature_fd;
 
 extern AsyncModule windowModule;
 extern AsyncModule desktopModule;
+extern FunctionModule timeModule;
 
-uv_loop_t* defloop;
-uv_timer_t drawtimer;
+Bar mainbar{};
 
 // on exit function
 void onExit(int, void *) {
-  write(2, "ending", 6);
+	write(2, "ending", 6);
 	xcb_disconnect(dpy);
 }
 
 int main(){
-	// xcb stuff
-	dpy = xcb_connect(0, 0);
-	root = xcb_setup_roots_iterator(xcb_get_setup(dpy)).data->root;
-
-	// libuv stuff
-	defloop = uv_default_loop();
-
-  // register signal handlers
-  on_exit(onExit, 0);
+	// register signal handlers
+	on_exit(onExit, 0);
 
 	// open some file descriptors
-  rx_bytes_fd = open("/sys/class/net/wlan0/statistics/rx_bytes", O_RDONLY);
-  tx_bytes_fd = open("/sys/class/net/wlan0/statistics/tx_bytes", O_RDONLY);
+	rx_bytes_fd = open("/sys/class/net/wlan0/statistics/rx_bytes", O_RDONLY);
+	tx_bytes_fd = open("/sys/class/net/wlan0/statistics/tx_bytes", O_RDONLY);
 	temperature_fd = open("/sys/class/thermal/thermal_zone1/temp", O_RDONLY);
-
-	// async modules
-	uv_async_send(&windowModule.async);
-	uv_async_send(&desktopModule.async);
 
 	// handles X events
 	std::thread eventHandler{eventHandlerFunc};
 
-	// setup default timer
-	// uv_timer_init(defloop, &drawtimer);
-	uv_timer_init(defloop, &drawtimer);
-	uv_timer_start(&drawtimer, redraw, 0, 1000);
+	windowModule.update();
+	desktopModule.update();
 
-	return uv_run(defloop, UV_RUN_DEFAULT);
+	TextModule space{" "};
+	TextModule center{"%{c}"};
+
+	mainbar.modules = {
+		(Module*)&space, (Module*)&desktopModule, (Module*)&space, (Module*)&windowModule,
+		(Module*)&center, (Module*)&timeModule
+	};
+
+	while(true) {
+		mainbar.redraw();
+
+		std::this_thread::sleep_for(std::chrono::seconds{1});
+	}
+
+	return 0;
 }
