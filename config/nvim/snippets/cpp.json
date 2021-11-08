@@ -43,7 +43,7 @@
 
   "std::cout": {
     "prefix": "cout",
-    "body": ["std::cout << \"${0:/* message */}\" << std::endl;"],
+    "body": ["std::cout << ${0:/* message */} << std::endl;"],
     "description": "Creates a std::cout statement"
   },
   "std::cerr": {
@@ -72,7 +72,7 @@
 		"body": [
 			"#include <iostream>",
 			"",
-			"int main (int argc, char *argv[]) {",
+			"int main(int argc, char *argv[]) {",
 			"\t${0:std::cout << \"Hello world\" << std::endl;}",
 			"\treturn 0;",
 			"}"

@@ -31,6 +31,7 @@ vim.opt.lazyredraw = true
 vim.opt.confirm = true
 vim.opt.cursorline = true
 vim.opt.laststatus = 2
+vim.opt.colorcolumn = '80'
 
 -- Indentation
 vim.opt.shiftwidth = 2

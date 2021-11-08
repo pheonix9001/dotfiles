@@ -18,4 +18,5 @@ require'mappings'
 ----------------------
 vim.cmd[[
 au BufNewFile,BufRead *.md set wrap
+au FileType * lua require'config/lsp'
 ]]

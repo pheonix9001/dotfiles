@@ -1,0 +1,16 @@
+colorscheme default
+
+
+set global tabstop 2
+set global indentwidth 0
+
+# Highlghters
+addhl global/ show-matching
+addhl global/ show-whitespaces -tab " " -spc " "
+
+# Mapping
+map global normal <c-l> <a-l>
+map global normal <c-h> <a-h>
+
+source "%val{config}/config/lsp.kak" # lsp
+source "%val{config}/config/plugins.kak" # plugins

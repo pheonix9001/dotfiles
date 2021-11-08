@@ -60,8 +60,13 @@ end
 -- Lsp servers
 --------------------
 local lsp = {
+	default = {
+		setup = function()
+		end
+	},
+
 	-- C/C++ lsp
-	ccpp = {
+	c = {
 		setup = function()
 			start_server({
 				cmd = {'ccls'},
@@ -82,6 +87,20 @@ local lsp = {
 			start_server({'typescript-language-server', '--stdio'}, '.', 'ts')
 		end
 	},
-}
 
+	zig = {
+		setup = function()
+			start_server({
+				cmd = {'zls'},
+				root_dir = vim.fn.getcwd()
+			}, '.', 'zig')
+		end
+	}
+}
+lsp.cpp = lsp.c;
+
+if(lsp[vim.o.ft])
+then
+	lsp[vim.o.ft].setup();
+end
 return lsp

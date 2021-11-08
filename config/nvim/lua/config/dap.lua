@@ -35,8 +35,13 @@ map_key('n', '<F3>', ":lua require'dap'.toggle_breakpoint()<CR>", opts)
 map_key('n', '<F7>', ":lua require'dap'.step_over()<CR>", opts)
 map_key('n', '<F8>', ":lua require'dap'.step_into()<CR>", opts)
 
+local dapui = require'dapui'
+dap.listeners.after.event_initaizalized['dapui_config'] = function() dapui.open() end
+dap.listeners.before.event_terminated['dapui_config'] = function() dapui.close() end
+dap.listeners.before.event_existed['dapui_config'] = function() dapui.close() end
+
 -- dapui
-require'dapui'.setup {
+dapui.setup {
 	icons = { expanded = "▾", collapsed = "▸" },
 	mappings = {
 		-- Use a table to apply multiple mappings
@@ -47,7 +52,7 @@ require'dapui'.setup {
 		repl = "r",
 	},
 	sidebar = {
-		open_on_start = true,
+		open_on_start = false,
 		-- You can change the order of elements in the sidebar
 		elements = {
 			-- Provide as ID strings or tables with "id" and "size" keys
@@ -63,7 +68,7 @@ require'dapui'.setup {
 		position = "left", -- Can be "left", "right", "top", "bottom"
 	},
 	tray = {
-		open_on_start = true,
+		open_on_start = false,
 		elements = { "repl" },
 		size = 10,
 		position = "bottom", -- Can be "left", "right", "top", "bottom"
