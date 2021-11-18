@@ -22,6 +22,7 @@ return require'packer'.startup(function()
 			vim.cmd[[au FileType cpp setlocal commentstring =//\ %s]]
 		end
 	}
+	--[[
 	use {
 		'takac/vim-hardtime',
 		config = function()
@@ -29,6 +30,7 @@ return require'packer'.startup(function()
 			vim.g.hardtime_maxcount = 4
 		end
 	}
+	]]--
 	use'wellle/targets.vim'
 
 	use {

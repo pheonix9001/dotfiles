@@ -34,19 +34,20 @@ local function check_back_space()
 end
 
 _G.si_tab = function()
-	if vim.fn.pumvisible() == 1
+	if vim.fn.pumvisible() == 0
 	then
 		return term'<C-n>'
 	elseif check_back_space()
 	then
 		return term'<Tab>'
 	else
-		return require'cmp'.complete()
+		require'cmp'.complete()
+		return term''
 	end
 end
 
 _G.si_s_tab = function()
-	if vim.fn.pumvisible() == 1
+	if vim.fn.pumvisible() == 0
 	then
 		return term'<C-p>'
 	else

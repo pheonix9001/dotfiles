@@ -29,7 +29,7 @@ alias pf="gf 'fd -t d --color always' 'pushd'"
 alias pd="popd"
 
 af () {
-	output=$(fzf --disabled -e --ansi --bind "change:reload:ag --color {q} || true")
+	output=$(fzf --disabled -e --ansi --bind "change:reload:ag $@ --color {q} || true")
 	line="$(echo $output | cut -d: -f2)"
 	file="$(echo $output | cut -d: -f1)"
 	nvim -c "set nofoldenable" "+$line" "$file"
@@ -40,6 +40,7 @@ alias k="kak"
 alias tsm="transmission-remote"
 alias zthr="zathura"
 alias neofetch="neofetch --ascii ~/.config/neofetch/ascii/scp.ascii"
+alias update="doas pacman -Syu"
 
 alias dv="dirs -v"
 alias pd="pushd"
