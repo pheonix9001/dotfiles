@@ -3,10 +3,7 @@
 DESKTOPNAME=$(xdotool get_desktop)
 DESKTOPNUMS=$(xdotool get_num_desktops)
 
-if test $DESKTOPNAME == $(expr $DESKTOPNUMS - 1)
-then
-  bspc monitor -a ·
-fi
+test $DESKTOPNAME -eq $(expr $DESKTOPNUMS - 1) && bspc monitor -a ·
 
 bspc desktop -f next
 bspc desktop prev.\!occupied -r

@@ -7,11 +7,8 @@ for file in $(fd . $dir)
 do
 	echo -ne "\e[2K\e[G" 
 	echo -n "checking $file"
-	if pacman -Qo "$file" &> /dev/null; 
-	then
-		echo -ne "\e[2K\e[G$file is ok"
-	else
-		echo -e "\e[2K\e[Gno package owns $file"
-		sudo rm -ri $file
+	pacman -Qo "$file" &> /dev/null && echo -ne "\e[2K\e[G$file is ok"
+	echo -e "\e[2K\e[Gno package owns $file"
+	sudo rm -ri $file
 	fi
 done

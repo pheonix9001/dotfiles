@@ -35,7 +35,7 @@ parse_menu ()  {
 				ret=$( ( echo "<Menu>"
 				while rdom
 				do
-					[[ $E = "/Menu" ]] && break
+					test $E = "/Menu" && break
 					echo -n "<$E>$C"
 				done
 				echo "</Menu>" ) | parse_menu )

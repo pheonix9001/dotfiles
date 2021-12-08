@@ -3,10 +3,7 @@
 DESKTOPNAME=$(xdotool get_desktop)
 
 
-if test $DESKTOPNAME == "0"
-then
-  exit
-fi
+test $DESKTOPNAME = 0 && exit
 
 bspc desktop prev -f
 bspc desktop next.\!occupied -r

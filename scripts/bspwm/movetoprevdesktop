@@ -2,10 +2,7 @@
 
 DESKTOPNAME=$(xdotool get_desktop)
 
-if test $DESKTOPNAME == "0"
-then
-  exit
-fi
+test $DESKTOPNAME = 0 && exit
 
 bspc node focused -d prev --follow
 bspc desktop next.\!occupied -r
