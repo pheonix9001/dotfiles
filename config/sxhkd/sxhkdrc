@@ -130,6 +130,14 @@ super + o; super + n
 super + o; super + g
 	dunstify -a Sxhkd "Opening brave" && brave-nightly
 
+# open brave-tor
+super + o; super + t
+	dunstify -a Sxhkd "Opening brave tor" && brave-nightly --tor
+
+# open brave-private
+super + o; super + p
+	dunstify -a Sxhkd "Opening brave private" && brave-nightly --incognito
+
 # open meet
 super + o; super + m
 	dex ~/Desktop/meet.desktop

@@ -15,6 +15,11 @@ return require'packer'.startup(function()
 		config = [[require'config/luasnip']]
 	}
 
+	use {
+		'mattn/emmet-vim',
+		ft = {'html'}
+	}
+
 	-- Vim plugins
 	use {
 		'tpope/vim-commentary',

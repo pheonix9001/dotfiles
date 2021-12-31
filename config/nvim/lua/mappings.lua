@@ -34,7 +34,7 @@ local function check_back_space()
 end
 
 _G.si_tab = function()
-	if vim.fn.pumvisible() == 0
+	if require'cmp'.visible()
 	then
 		return term'<C-n>'
 	elseif check_back_space()
@@ -47,7 +47,7 @@ _G.si_tab = function()
 end
 
 _G.si_s_tab = function()
-	if vim.fn.pumvisible() == 0
+	if require'cmp'.visible()
 	then
 		return term'<C-p>'
 	else

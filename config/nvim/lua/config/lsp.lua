@@ -50,6 +50,7 @@ local servers = {}
 local start_server = function(_client_obj, id)
 	local client_obj = _client_obj
 	client_obj['on_attach'] = client_obj['on_attach'] or on_attach
+	client_obj['root_dir'] = vim.fn.getcwd()
 
 	servers[id] = servers[id] or vim.lsp.start_client(client_obj)
 
@@ -70,7 +71,6 @@ local lsp = {
 		setup = function()
 			start_server({
 				cmd = {'ccls'},
-				root_dir = vim.fn.getcwd(),
 
 				init_options = {
 					compilationDatabaseDirectory = 'build',
@@ -82,9 +82,11 @@ local lsp = {
 		end
 	},
 
-	ts = {
+	javascript = {
 		setup = function()
-			start_server({'typescript-language-server', '--stdio'}, '.', 'ts')
+			start_server({
+				cmd = {'typescript-language-server', '--stdio'}
+			}, 'javascript')
 		end
 	},
 
@@ -98,6 +100,7 @@ local lsp = {
 	}
 }
 lsp.cpp = lsp.c;
+lsp.typescript = lsp.javascript;
 
 if(lsp[vim.o.ft])
 then

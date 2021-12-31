@@ -3,7 +3,7 @@
 !!!!!!!!!!!!!!!!!!!!!
 *.background: #2e3440
 *.foreground: #d8dee9
-*.font: mononoki Nerd Font:pixelsize=13:antialias=true
+*.font: Iosevka:pixelsize=13:antialiasing=true
 *.tabspaces: 2
 
 !!!!!!!!!!!!!!!!!!!!!

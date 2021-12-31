@@ -35,6 +35,22 @@ af () {
 	nvim -c "set nofoldenable" "+$line" "$file"
 }
 
+# super ls
+sl () {
+	test -n "$1" && cd $1
+	test -z "$selection" && cd ..
+
+	echo "Select dir:"
+	while true
+	do
+		echo -e "\\e[1F\\e[0K$PWD"
+		test -z "$(ls -d */)" && exit
+		selection=$(ls -d */ .. | fzf)
+		cd "$selection"
+		test -z "$selection" && return
+	done
+}
+
 alias n="nvim"
 alias k="kak"
 alias tsm="transmission-remote"
@@ -70,7 +86,7 @@ touch /dev/shm/pwd
 function cd () {
 	builtin cd $@
 	echo -en "\e]0;bash: $(pwd)\a"
-  pwd > /dev/shm/pwd
+	pwd > /dev/shm/pwd
 }
 function lcd() {
 	builtin cd $@
@@ -78,24 +94,23 @@ function lcd() {
 [[ $PWD == "/tmp/wm" ]] && cd $(cat /dev/shm/pwd)
 
 #nordic tty?
-if [[ $TERM = "linux" ]]
-then
-	echo -en "\e]P02E3440"
-	echo -en "\e]P1BF616A"
-	echo -en "\e]P2A3BE8C"
-	echo -en "\e]P3EBCB8B"
-	echo -en "\e]P481A1C1"
-	echo -en "\e]P5B48EAD"
-	echo -en "\e]P688C0D0"
-	echo -en "\e]P7D8DEE9"
-	echo -en "\e]P84C566A"
-	echo -en "\e]P9BF616A"
-	echo -en "\e]PAA3BE8C"
-	echo -en "\e]PBEBCB8B"
-	echo -en "\e]PC81A1C1"
-	echo -en "\e]PDB48EAD"
-	echo -en "\e]PE8FBCBB"
-	echo -en "\e]PFD8DEE9"
+[[ $TERM = "linux" ]] && (
+echo -en "\e]P02E3440"
+echo -en "\e]P1BF616A"
+echo -en "\e]P2A3BE8C"
+echo -en "\e]P3EBCB8B"
+echo -en "\e]P481A1C1"
+echo -en "\e]P5B48EAD"
+echo -en "\e]P688C0D0"
+echo -en "\e]P7D8DEE9"
+echo -en "\e]P84C566A"
+echo -en "\e]P9BF616A"
+echo -en "\e]PAA3BE8C"
+echo -en "\e]PBEBCB8B"
+echo -en "\e]PC81A1C1"
+echo -en "\e]PDB48EAD"
+echo -en "\e]PE8FBCBB"
+echo -en "\e]PFD8DEE9"
 
-	clear
-fi
+clear
+)

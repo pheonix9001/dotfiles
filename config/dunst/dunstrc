@@ -47,7 +47,7 @@ idle_threshold = 120 # don't remove notifications if user is idle
 separator_color = frame
 
 ### Text ###
-font = mononoki Nerd Font 10
+font = Iosevka 10
 markup = full # support full markdown
 ignore_newline = no
 alignment = center

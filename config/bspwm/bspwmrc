@@ -60,7 +60,7 @@ background { dunst }
 
 background { 
 pipeline { ${~}/.config/lemonbar/controllemonbar }
-pipeline { lemonbar -gx15 -f"mononoki Nerd Font:pixelsize=13:antialias=true" -B#2e3440 -F#d8dee9 -U#88c0d0 -o2 }
+pipeline { lemonbar -gx15 -f"Iosevka:pixelsize=13:antialias=true" -B#2e3440 -F#d8dee9 -U#88c0d0 -o2 }
 ash -s
 }
 
