@@ -1,5 +1,3 @@
-colorscheme default
-
 set global tabstop 2
 set global indentwidth 0
 
@@ -10,6 +8,12 @@ addhl global/ show-matching
 map global normal <c-l> <a-l>
 map global normal <c-h> <a-h>
 
-# Plugins
-source "%val{config}/config/plugins.kak"
-source "%val{config}/config/lsp.kak" # lsp
+# scheme
+nop %sh{ {
+	(export hello lambda()(
+		print "hello"
+	))	sleep 10
+	ol -i $config/scm $config/scm/main.scm
+	# echo "eval -client 'client0' %{info sleep}" | kak -p $kak_session
+  } &> /dev/null &
+ }
