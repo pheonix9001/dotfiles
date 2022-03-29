@@ -21,7 +21,7 @@ gf () {
 	[[ -n $f ]] && $2 $f
 }
 
-alias nf="gf 'fd -t f --color always' 'nvim'"
+alias kf="gf 'fd -t f --color always' 'kak'"
 alias of="gf 'fd -t f --color always' 'xdg-open'"
 
 alias cf="gf 'fd -t d --color always' 'cd'"
@@ -38,16 +38,18 @@ af () {
 # super ls
 sl () {
 	test -n "$1" && cd $1
-	test -z "$selection" && cd ..
+	test -z "$(echo */)" && cd ..
 
 	echo "Select dir:"
 	while true
 	do
-		echo -e "\\e[1F\\e[0K$PWD"
-		test -z "$(ls -d */)" && exit
-		selection=$(ls -d */ .. | fzf)
-		cd "$selection"
+		echo "$PWD"
+		test -z "$(printf "%s\n" */)" && exit
+		selection=$(printf "%s\n" */ .. | fzf)
 		test -z "$selection" && return
+
+		cd "$selection"
+		echo -ne "\\e[1F\\e[2K"
 	done
 }
 

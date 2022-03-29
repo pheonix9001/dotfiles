@@ -16,9 +16,9 @@ case $(echo $sel | cut -d\: -f1)
 in
 	1)
 		tmp=$(mktemp -p /tmp/wm screenshot.XXXXXXX || error "failed to create temporary file")
-		import -format png "$tmp"
+		import "png:$tmp"
 
-		xclip -selection clipboard -t image/png $tmp
+		xclip -selection clipboard -t image/png "$tmp"
 		rm $tmp
 
 		dunstify -a screenshot "Success!" \

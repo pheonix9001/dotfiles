@@ -22,20 +22,12 @@ return require'packer'.startup(function()
 
 	-- Vim plugins
 	use {
-		'tpope/vim-commentary',
-		config = function()
-			vim.cmd[[au FileType cpp setlocal commentstring =//\ %s]]
-		end
-	}
-	--[[
-	use {
 		'takac/vim-hardtime',
 		config = function()
 			vim.g.hardtime_default_on = 1
 			vim.g.hardtime_maxcount = 4
 		end
 	}
-	]]--
 	use'wellle/targets.vim'
 
 	use {
@@ -65,14 +57,16 @@ return require'packer'.startup(function()
 	}
 
 	-- nvim dap
+	--[[
 	use {
 		'mfussenegger/nvim-dap',
-		config = [[require'config/dap']],
+		config = [[require'config/dap'],
 		ft = {'c', 'cpp'},
 		requires = {
 			'rcarriga/nvim-dap-ui'
 		}
 	}
+	]]
 
 	-- Tree sitter
 	use {

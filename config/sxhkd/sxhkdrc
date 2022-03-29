@@ -2,6 +2,13 @@
 # wm independent hotkeys
 ###############################
 
+# Switches keyboard
+alt + i
+	setxkbmap -layout us -variant dvp
+
+alt + o
+	setxkbmap -layout us
+	
 # terminal emulator
 super + Return
 	$TERMINAL -e $USER_SHELL &> /dev/null
