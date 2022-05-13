@@ -7,13 +7,3 @@ addhl global/ show-matching
 # Mapping
 map global normal <c-l> <a-l>
 map global normal <c-h> <a-h>
-
-# scheme
-nop %sh{ {
-	(export hello lambda()(
-		print "hello"
-	))	sleep 10
-	ol -i $config/scm $config/scm/main.scm
-	# echo "eval -client 'client0' %{info sleep}" | kak -p $kak_session
-  } &> /dev/null &
- }

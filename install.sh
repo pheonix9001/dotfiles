@@ -8,8 +8,8 @@ export UPDATE="pacman -Syu"
 $UPDATE
 
 # install stuff
-$INSTALL neovim
-$INSTALL bspwm sxhkd
-$INSTALL hsetroot
+$INSTALL neovim alsa-utils
+$INSTALL bspwm sxhkd ccls
+$INSTALL hsetroot kakoune
 $INSTALL dmenu fzf xdotool fd dex
-$INSTALL alacritty neofetch
+$INSTALL neofetch
