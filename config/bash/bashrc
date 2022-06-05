@@ -9,7 +9,7 @@ export PATH=$PATH:~/.local/bin
 export FZF_DEFAULT_OPTS="--height=70% --reverse --tiebreak=end,length,index --prompt=\"λ \""
 HISTFILE="~/.cache/bash/history"
 export PS1=" \e[36m\w\e[37;2m>\e[0m\n \e[32mλ \e[0m"
-export EDITOR="kak"
+export EDITOR="nvim"
 
 #alias aliases
 alias watch='watch '
@@ -22,7 +22,7 @@ gf () {
 	[[ -n $f ]] && $2 $f
 }
 
-alias kf="gf 'fd -t f --color always' 'kak'"
+alias ef="gf 'fd -t f --color always' '$EDITOR'"
 alias of="gf 'fd -t f --color always' 'xdg-open'"
 
 alias cf="gf 'fd -t d --color always' 'cd'"
@@ -33,7 +33,7 @@ af () {
 	output=$(fzf --disabled -e --ansi --bind "change:reload:ag $@ --color {q} || true")
 	line="$(echo $output | cut -d: -f2)"
 	file="$(echo $output | cut -d: -f1)"
-	nvim -c "set nofoldenable" "+$line" "$file"
+	"$EDITOR" "+$line" "$file"
 }
 
 # super ls
@@ -54,8 +54,7 @@ sl () {
 	done
 }
 
-alias n="nvim"
-alias k="kak"
+alias e="$EDITOR"
 alias tsm="transmission-remote"
 alias zthr="zathura"
 alias neofetch="neofetch --ascii ~/.config/neofetch/ascii/scp.ascii"
@@ -95,25 +94,3 @@ function lcd() {
 	builtin cd $@
 }
 [[ $PWD == "/tmp/wm" ]] && cd $(cat /dev/shm/pwd)
-
-#nordic tty?
-[[ $TERM = "linux" ]] && (
-echo -en "\e]P02E3440"
-echo -en "\e]P1BF616A"
-echo -en "\e]P2A3BE8C"
-echo -en "\e]P3EBCB8B"
-echo -en "\e]P481A1C1"
-echo -en "\e]P5B48EAD"
-echo -en "\e]P688C0D0"
-echo -en "\e]P7D8DEE9"
-echo -en "\e]P84C566A"
-echo -en "\e]P9BF616A"
-echo -en "\e]PAA3BE8C"
-echo -en "\e]PBEBCB8B"
-echo -en "\e]PC81A1C1"
-echo -en "\e]PDB48EAD"
-echo -en "\e]PE8FBCBB"
-echo -en "\e]PFD8DEE9"
-
-clear
-)

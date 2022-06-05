@@ -1,4 +1,6 @@
 require'global'
+local luasnip = require'luasnip'
+local cmp = require'cmp'
 
 local opts = { noremap = true }
 
@@ -34,28 +36,30 @@ local function check_back_space()
 end
 
 _G.si_tab = function()
-	if require'cmp'.visible()
+	if luasnip.expand_or_jumpable()
+	then
+		luasnip.expand_or_jump()
+		return term''
+	elseif cmp.visible()
 	then
 		return term'<C-n>'
 	elseif check_back_space()
 	then
 		return term'<Tab>'
 	else
-		require'cmp'.complete()
+		cmp.complete()
 		return term''
 	end
 end
 
 _G.si_s_tab = function()
-	if require'cmp'.visible()
+	if cmp.visible()
 	then
 		return term'<C-p>'
 	else
 		return term'<S-Tab>'
 	end
 end
-
-map_key('s', '<C-k>', '<Plug>luasnip-expand-or-jump', {noremap = true})
 
 -- Tab
 map_key('i', '<Tab>', 'v:lua.si_tab()', opts)

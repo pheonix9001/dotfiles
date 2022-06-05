@@ -1,0 +1,37 @@
+[language.cpp]
+filetypes = ["cpp", "c"]
+roots = ["meson.build"]
+command = "clangd"
+
+[language.rust]
+filetypes = ["rust"]
+roots = ["Cargo.toml"]
+command = "rust-analyzer"
+args = []
+settings_section = "rust-analyzer"
+
+[language.rust.settings.rust-analyzer]
+# See https://rust-analyzer.github.io/manual.html#configuration
+hoverActions.enable = false # kak-lsp doesn't support this at the moment
+procMacro.enable = true
+# cargo.features = []
+
+[language.zig]
+filetypes = ["zig"]
+roots = ["build.zig"]
+command = "zls"
+
+[semantic_tokens]
+faces = [
+    {face="documentation", token="comment", modifiers=["documentation"]},
+    {face="comment", token="comment"},
+    {face="function", token="function"},
+    {face="keyword", token="keyword"},
+    {face="module", token="namespace"},
+    {face="operator", token="operator"},
+    {face="string", token="string"},
+    {face="type", token="type"},
+    {face="default+d", token="variable", modifiers=["readonly"]},
+    {face="default+d", token="variable", modifiers=["constant"]},
+    {face="variable", token="variable"},
+]

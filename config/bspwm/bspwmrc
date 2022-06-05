@@ -59,10 +59,10 @@ foreground { xsetroot -cursor_name left_ptr }
 foreground { xset r rate 250 100 }
 
 # map keys
-foreground { setxkbmap -option caps:super } 
+foreground { setxkbmap -option caps:super -option Multi_key:Alt_R } 
 foreground { xcape -e Super_L=Escape }
 foreground { xmodmap ${~}/.config/X11/Xmodmap }
-foreground { 	setxkbmap -layout us -variant dvp }
+foreground { setxkbmap -layout us -variant dvp }
 
 # xdg stuff
 foreground { echo -e "\\e[34m\\e[1m::\\e[37m Loading Xresources...\\e[0m" }

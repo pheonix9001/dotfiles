@@ -11,13 +11,8 @@ return require'packer'.startup(function()
 	-- Functionality
 	use {
 		'L3MON4D3/LuaSnip',
-		ft = {'cpp', 'c'},
+		requires = {'rafamadriz/friendly-snippets'},
 		config = [[require'config/luasnip']]
-	}
-
-	use {
-		'mattn/emmet-vim',
-		ft = {'html'}
 	}
 
 	-- Vim plugins
@@ -30,10 +25,12 @@ return require'packer'.startup(function()
 	}
 	use'wellle/targets.vim'
 
+	--[[
 	use {
 		'kyazdani42/nvim-tree.lua',
 		cmd = 'NvimTreeToggle'
 	}
+	]]
 
 	-- Cmp
 	use {
@@ -45,8 +42,6 @@ return require'packer'.startup(function()
 		},
 		config = [[require'config/cmp']]
 	}
-
-	-- lsp
 
 	-- vim wiki
 	use {

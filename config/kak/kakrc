@@ -1,4 +1,4 @@
-set global tabstop 2
+set global tabstop 4
 set global indentwidth 0
 
 # Highlghters

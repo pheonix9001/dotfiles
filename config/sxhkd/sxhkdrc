@@ -4,10 +4,10 @@
 
 # Switches keyboard
 alt + i
-	setxkbmap -layout us -variant dvp
+	~/.scripts/dmenu/keyboards
 
 alt + o
-	setxkbmap -layout us
+	setxkbmap -layout us -variant dvp
 	
 # terminal emulator
 super + Return
@@ -42,17 +42,6 @@ super + alt + x
 # quit bspwm
 super + alt + q
 	~/.scripts/bspwm/quitbspwm
-
-# reload keyboard shortcuts
-super + alt + i
-	killall xcape && \
-	xset r rate 250 100 && \
-	setxkbmap -option caps:super && \
-	xcape -e Super_L=Escape && \
-	xmodmap ~/.config/X11/Xmodmap && \
-	killall -SIGUSR1 sxhkd && \
-	dunstify -a Sxhkd "Reloaded keybindings" \
-	"Your custom keyboard shortcuts have been reloaded."
 
 # change window gap
 super + alt + equal

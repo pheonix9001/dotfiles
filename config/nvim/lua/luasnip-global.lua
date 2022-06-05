@@ -1,4 +1,4 @@
-ls = require"luasnip"
+ls = require'luasnip'
 s = ls.snippet
 sn = ls.snippet_node
 t = ls.text_node
