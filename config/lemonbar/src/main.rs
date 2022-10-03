@@ -2,25 +2,83 @@ use chrono::Timelike;
 use std::error::Error;
 use std::io::BufReader;
 use std::{process::Command, time::Duration};
+use x11rb::connection::Connection;
 use x11rb::protocol::xproto::{AtomEnum, ConnectionExt};
 use x11rb::rust_connection::RustConnection;
 
-fn window_module(conn: &RustConnection) -> Result<String, Box<dyn std::error::Error>> {
-    let focus = conn.get_input_focus()?.reply()?.focus;
-    let name = conn
-        .get_property(false, focus, AtomEnum::WM_NAME, AtomEnum::STRING, 0, 256)?
-        .reply()?;
+fn main() -> Result<(), Box<dyn Error>> {
+    let (conn, screen_num) = x11rb::connect(None)?;
+    let root = conn.setup().roots[screen_num].root;
+    let mut rx_bytes = get_network_stat("/statistics/rx_bytes".to_string())?;
+    let mut tx_bytes = get_network_stat("/statistics/tx_bytes".to_string())?;
 
-    Ok(String::from_utf8_lossy(&name.value).to_string())
+    loop {
+        let deskmod = deskmod(&conn, root)?;
+        let windows = window_module(&conn)?;
+        let time = time_module();
+
+        let (rx_bytes_prev, tx_bytes_prev) = (rx_bytes, tx_bytes);
+
+        (rx_bytes, tx_bytes) = (
+            get_network_stat("/statistics/rx_bytes".to_string())?,
+            get_network_stat("/statistics/tx_bytes".to_string())?,
+        );
+        let network = network_module(rx_bytes - rx_bytes_prev, tx_bytes - tx_bytes_prev);
+        println!(" {} {} %{{c}}{}%{{r}}{}", deskmod, windows, time, network);
+
+        std::thread::sleep(Duration::from_secs(1));
+    }
 }
 
-fn deskmod() -> Result<String, std::io::Error> {
-    let desktops = Command::new("bash")
-        .arg(env!("HOME").to_owned() + "/.scripts/lemonbar/desktopmodule")
-        .output()?
-        .stdout;
+x11rb::atom_manager! {
+    pub DesktopAtoms:
 
-    Ok(String::from_utf8_lossy(&desktops).to_string())
+    AtomCollectionCookie {
+        _NET_NUMBER_OF_DESKTOPS,
+        _NET_CURRENT_DESKTOP,
+    }
+}
+
+fn get_atom<A, B>(
+    conn: &RustConnection,
+    win: u32,
+    atom: A,
+    atomtype: B,
+) -> Result<Vec<u8>, Box<dyn Error>>
+where
+    u32: From<B>,
+    u32: From<A>,
+{
+    Ok(conn
+        .get_property(false, win, atom, atomtype, 0, 256)?
+        .reply()?
+        .value)
+}
+
+fn window_module(conn: &RustConnection) -> Result<String, Box<dyn Error>> {
+    let focus = conn.get_input_focus()?.reply()?.focus;
+    let name = get_atom(&conn, focus, AtomEnum::WM_NAME, AtomEnum::STRING)?;
+
+    Ok(String::from_utf8_lossy(&name).to_string())
+}
+
+fn deskmod(conn: &RustConnection, root: u32) -> Result<String, Box<dyn Error>> {
+    let atoms = DesktopAtoms::new(conn)?.reply()?;
+
+    let num_of_desks = get_atom(&conn, root, atoms._NET_NUMBER_OF_DESKTOPS, AtomEnum::ANY)?[0];
+    let current_desk = get_atom(&conn, root, atoms._NET_CURRENT_DESKTOP, AtomEnum::ANY)?[0];
+
+    let desks = (0..num_of_desks).fold("".to_string(), |desks, desk| {
+        if desk != current_desk {
+            format!("{}·", desks)
+        } else {
+            format!(
+                "{} %{{+u}}%{{F#eceff4}}%{{B#3b4252}} · %{{B-}}%{{F-}}%{{-u}}",
+                desks
+            )
+        }
+    });
+    return Ok(desks);
 }
 
 fn time_module() -> String {
@@ -49,27 +107,4 @@ fn get_network_stat(stat: String) -> Result<u64, Box<dyn Error>> {
         let read: u64 = read_str.parse()?;
         Ok(bytes + read)
     })
-}
-
-fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let (conn, _screen_num) = x11rb::connect(None)?;
-    let mut rx_bytes = get_network_stat("/statistics/rx_bytes".to_string())?;
-    let mut tx_bytes = get_network_stat("/statistics/tx_bytes".to_string())?;
-
-    loop {
-        let deskmod = deskmod()?;
-        let windows = window_module(&conn)?;
-        let time = time_module();
-
-        let (rx_bytes_prev, tx_bytes_prev) = (rx_bytes, tx_bytes);
-
-        (rx_bytes, tx_bytes) = (
-            get_network_stat("/statistics/rx_bytes".to_string())?,
-            get_network_stat("/statistics/tx_bytes".to_string())?,
-        );
-        let network = network_module(rx_bytes - rx_bytes_prev, tx_bytes - tx_bytes_prev);
-        println!(" {} {} %{{c}}{}%{{r}}{}", deskmod, windows, time, network);
-
-        std::thread::sleep(Duration::from_secs(1));
-    }
 }
