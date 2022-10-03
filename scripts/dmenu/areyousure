@@ -1,4 +1,0 @@
-#!/bin/execlineb -s1
-
-pipeline { echo "yes\nno" }
-dmenu -p "${1}" -i -F
