@@ -1,0 +1,20 @@
+!!!!!!!!!!!!!!!!!!!!!
+! generic options
+!!!!!!!!!!!!!!!!!!!!!
+*.background: #2e3440
+*.foreground: #d8dee9
+*.font: Iosevka:pixelsize=13:antialiasing=true
+*.tabspaces: 2
+
+!!!!!!!!!!!!!!!!!!!!!
+! some system xresources
+!!!!!!!!!!!!!!!!!!!!!
+Xcursor.size: 16
+
+!!!!!!!!!!!!!!!!!!!!!
+! load other xresources
+!!!!!!!!!!!!!!!!!!!!!
+#include "st"
+#include "dmenu"
+
+! vim: ft=xdefaults

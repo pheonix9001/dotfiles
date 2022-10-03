@@ -1,0 +1,18 @@
+#!/bin/sh
+
+password_len=$(\
+	echo -en "50\n20" | dmenu -p "enter password length" \
+)
+
+pass=$(\
+	cat /dev/urandom | tr -cd "!-~[:alpha:]" | head -c "$password_len"\
+)
+
+pass_name=$(\
+	dmenu -p "enter password name:"\
+)
+
+echo "$pass" | pass insert -e "$pass_name"
+
+dunstify -a pass "Password generation successful!" \
+"Your password for '$pass_name' of length $pass_len was succesfully generated. it is in your clipboard"

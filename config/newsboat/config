@@ -1,0 +1,45 @@
+# show-read-feeds no
+auto-reload yes
+
+unbind-key UP
+unbind-key DOWN
+unbind-key HOME
+unbind-key END
+unbind-key PPAGE
+unbind-key NPAGE
+unbind-key q
+unbind-key ENTER
+
+bind-key j down
+bind-key k up
+bind-key J next-feed articlelist
+bind-key K prev-feed articlelist
+bind-key G end
+bind-key g home
+bind-key u pageup
+bind-key d pagedown
+bind-key l open
+bind-key h quit
+bind-key a toggle-article-read
+bind-key u show-urls
+bind-key ^d delete-article
+bind-key O open-all-unread-in-browser-and-mark-read
+
+external-url-viewer "~/.scripts/misc/linkhandler"
+browser "~/.scripts/misc/linkhandler"
+macro , set browser "setsid -f firefox %u"; open-in-browser
+macro t set browser "w3m %u"; open-in-browser
+
+color listnormal default default
+color listfocus default color8
+color listnormal_unread color7 default underline
+color listfocus_unread yellow color8 underline
+color info color4 default
+color article default default
+
+highlight feedlist --.*-- yellow default # title
+highlight article ^(Title|Author|Date|Link|Feed): color10 default bold # title, author etc
+highlight article "https?://[^ ]+" color6 default underline # urls
+highlight article \[[1-9]+\] yellow default # link numbers
+highlight article \((link|image)\) yellow default # links and images
+highlight article \#\w+(\s|$) color12 default # hashtags

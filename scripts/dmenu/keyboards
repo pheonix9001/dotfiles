@@ -1,0 +1,8 @@
+#!/bin/sh
+
+sel=$(cat ~/.scripts/dmenu/keyboards.data | dmenu -p "keyboard:" -l 20 -i)
+
+lang=$(echo "$sel" | cut -f 1 -d "|")
+variant=$(echo "$sel" | cut -f 2 -d "|")
+
+setxkbmap -layout "$lang" -variant "$variant"

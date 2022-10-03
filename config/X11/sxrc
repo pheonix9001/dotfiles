@@ -1,0 +1,8 @@
+#!/bin/sh
+export XDG_CONFIG_HOME=~/.config
+
+pipewire &
+pipewire-pulse &
+wireplumber &
+
+exec bspwm

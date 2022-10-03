@@ -1,0 +1,14 @@
+#!/bin/bash
+
+desktops=$(xdotool get_num_desktops)
+focusdesktop=$(xdotool get_desktop)
+output=""
+
+for i in $(seq 0 $( expr $desktops - 1))
+do
+  [[ $i = $focusdesktop ]] \
+  	&& output="$output %{+u}%{F#eceff4}%{B#3b4252} · %{B-}%{F-}%{-u}" \
+	  || output="$output·"
+done
+
+echo $output | tr -d "\n"

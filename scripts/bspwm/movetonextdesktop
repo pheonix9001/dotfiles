@@ -1,0 +1,9 @@
+#!/bin/sh
+
+DESKTOPNAME=$(xdotool get_desktop)
+DESKTOPNUMS=$(xdotool get_num_desktops)
+
+test $DESKTOPNAME = $(expr $DESKTOPNUMS - 1) && bspc monitor -a ·
+
+bspc node focused -d next --follow
+bspc desktop prev.\!occupied -r

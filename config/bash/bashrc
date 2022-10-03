@@ -1,0 +1,83 @@
+#!/bin/bash
+
+export PAGER="less"
+export LESSHISTFILE="~/.cache/lesshst"
+
+export LESSHISTFILE=".cache/less/history"
+export CARGO_HOME="~/.cache/cargo"
+export PATH=$PATH:~/.local/bin
+
+export FZF_DEFAULT_OPTS="--height=70% --reverse --tiebreak=end,length,index --prompt=\"λ \""
+HISTFILE="~/.cache/bash/history"
+export PS1=" \e[36m\w\e[37;2m>\e[0m\n \e[32mλ \e[0m"
+export EDITOR="nvim"
+
+# aliases
+alias watch='watch '
+alias doas='doas '
+alias entr='entr '
+
+eval $(thefuck --alias)
+
+# generic fuzzer
+gf () {
+	f="$(eval $1 | fzf --ansi)"
+	[[ -n $f ]] && "$2" "$f"
+}
+
+alias ef="gf 'fd -t f --color always' '$EDITOR'"
+alias of="gf 'fd -t f --color always' 'xdg-open'"
+
+alias cf="gf 'fd -t d --color always' 'cd'"
+alias pf="gf 'fd -t d --color always' 'pushd'"
+alias pd="popd"
+
+af () {
+	output=$(fzf --disabled -e --ansi --bind "change:reload:ag $@ --color {q} || true")
+	line="$(echo $output | cut -d: -f2)"
+	file="$(echo $output | cut -d: -f1)"
+	"$EDITOR" "+$line" "$file"
+}
+
+alias e="$EDITOR"
+alias tsm="transmission-remote"
+alias zthr="zathura"
+alias neofetch="neofetch --ascii ~/.config/neofetch/ascii/scp.ascii"
+alias update="doas pacman -Syu"
+
+alias dv="dirs -v"
+alias pd="pushd"
+alias ppd="popd"
+
+alias nj="ninja"
+alias njb="ninja -C build"
+alias mb="meson build"
+alias mc="meson configure build"
+
+# git aliases
+alias ga="git add"
+alias gb="git branch"
+alias gc="git commit"
+alias gch="git checkout"
+alias gd="git diff"
+alias gr="git reset"
+alias grm="git rm"
+alias gs="git status"
+alias gl="git log"
+
+alias cp="cp -i"
+alias rm="rm -i"
+
+DISABLE_AUTO_TITLE="true"
+touch /dev/shm/pwd
+function cd () {
+	builtin cd $@
+	echo -en "\e]0;bash: $(pwd)\a"
+	pwd > /dev/shm/pwd
+}
+function lcd() {
+	builtin cd $@
+}
+[[ $PWD == "/tmp/wm" ]] && cd $(cat /dev/shm/pwd)
+
+source /home/asdf/.config/broot/launcher/bash/br

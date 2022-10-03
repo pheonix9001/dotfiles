@@ -1,0 +1,30 @@
+{
+  "name": "dotfiles",
+  "engines": {
+    "vscode": "^1.11.0"
+  },
+  "contributes": {
+    "snippets": [
+      {
+        "language": "c",
+        "path": "./snippets/c.json"
+      },
+      {
+        "language": "c",
+        "path": "./snippets/ccpp.json"
+      },
+      {
+        "language": "cpp",
+        "path": "./snippets/ccpp.json"
+      },
+      {
+        "language": "cpp",
+        "path": "./snippets/cpp.json"
+      },
+			{
+				"language": "html",
+				"path": "./snippets/html.json"
+			}
+    ]
+  }
+}

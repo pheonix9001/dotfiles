@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# check if we have presel
+test -z $(bspc query -N -n focused.automatic.tiled) && exit
+
+# check if receptacle exists
+receptacle=$(bspc query -N -n .leaf.!window -d focused)
+test ! "$receptacle" = "" && echo "node=$receptacle" && exit
+
+echo "node=biggest.local.tiled"
+
+# vim: ft=bash

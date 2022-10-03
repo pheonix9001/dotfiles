@@ -1,0 +1,26 @@
+#!/bin/bash
+
+windows=""
+for window in $(bspc query -N -n .hidden.window -d focused)
+do
+  windows+="$(xdotool getwindowname $window)
+"
+done
+windows+="all"
+
+windowname="$(echo "$windows" | sort | uniq | dmenu -p "map:" -i -l 20 -F)"
+
+test "$windowname" = "" && exit
+
+test "$windowname" = "all" && (
+	for window in $(bspc query -N -n .hidden.window -d focused)
+	do
+		bspc node "$window" -g hidden=false
+	done
+	exit
+)
+
+for tomapwindow in $(xdotool search --desktop $(xdotool get_desktop) --name "$windowname")
+do
+  bspc node "$tomapwindow" -g hidden=false
+done

@@ -1,0 +1,14 @@
+#!/bin/execlineb -P
+
+foreground { 
+	killall "picom"
+		"sxhkd"
+		"lemonbar"
+		"controllemonbar"
+		"bspc"
+		"xdotool"
+		"updatedesktopmodule"
+		"updatewindowmodule"
+}
+
+bspc quit
