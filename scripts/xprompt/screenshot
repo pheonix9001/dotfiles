@@ -9,13 +9,13 @@ options="
 \n2: select an area and save screenshot to file
 "
 
-sel=$(echo -en $options | dmenu -p "screenshot:" -l 15 -i)
+sel=$(echo -en $options | xprompt "screenshot:" -l 15 -i)
 test -z "$sel" && dunstify -a screenshot "No option was selected" "Exiting without doing anything" && exit
 
 case $(echo $sel | cut -d\: -f1)
 in
 	1)
-		tmp=$(mktemp -p /tmp/wm screenshot.XXXXXXX || error "failed to create temporary file")
+		tmp=$(mktemp -p /tmp/ screenshot.XXXXXXX || error "failed to create temporary file")
 		import "png:$tmp"
 
 		xclip -selection clipboard -t image/png "$tmp"

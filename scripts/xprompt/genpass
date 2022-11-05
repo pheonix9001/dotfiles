@@ -1,7 +1,7 @@
 #!/bin/sh
 
 password_len=$(\
-	echo -en "50\n20" | dmenu -p "enter password length" \
+	echo -en "50\n20" | xprompt "enter password length" \
 )
 
 pass=$(\
@@ -9,7 +9,7 @@ pass=$(\
 )
 
 pass_name=$(\
-	dmenu -p "enter password name:"\
+	xprompt "enter password name:"\
 )
 
 echo "$pass" | pass insert -e "$pass_name"

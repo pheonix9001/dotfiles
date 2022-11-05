@@ -1,0 +1,6 @@
+#!/bin/sh
+
+kill -$1 $(ps ax | xprompt "kill:" \
+  | cut -d\  -f2)
+
+# vim: ft=sh

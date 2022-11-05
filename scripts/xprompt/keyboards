@@ -1,6 +1,6 @@
 #!/bin/sh
 
-sel=$(cat ~/.scripts/dmenu/keyboards.data | dmenu -p "keyboard:" -l 20 -i)
+sel=$(cat ~/.scripts/xprompt/keyboards.data | xprompt "keyboard:" -i)
 
 lang=$(echo "$sel" | cut -f 1 -d "|")
 variant=$(echo "$sel" | cut -f 2 -d "|")

@@ -1,0 +1,10 @@
+!!!!!!!!!!!!!!!!!!!!!
+! xprompt options
+!!!!!!!!!!!!!!!!!!!!!
+xprompt.hoverforeground: #eceff4
+xprompt.hoverbackground: #3b4252
+xprompt.foreground: #d8dee9
+xprompt.background: #2e3440
+xprompt.borderWidth: 0
+
+! vim: ft=xdefaults
