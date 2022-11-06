@@ -14,5 +14,5 @@ pass_name=$(\
 
 echo "$pass" | pass insert -e "$pass_name"
 
-dunstify -a pass "Password generation successful!" \
+herbe "Password generation successful!" --- \
 "Your password for '$pass_name' of length $pass_len was succesfully generated. it is in your clipboard"

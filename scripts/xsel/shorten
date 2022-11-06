@@ -1,0 +1,7 @@
+#!/bin/sh
+
+link=$(xsel -c -o)
+
+curl -s -F "shorten=$link" 0x0.st | xsel -c -i
+
+herbe "Shortened $link" "shortened version of $link is in the clipboard"

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+torrent=$(xsel -co) ;
+
+transmission-remote -a "$torrent" && herbe "started downloading" --- "started downloading $torrent"

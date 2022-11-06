@@ -1,9 +1,0 @@
-#!/bin/sh
-
-video=$(xclip -selection clipboard -o) ;
-
-dunstify -a "youtube-dl" "started downloading" "started downloading $video"
-
-youtube-dl -o "~/Downloads/youtube-dl/video" "$video"
-
-dunstify -a "youtube-dl" "downloaded" "downloaded $video"

@@ -36,7 +36,7 @@ super + alt + r
 # reload Xresources
 super + alt + x
 	xrdb -I$HOME/.config/Xres ~/.config/Xres/main && \
-	dunstify -a Sxhkd "Xresources Reloaded" \
+	herbe "Xresources Reloaded" --- \
 	"Xresources were successfully reloaded"
 
 # quit bspwm
@@ -73,15 +73,15 @@ super + a; super + {k,c}
 # select unicode
 super + a; super + e
 	cat ~/.scripts/xprompt/emoji.data | xprompt "emoji:" -i \
-	| cut -d\  -f1 | tr -d '\n' | xclip -selection clipboard
+	| cut -d\  -f1 | tr -d '\n' | xsel -ci
 
 # torrent something
 super + a; super + t
-	~/.scripts/xclip/torrent
+	~/.scripts/xsel/torrent
 
 # download youtube
 super + a; super + v
-	~/.scripts/xclip/youtube
+	~/.scripts/xsel/youtube
 
 # generate password
 super + a; super + p
@@ -89,7 +89,7 @@ super + a; super + p
 
 # shorten links
 super + a; super + 0
-	~/.scripts/xclip/shorten
+	~/.scripts/xsel/shorten
 
 ###############################
 # open apps

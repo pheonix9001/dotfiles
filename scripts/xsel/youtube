@@ -1,0 +1,9 @@
+#!/bin/sh
+
+video=$(xsel -co) ;
+
+herbe "started downloading" --- "started downloading $video" &
+
+youtube-dl -o "~/Downloads/youtube-dl/" "$video"
+
+herbe "downloaded" ---  "downloaded $video"
