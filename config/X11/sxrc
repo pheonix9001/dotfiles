@@ -1,5 +1,6 @@
 #!/bin/sh
 export XDG_CONFIG_HOME=~/.config
-export XDG_RUNTIME_DIR=/run/user/$(id -u)
+mkdir -p /tmp/runtime-asdf/
+export XDG_RUNTIME_DIR=/tmp/runtime-asdf
 
 exec bspwm

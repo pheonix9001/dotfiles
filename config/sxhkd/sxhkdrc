@@ -1,0 +1,320 @@
+#############################
+# wm independent hotkeys
+###############################
+
+# Switches keyboard
+alt + i
+	~/.scripts/xprompt/keyboards
+
+alt + o
+	setxkbmap -layout us -variant dvp
+	
+# terminal emulator
+super + Return
+	$TERMINAL -e $USER_SHELL &> /dev/null
+
+# secondary terminal emulator
+super + shift + Return
+	alacritty -e $USER_SHELL
+
+# program launcher
+super + @space
+	bash -c "compgen -c" | xprompt | bash &
+
+# toggle caps Lock
+alt + comma
+	xdotool key Caps_Lock
+
+###############################
+# super + alt stuff
+###############################
+
+# restart bspwm
+super + alt + r
+	bspc wm -r
+
+# reload Xresources
+super + alt + x
+	xrdb -I$HOME/.config/Xres ~/.config/Xres/main && \
+	dunstify -a Sxhkd "Xresources Reloaded" \
+	"Xresources were successfully reloaded"
+
+# quit bspwm
+super + alt + q
+	~/.scripts/bspwm/quitbspwm
+
+# change window gap
+super + alt + equal
+	bspc config window_gap $(expr $(bspc config window_gap) - 3)
+
+super + alt + minus
+	bspc config window_gap $(expr $(bspc config window_gap) + 3)
+
+# kill picom
+super + alt + c
+	killall "picom"
+
+###############################
+# action commands
+###############################
+
+# lock screen
+super + z
+	~/.scripts/misc/lockscreen
+
+# screenshot
+super + a; super + s
+	~/.scripts/xprompt/screenshot
+
+# kill processes
+super + a; super + {k,c}
+	~/.scripts/xprompt/killproc {SIGINT,SIGKILL}
+
+# select unicode
+super + a; super + e
+	cat ~/.scripts/xprompt/emoji.data | xprompt "emoji:" -i \
+	| cut -d\  -f1 | tr -d '\n' | xclip -selection clipboard
+
+# torrent something
+super + a; super + t
+	~/.scripts/xclip/torrent
+
+# download youtube
+super + a; super + v
+	~/.scripts/xclip/youtube
+
+# generate password
+super + a; super + p
+	~/.scripts/xprompt/genpass
+
+# shorten links
+super + a; super + 0
+	~/.scripts/xclip/shorten
+
+###############################
+# open apps
+###############################
+
+# open calcurse
+super + o; super + c
+	$TERMINAL -e calcurse
+
+# open browser
+super + o; super + b
+	 (herbe "Opening $BROWSER" &); $BROWSER --new-tab
+
+# open pulsemixer
+super + o; super + a
+	$TERMINAL -e pulsemixer
+
+# open notes
+super + n
+	$TERMINAL --class Notes -e nvim
+
+# open newsboat
+super + o; super + n
+	$TERMINAL -e newsboat
+
+# open brave
+# super + g used because brave is only for google services
+super + o; super + g
+	(herbe "Opening brave" &); brave-nightly
+
+# open brave-tor
+super + o; super + t
+	(herbe "Opening brave with tor"); brave-nightly --tor
+
+# open passmenu
+super + p
+	passmenu -p "pass: "
+
+###############################
+# Hide and unhide stuff
+###############################
+
+# hide and unhide bar
+super + alt + g
+	xdotool search --all --onlyvisible --class Bar windowunmap && \
+	bspc config top_padding 0 || \
+	xdotool search --class Bar windowmap
+
+# hide and unhide windows
+alt + u
+	bspc node -g hidden=true
+
+super + alt + u
+	~/.scripts/xprompt/mapwindow
+
+###############################
+# function keys
+###############################
+
+# control volume
+XF86AudioRaiseVolume
+	amixer set Master 2%+ &> /dev/null
+
+XF86AudioLowerVolume
+	amixer set Master 2%- &> /dev/null
+
+# mute audio
+XF86AudioMute
+	amixer set Master toggle
+
+# open calculator
+XF86Calculator
+	$TERMINAL -e bc
+
+super + XF86Calculator
+	$TERMINAL -e python
+
+###############################
+# General Window stuff
+###############################
+
+# close
+super + w
+	bspc node -c
+
+super + q
+	bspc node -k
+
+# rotate windows
+super + x
+	bspc node @parent -R 90
+
+super + ctrl + x
+	bspc node @parent -R 270
+
+# choose direction
+super + ctrl + {h,j,k,l,c}
+	bspc node -p {west,south,north,east,cancel}
+
+###############################
+# switch between windows
+###############################
+
+# switch windows
+super + {h,j,k,l}
+	bspc node -f {west,south,north,east}
+
+# for floating windows
+super + c
+	bspc node -f next.\!focused.leaf.local.\!hidden
+	
+# only for floating windows
+super + f
+	bspc node -f next.\!focused.leaf.local.\!hidden.floating
+	
+# go up and down the node tree
+super + u
+	bspc node -f @parent && bspc config border_width 2 && \
+	bspc subscribe node_focus -c 1 > /dev/null && \
+	bspc query -N -n focused.window > /dev/null && bspc config border_width 0
+
+# go down the tree
+super + d
+	bspc node -f biggest.descendant_of.window
+
+###############################
+# swap and insert windows
+###############################
+
+# swap nodes
+super + shift + {h,j,k,l}
+	bspc node -s {west,south,north,east}
+
+# swap with biggest node
+super + shift + b
+	bspc node focused -s biggest.local.tiled.\!hidden
+
+# swap with previous node
+super + shift + p
+	bspc node focused -s last --follow
+
+# swap with marked node
+super + shift + e
+	bspc node -s any.marked
+
+# insert windows
+super + i; super + {h,j,k,l}
+	bspc node -n {west,south,north,east}
+
+# insert receptacle
+super + i; super + i
+	bspc node -i
+
+# remove all receptacle
+super + i; super + c
+	for NODE in $(bspc query -N -n .leaf.\!window -d focused ); do bspc node $NODE -k ; done;
+
+###############################
+# resize and rotate windows
+###############################
+
+# rotate windows around
+super + r
+	bspc node focused -s @brother
+
+# resize windowsize
+alt + ctrl + {h,j,k,l}
+	bspc node -z {right -20 0, top 0 20, bottom 0 -20, left 20 0}
+
+alt + shift + {h,j,k,l}
+	bspc node -z {left -20 0, bottom 0 20, top 0 -20, right 20 0}
+
+# move windows
+super + alt + {h,j,k,l}
+	bspc node -v {-20 0, 0 20, 0 -20, 20 0}
+
+###############################
+# Desktop stuff 
+###############################
+
+# switch to desktops
+alt + l
+	~/.scripts/bspwm/switchtonextdesktop
+
+alt + h
+	~/.scripts/bspwm/switchtoprevdesktop
+
+# switch windows between desktops
+alt + k
+	~/.scripts/bspwm/movetonextdesktop
+
+alt + j
+	~/.scripts/bspwm/movetoprevdesktop
+
+###############################
+# change to all the modes
+###############################
+
+# fullscreen
+super + s; super + m
+	~/.scripts/bspwm/monacle
+
+# tiling mode
+super + s; super + t
+	bspc node -t tiled
+
+# floating mode
+super + s; super + f
+	bspc node -t floating
+
+# pseudo tiling mode
+super + s; super + p
+	bspc node -t pseudo_tiled
+
+###############################
+# change all flags
+###############################
+
+# stick and unstick windows
+super + g
+	bspc query -N -n focused.sticky > /dev/null && bspc node -g sticky=off || bspc node -g sticky=on
+
+super + shift + g
+	bspc node -g sticky=off
+
+# mark a node
+super + e
+	bspc node any.marked -g marked=off ; bspc node -g marked=on
