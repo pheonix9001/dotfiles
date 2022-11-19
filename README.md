@@ -1,18 +1,13 @@
 # Dotfiles
 
-These are my dotfiles
+These are my dotfiles. Built with nix flakes
 
-# Dependencies
+# How to build
+```
+./setup.sh
+```
 
-- bash: shell
-- bspwm: window manager
-- dmenu: running apps
-- dunst: notifications
-- fd & fzf: fuzzy searching
-- hsetroot: wallpaper
-- lemonbar: bar
-- picom: compositor
-- sxhkd: key daemon
+Requires nix to be installed
 
 # Optional dependencies
 - newsboat: for rss

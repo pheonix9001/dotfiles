@@ -1,13 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 
-INSTALL="pacman -S"
-UPDATE="pacman -Syu"
-
-#update stuff
-$UPDATE
-
-# install stuff
-$INSTALL neovim
-$INSTALL bspwm sxhkd hsetroot
-$INSTALL dmenu fzf xdotool fd
-$INSTALL neofetch
+# copy directories
+cp -r config ~/.config
+ln -sf ~/.config/bash/bashrc ~/.bashrc
+cp -r scripts ~/.scripts
