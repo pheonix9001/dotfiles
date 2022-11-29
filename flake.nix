@@ -4,7 +4,7 @@
   inputs = {
     flake-utils.url = "github:numtide/flake-utils";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    controllemonbar.url = "path:./config/lemonbar";
+    controllemonbar.url = "path:config/lemonbar";
   };
 
   outputs = {
@@ -17,34 +17,33 @@
       pkgs = nixpkgs.legacyPackages.${system};
       lemonbar-conf = controllemonbar.packages.${system};
       home = "/home/asdf";
-      env-packages =
-      with pkgs; [
-	      # Editor
-	      kakoune
-	      rust-analyzer
+      env-packages = with pkgs; [
+        # Editor
+        kakoune
+        rust-analyzer
 
-		  # Desktop
-	      sxhkd
-	      bspwm
-	      xprompt
-	      hsetroot
-	      picom
-	      lemonbar-xft
+        # Desktop
+        sxhkd
+        bspwm
+        xprompt
+        hsetroot
+        lemonbar-xft
 
-          # Fuzzy searching
-	      fzf
-	      fd
+        # Fuzzy searching
+        fzf
+        fd
 
-          # xorg
-	      xdotool
-	      xsel
-	      xorg.xset
-	      xorg.xrandr
+        # xorg
+        xdotool
+        xsel
+        xorg.xset
+        xorg.xrandr
+        xorg.xsetroot
 
-	      neofetch
+        neofetch
       ];
     in rec {
-	  packages.default = packages.dotfiles;
+      packages.default = packages.dotfiles;
       packages.dotfiles = pkgs.buildEnv {
         name = "pheonix9001-dotfiles";
         paths = [packages.configs lemonbar-conf.default] ++ env-packages;

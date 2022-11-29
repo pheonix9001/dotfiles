@@ -8,7 +8,7 @@ do
 done
 windows+="all"
 
-windowname="$(echo "$windows" | sort | uniq | xprompt "map:" -i)"
+windowname="$(echo "$windows" | sort | uniq | xprompt "map:" -i -c)"
 
 test "$windowname" = "" && exit
 

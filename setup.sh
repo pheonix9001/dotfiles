@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Install
-# nix profile install .#dotfiles
+nix profile install .#dotfiles
 
 # symlink
 for dir in $(ls -A ~/.nix-profile/$HOME)
