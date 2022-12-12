@@ -1,34 +1,21 @@
 {
-  description = "My lemonbar configuration";
-
   inputs = {
-    flake-utils.url = "github:numtide/flake-utils";
+    naersk.url = "github:nix-community/naersk/master";
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    flake-utils,
-  }:
-    flake-utils.lib.eachDefaultSystem (
-      system: let
-        pkgs = import nixpkgs {inherit system;};
-      in {
-        packages.default = pkgs.rustPlatform.buildRustPackage {
-          pname = "controllemonbar";
-          version = "0.1.0";
-          src = ./.;
-          doCheck = false;
-
-          cargoLock = {
-            lockFile = ./Cargo.lock;
-          };
+  outputs = { self, nixpkgs, utils, naersk }:
+    utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs { inherit system; };
+        naersk-lib = pkgs.callPackage naersk { };
+      in
+      {
+        packages.default = naersk-lib.buildPackage ./.;
+        devShell = with pkgs; mkShell {
+          buildInputs = [ cargo rustc rustfmt pre-commit rustPackages.clippy ];
+          RUST_SRC_PATH = rustPlatform.rustLibSrc;
         };
-
-		devShell = pkgs.mkShell {
-		  packages = [];
-		};
-      }
-    );
+      });
 }
