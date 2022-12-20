@@ -11,7 +11,7 @@
     kak-lsp.flake = false;
   };
 
-  outputs = {
+  outputs = inputs@{
     self,
     nixpkgs,
     flake-utils,
@@ -19,7 +19,8 @@
     crane,
   }:
     flake-utils.lib.eachDefaultSystem (system: let
-      home = "/home/asdf";
+      module = nixpkgs.lib.evalModules { modules = [(import ./configuration.nix)]; };
+      conf = module.config;
       pkgs = nixpkgs.legacyPackages.${system};
       crane-lib = crane.lib.${system};
 
@@ -30,16 +31,13 @@
         .lemonbar-config;
       kak-lsp-built = (import ./packages/kak-lsp.nix { inherit nixpkgs crane-lib kak-lsp; }).kak-lsp;
 
-      env-packages = with pkgs; [
+      conf-packages = nixpkgs.lib.mapAttrsToList (n: v: pkgs.${n}) (nixpkgs.lib.filterAttrs (n: v: v) conf.packages);
+      env-packages = with pkgs; conf-packages ++ [
         # Editor
         kakoune
         rust-analyzer
 
         # Desktop
-        sxhkd
-        bspwm
-        xprompt
-        hsetroot
         lemonbar-xft
         imagemagick
 
@@ -59,8 +57,10 @@
         zathura
 
         neofetch
+        imagemagick
       ];
     in rec {
+	  out-config = module;
       packages.default = packages.dotfiles;
       packages.dotfiles = pkgs.buildEnv {
         name = "pheonix9001-dotfiles";
@@ -74,7 +74,7 @@
         dontBuild = true;
 
         installPhase = ''
-          export HOME=$out/${home}
+          export HOME=$out/${conf.home}
 
           mkdir -p $HOME
           cp -r config ~/.config
