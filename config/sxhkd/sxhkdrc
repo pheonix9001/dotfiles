@@ -115,15 +115,6 @@ super + n
 super + o; super + n
 	$TERMINAL -e newsboat
 
-# open brave
-# super + g used because brave is only for google services
-super + o; super + g
-	(herbe "Opening brave" &); brave-nightly
-
-# open brave-tor
-super + o; super + t
-	(herbe "Opening brave with tor"); brave-nightly --tor
-
 # open passmenu
 super + p
 	passmenu -p "pass: "

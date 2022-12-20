@@ -23,7 +23,7 @@ export EDITOR=nvim
 export BROWSER=firefox
 export TERMINAL=alacritty
 export USER_SHELL=bash
-export SHELL=sh
+export SHELL=bash
 
 export PASSWORD_STORE_DIR=~/.local/password-store
 export LESSHISTFILE=~/.cache/lesshst
