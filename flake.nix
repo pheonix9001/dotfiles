@@ -11,7 +11,7 @@
     kak-lsp.flake = false;
   };
 
-  outputs = inputs@{
+  outputs = inputs @ {
     self,
     nixpkgs,
     flake-utils,
@@ -19,7 +19,7 @@
     crane,
   }:
     flake-utils.lib.eachDefaultSystem (system: let
-      module = nixpkgs.lib.evalModules { modules = [(import ./configuration.nix)]; };
+      module = nixpkgs.lib.evalModules {modules = [(import ./configuration.nix)];};
       conf = module.config;
       pkgs = nixpkgs.legacyPackages.${system};
       crane-lib = crane.lib.${system};
@@ -29,23 +29,33 @@
           inherit nixpkgs crane-lib;
         })
         .lemonbar-config;
-      kak-lsp-built = (import ./packages/kak-lsp.nix { inherit nixpkgs crane-lib kak-lsp; }).kak-lsp;
+      kak-lsp-built = (import ./packages/kak-lsp.nix {inherit nixpkgs crane-lib kak-lsp;}).kak-lsp;
 
       conf-packages = nixpkgs.lib.mapAttrsToList (n: v: pkgs.${n}) (nixpkgs.lib.filterAttrs (n: v: v) conf.packages);
-      env-packages = with pkgs; conf-packages ++ [
-        # Editor
-        kakoune
-        rust-analyzer
+      env-packages = with pkgs;
+        conf-packages
+        ++ [
+          # Editor
+          kakoune
+          rust-analyzer
 
+<<<<<<< HEAD
         # Desktop
         lemonbar-xft
         imagemagick
+=======
+          # Desktop
+          lemonbar-xft
+>>>>>>> 3ec0098 (Added broot and fzf to nix modules)
 
-        # Fuzzy searching
-        fzf
-        fd
-        broot
+          # xorg
+          xdotool
+          xsel
+          xorg.xset
+          xorg.xrandr
+          xorg.xsetroot
 
+<<<<<<< HEAD
         # xorg
         xdotool
         xsel
@@ -60,7 +70,7 @@
         imagemagick
       ];
     in rec {
-	  out-config = module;
+      out-config = module;
       packages.default = packages.dotfiles;
       packages.dotfiles = pkgs.buildEnv {
         name = "pheonix9001-dotfiles";
