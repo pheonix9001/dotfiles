@@ -1,0 +1,13 @@
+theme = "nord"
+
+[editor]
+mouse = false
+line-number = "relative"
+cursorline = true
+
+[editor.file-picker]
+hidden = false
+
+[editor.indent-guides]
+render = true
+character = "╎"
