@@ -35,27 +35,10 @@
       env-packages = with pkgs;
         conf-packages
         ++ [
-          # Editor
-          kakoune
-          rust-analyzer
-
-<<<<<<< HEAD
         # Desktop
         lemonbar-xft
         imagemagick
-=======
-          # Desktop
-          lemonbar-xft
->>>>>>> 3ec0098 (Added broot and fzf to nix modules)
 
-          # xorg
-          xdotool
-          xsel
-          xorg.xset
-          xorg.xrandr
-          xorg.xsetroot
-
-<<<<<<< HEAD
         # xorg
         xdotool
         xsel

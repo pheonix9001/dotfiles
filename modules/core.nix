@@ -3,7 +3,8 @@
   options,
   lib,
   ...
-}: with lib; {
+}:
+with lib; {
   options.home = mkOption {
     default = "/home/asdf";
     description = "Home directory";
