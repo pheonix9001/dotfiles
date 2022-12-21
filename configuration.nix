@@ -13,4 +13,7 @@
 
   packages.neofetch = true;
   packages.zathura = true;
+
+  symlinks."~/.bashrc" = ./config/bash/bashrc;
+  symlinks."~/.scripts" = ./scripts;
 }

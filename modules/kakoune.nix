@@ -6,8 +6,10 @@
 }: {
   options.kakoune.enabled = lib.mkEnableOption "Kakoune for text editing";
 
-  config = {
-    packages.kakoune = config.kakoune.enabled;
-    packages.rust-analyzer = config.kakoune.enabled;
+  config = lib.mkIf config.kakoune.enabled {
+    packages.kakoune = true;
+    packages.rust-analyzer = true;
+
+    symlinks."~/.config/kak" = ../config/kak;
   };
 }

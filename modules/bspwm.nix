@@ -12,5 +12,7 @@ with lib; {
     packages.sxhkd = true;
     packages.xprompt = true;
     packages.hsetroot = true;
+
+    symlinks."~/.config/bspwm" = ../config/bspwm;
   };
 }

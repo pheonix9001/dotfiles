@@ -57,23 +57,9 @@
       packages.default = packages.dotfiles;
       packages.dotfiles = pkgs.buildEnv {
         name = "pheonix9001-dotfiles";
-        paths = [packages.configs lemonbar-conf kak-lsp-built] ++ env-packages;
+        paths = [packages.switch-to-config packages.switch-from-config lemonbar-conf kak-lsp-built] ++ env-packages;
       };
-      packages.configs = pkgs.stdenv.mkDerivation {
-        name = "pheonix9001-configs";
-        src = self;
-        dontPatch = true;
-        dontConfigure = true;
-        dontBuild = true;
-
-        installPhase = ''
-          export HOME=$out/${conf.home}
-
-          mkdir -p $HOME
-          cp -r config ~/.config
-          ln -sf ~/.config/bash/bashrc ~/.bashrc
-          cp -r scripts ~/.scripts
-        '';
-      };
+      packages.switch-to-config = pkgs.writeShellScriptBin "switch-to-config" conf.switch-to-script;
+      packages.switch-from-config = pkgs.writeShellScriptBin "switch-from-config" conf.switch-from-script;
     });
 }
