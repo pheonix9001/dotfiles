@@ -14,7 +14,7 @@ with lib; {
   options.packages = mkOption {
     default = {};
     description = "List of packages in the user environment";
-    type = types.attrsOf types.bool;
+    type = types.attrsOf types.package;
   };
 
   options.symlinks = mkOption {
