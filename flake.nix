@@ -19,28 +19,33 @@
     crane,
   }:
     flake-utils.lib.eachDefaultSystem (system: let
-      module = nixpkgs.lib.evalModules {modules = [(import ./configuration.nix) {_module.args.pkgs = pkgs;}];};
-      conf = module.config;
       pkgs = nixpkgs.legacyPackages.${system};
       crane-lib = crane.lib.${system};
-
-      lemonbar-conf =
-        (import ./config/lemonbar {
-          inherit nixpkgs crane-lib;
-        })
-        .lemonbar-config;
-      kak-lsp-built = (import ./packages/kak-lsp.nix {inherit nixpkgs crane-lib kak-lsp;}).kak-lsp;
-
-      conf-packages = with nixpkgs; builtins.attrValues conf.packages;
     in rec {
-      config.pheonix9001 = import ./configuration.nix;
-
       packages.default = packages.dotfiles;
+
+      modules.pheonix9001 = import ./configuration.nix;
+      configs.pheonix9001 = (nixpkgs.lib.evalModules {
+        modules = [
+          modules.pheonix9001
+          {
+            _module.args = {
+              pkgs = pkgs;
+              crane-lib = crane.lib.${system};
+            };
+          }
+        ];
+      }).config;
+      configs.default = configs.pheonix9001;
+
       packages.dotfiles = pkgs.buildEnv {
         name = "pheonix9001-dotfiles";
-        paths = [packages.switch-to-config packages.switch-from-config lemonbar-conf kak-lsp-built] ++ conf-packages;
+        paths = [packages.switch-to-config packages.switch-from-config packages.lemonbar-conf packages.kak-lsp] ++ (builtins.attrValues configs.default.packages);
       };
-      packages.switch-to-config = pkgs.writeShellScriptBin "switch-to-config" conf.switch-to-script;
-      packages.switch-from-config = pkgs.writeShellScriptBin "switch-from-config" conf.switch-from-script;
+      packages.kak-lsp = (import ./packages/kak-lsp.nix {inherit nixpkgs crane-lib kak-lsp;}).kak-lsp;
+      packages.lemonbar-conf = configs.default.lemonbar.config;
+
+      packages.switch-to-config = pkgs.writeShellScriptBin "switch-to-config" configs.default.switch-to-script;
+      packages.switch-from-config = pkgs.writeShellScriptBin "switch-from-config" configs.default.switch-from-script;
     });
 }

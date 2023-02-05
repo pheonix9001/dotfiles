@@ -5,7 +5,7 @@
   pkgs,
   ...
 }: {
-  imports = [./modules/core.nix ./modules/bspwm.nix ./modules/misc.nix ./modules/kakoune.nix];
+  imports = [./modules/core.nix ./modules/bspwm.nix ./modules/misc.nix ./modules/kakoune.nix ./modules/lemonbar.nix];
 
   bspwm.enabled = true;
   broot.enabled = true;

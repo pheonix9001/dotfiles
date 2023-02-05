@@ -8,7 +8,7 @@
 with lib; {
   options.home = mkOption {
     default = "/home/asdf";
-    description = "Home directory";
+    description = "Home directory of the user";
     type = types.str;
   };
   options.packages = mkOption {
@@ -34,7 +34,7 @@ with lib; {
   config.switch-to-script = let
     symlinks-as-list = mapAttrsToList (n: v: "ln -sf ${v} ${n}") config.symlinks;
   in
-    foldl' (v: a: a + "\n${v}") "" symlinks-as-list;
+    foldl' (v: a: "${a}\n${v}") "" symlinks-as-list;
 
-  config.switch-from-script = foldl (a: v: a + "\nrm -rf ${v}") "" (attrNames config.symlinks);
+  config.switch-from-script = foldl (a: v: "${a}\nrm -rf ${v}") "" (attrNames config.symlinks);
 }
