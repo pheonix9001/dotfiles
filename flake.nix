@@ -31,7 +31,7 @@
           {
             _module.args = {
               pkgs = pkgs;
-              crane-lib = crane.lib.${system};
+              crane-lib = crane-lib;
             };
           }
         ];
@@ -40,9 +40,8 @@
 
       packages.dotfiles = pkgs.buildEnv {
         name = "pheonix9001-dotfiles";
-        paths = [packages.switch-to-config packages.switch-from-config packages.lemonbar-conf packages.kak-lsp] ++ (builtins.attrValues configs.default.packages);
+        paths = [packages.switch-to-config packages.switch-from-config] ++ (builtins.attrValues configs.default.packages);
       };
-      packages.kak-lsp = (import ./packages/kak-lsp.nix {inherit nixpkgs crane-lib kak-lsp;}).kak-lsp;
       packages.lemonbar-conf = configs.default.lemonbar.config;
 
       packages.switch-to-config = pkgs.writeShellScriptBin "switch-to-config" configs.default.switch-to-script;
