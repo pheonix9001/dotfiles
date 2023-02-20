@@ -1,21 +1,16 @@
 eval %sh{kak-lsp --kakoune -s %val{session}}
-
-hook global WinSetOption filetype=(rust|javascript|typescript|c|cpp|nix) %{
-    lsp-enable-window
+hook global WinSetOption filetype=(rust|javascript|typescript|c|cpp) %{
+	lsp-enable-window
 	lsp-inlay-diagnostics-enable window
-	lsp-inlay-hints-enable window
-
-	set-option window lsp_auto_show_code_actions true
-	set-option window lsp_auto_highlight_references true
-	map window user 'k' ':lsp-hover<ret>' -docstring 'Lsp hover'
-	map window user 'l' ':enter-user-mode lsp<ret>' -docstring 'Enter lsp mode' 
+	map -docstring "Lsp hover" window user "k" ":lsp-hover<ret>"
+	map -docstring "Enter lsp mode" window user "l" ":enter-user-mode lsp<ret>"
 }
 
-map global user y '<a-|>xsel -ib<ret>'-docstring 'Copy to clipboard' 
-map global user p '<a-!>xsel -b<ret>' -docstring 'Paste from clipborard'
-map global user P '!xsel -b<ret>'     -docstring 'Paste back from clipboard'
-map global user R '|xsel -b<ret>'     -docstring 'Replace selection with clipboard'
+map global user y '<a-|>xsel -i -b<ret>'
 
 # Options
 set-option current tabstop 4
 set-option current indentwidth 0
+
+# Theme
+plug "luther7/nord-kakoune"
