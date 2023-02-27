@@ -7,6 +7,7 @@ export FZF_DEFAULT_OPTS="--height=70% --reverse --tiebreak=end,length,index --pr
 HISTFILE="~/.cache/bash/history"
 export PS1=" \e[36m\w\e[37;2m>\e[0m\n \e[32mλ \e[0m"
 export EDITOR="kak"
+export RUSTFLAGS="-C target-feature=-crt-static"
 
 # aliases
 alias watch='watch '

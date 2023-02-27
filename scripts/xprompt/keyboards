@@ -1,6 +1,8 @@
 #!/bin/sh
 
-sel=$(cat ~/.scripts/xprompt/keyboards.data | xprompt "keyboard:" -i)
+keyboards=""
+
+sel=$(echo "$keyboards" | xprompt "keyboard:" -i)
 
 lang=$(echo "$sel" | cut -f 1 -d "|")
 variant=$(echo "$sel" | cut -f 2 -d "|")

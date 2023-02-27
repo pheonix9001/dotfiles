@@ -22,29 +22,26 @@
       pkgs = nixpkgs.legacyPackages.${system};
       crane-lib = crane.lib.${system};
     in rec {
-      packages.default = packages.dotfiles;
-
       modules.pheonix9001 = import ./configuration.nix;
-      configs.pheonix9001 = (nixpkgs.lib.evalModules {
-        modules = [
-          modules.pheonix9001
-          {
-            _module.args = {
-              pkgs = pkgs;
-              crane-lib = crane-lib;
-            };
-          }
-        ];
-      }).config;
-      configs.default = configs.pheonix9001;
 
-      packages.dotfiles = pkgs.buildEnv {
-        name = "pheonix9001-dotfiles";
-        paths = [packages.switch-to-config packages.switch-from-config] ++ (builtins.attrValues configs.default.packages);
+      packages = let
+        cfg =
+          (nixpkgs.lib.evalModules {
+            modules = [
+              modules.pheonix9001
+              {
+                _module.args = {
+                  pkgs = pkgs;
+                  crane-lib = crane-lib;
+                };
+              }
+            ];
+          })
+          .config;
+      in rec {
+        dotfiles = cfg.dotfiles-drv;
+        default = dotfiles;
+        lemonbar-conf = cfg.lemonbar.config;
       };
-      packages.lemonbar-conf = configs.default.lemonbar.config;
-
-      packages.switch-to-config = pkgs.writeShellScriptBin "switch-to-config" configs.default.switch-to-script;
-      packages.switch-from-config = pkgs.writeShellScriptBin "switch-from-config" configs.default.switch-from-script;
     });
 }

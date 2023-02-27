@@ -117,7 +117,7 @@ super + o; super + n
 
 # open passmenu
 super + p
-	passmenu -p "pass: "
+	pass show $(pass ls . | xprompt)
 
 ###############################
 # Hide and unhide stuff
