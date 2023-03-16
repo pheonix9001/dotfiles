@@ -1,16 +1,12 @@
-l:
-l.y_fold [
-  (l.mkY {
-    # Broot for fuzzy searching
-    apps.broot.enabled = false;
-    # Fzf for fuzzy searching
-    apps.fzf.enabled = false;
-  })
-  (s: with s; {
-    env.pkgs = l.only_if apps.broot.enabled { broot = pkgs.broot; };
-    env.syms."~/.config/broot" = ../config/broot;
-  })
-  (s: with s; {
-    env.pkgs = l.only_if apps.fzf.enabled (with pkgs; { inherit fd fzf; });
-  })
-]
+l: s:
+with s; {
+  # Broot for fuzzy searching
+  apps.broot.enabled = false;
+  # Fzf for fuzzy searching
+  apps.fzf.enabled = false;
+
+  env.pkgs = with pkgs;
+    l.only_if apps.broot.enabled { inherit broot; }
+    // l.only_if apps.fzf.enabled { inherit fd fzf; };
+  env.syms."~/.config/broot" = ../config/broot;
+}

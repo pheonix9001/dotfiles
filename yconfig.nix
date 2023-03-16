@@ -9,6 +9,7 @@ l.y_fold [
   (s: {
     apps = {
       bspwm.enabled = true;
+      fzf.enabled = true;
 
       kakoune.enabled = true;
       kakoune.plugins = with s.pkgs.kakounePlugins; { inherit kak-lsp; };
@@ -31,6 +32,14 @@ l.y_fold [
         inherit xdotool xsel xset xrandr xsetroot neofetch zathura imagemagick
           sxiv lxappearance;
       };
-    env.syms."~/.bashrc" = ./config/bash/bashrc;
+    env.syms = {
+	    "~/.config/X11" = ./config/X11;
+	    "~/.config/Xresources" = ./config/Xresources;
+	    "~/.config/alacritty" = ./config/alacritty;
+	    "~/.config/neofetch" = ./config/neofetch;
+	    "~/.config/newsboat" = ./config/newsboat;
+	    "~/.config/picom" = ./config/picom;
+	    "~/.bashrc" = ./config/bash/bashrc;
+    };
   })
 ]
