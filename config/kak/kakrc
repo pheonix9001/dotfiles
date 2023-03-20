@@ -1,4 +1,5 @@
 eval %sh{kak-lsp --kakoune -s %val{session}}
+kakboard-enable
 
 hook global WinSetOption filetype=(rust|javascript|typescript|c|cpp) %{
 	set global lsp_cmd "kak-lsp -s %val{session} -vvv --log /tmp/kak-lsp.log"
@@ -7,8 +8,6 @@ hook global WinSetOption filetype=(rust|javascript|typescript|c|cpp) %{
 	map -docstring "Lsp hover" window user "k" ":lsp-hover<ret>"
 	map -docstring "Enter lsp mode" window user "l" ":enter-user-mode lsp<ret>"
 }
-
-map global user y '<a-|>xsel -i -b<ret>'
 
 # Options
 set-option current tabstop 4

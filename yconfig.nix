@@ -12,7 +12,7 @@ l.y_fold [
       fzf.enabled = true;
 
       kakoune.enabled = true;
-      kakoune.plugins = with s.pkgs.kakounePlugins; { inherit kak-lsp; };
+      kakoune.plugins = with s.pkgs.kakounePlugins; [ kak-lsp kakboard ];
 
       lemonbar.enabled = true;
       lemonbar.config = with s.deps.crane-lib;
@@ -28,10 +28,10 @@ l.y_fold [
     };
 
     env.pkgs = with s.pkgs;
-      with xorg; {
-        inherit xdotool xsel xset xrandr xsetroot neofetch zathura imagemagick
-          sxiv lxappearance;
-      };
+      with xorg; [
+        xdotool xsel xset xrandr xsetroot neofetch zathura imagemagick
+          sxiv lxappearance
+      ];
     env.syms = {
 	    "~/.config/X11" = ./config/X11;
 	    "~/.config/Xresources" = ./config/Xresources;

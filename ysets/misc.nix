@@ -6,7 +6,7 @@ with s; {
   apps.fzf.enabled = false;
 
   env.pkgs = with pkgs;
-    l.only_if apps.broot.enabled { inherit broot; }
-    // l.only_if apps.fzf.enabled { inherit fd fzf; };
+    l.list.optionals apps.broot.enabled [ broot ]
+    ++ l.list.optionals apps.fzf.enabled [ fd fzf ];
   env.syms."~/.config/broot" = ../config/broot;
 }
