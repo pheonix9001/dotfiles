@@ -8,12 +8,29 @@ l.y_fold [
   (import ./config/bspwm/yset.nix l)
   (import ./config/nushell/yset.nix l)
   (s: {
-	shells = {
-		nushell.enabled = true;
-		default = "nushell";
-	};
+    shells = {
+      nushell.enabled = true;
+      default = "nushell";
+    };
     apps = {
       bspwm.enabled = true;
+      bspwm.config = {
+        border_width = "0";
+        window_gap = "1";
+        left_padding = "0";
+        right_padding = "0";
+        bottom_padding = "0";
+        top_padding = "15";
+        split_ratio = "0.30";
+        automatic_scheme = "longest_side";
+        directional_focus_tightness = "low";
+        focus_follows_pointer = "true";
+        pointer_follows_focus = "false";
+        pointer_follows_monitor = "true";
+        pointer_modifier = "mod4";
+        pointer_action1 = "move";
+        pointer_action2 = "resize_corner";
+      };
       broot.enabled = true;
 
       kakoune.enabled = true;
@@ -34,17 +51,25 @@ l.y_fold [
 
     env.pkgs = with s.pkgs;
       with xorg; [
-        xdotool xsel xset xrandr xsetroot neofetch zathura imagemagick
-          sxiv lxappearance
+        xdotool
+        xsel
+        xset
+        xrandr
+        xsetroot
+        neofetch
+        zathura
+        imagemagick
+        sxiv
+        lxappearance
       ];
     env.syms = {
-	    "~/.config/X11" = ./config/X11;
-	    "~/.config/Xresources" = ./config/Xresources;
-	    "~/.config/alacritty" = ./config/alacritty;
-	    "~/.config/neofetch" = ./config/neofetch;
-	    "~/.config/newsboat" = ./config/newsboat;
-	    "~/.config/picom" = ./config/picom;
-	    "~/.bashrc" = ./config/bash/bashrc;
+      "~/.config/X11" = ./config/X11;
+      "~/.config/Xresources" = ./config/Xresources;
+      "~/.config/alacritty" = ./config/alacritty;
+      "~/.config/neofetch" = ./config/neofetch;
+      "~/.config/newsboat" = ./config/newsboat;
+      "~/.config/picom" = ./config/picom;
+      "~/.bashrc" = ./config/bash/bashrc;
     };
   })
 ]

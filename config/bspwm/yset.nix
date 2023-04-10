@@ -2,36 +2,19 @@ l: s:
 with s; {
   # Bspwm as window manager
   apps.bspwm.enabled = false;
+  # Bspwm config
+  apps.bspwm.config = { border_width = "0"; };
+
   env.pkgs = with pkgs;
     l.only_if apps.bspwm.enabled [ bspwm sxhkd xprompt hsetroot ];
   user.wm.startup = [
     ''echo -e "\\e[34m\\e[1m::\\e[37m Configuring bspwm...\\e[0m"''
-    "bspc rule -a Screenkey manage=off"
     "bspc rule -a Notes state=floating sticky=on"
     "bspc rule -a firefox:*:Picture-in-Picture state=floating sticky=on"
     "bspc rule -a gimp state=tiling"
     "bspc rule -a Zathura state=tiling"
+  ] ++ l.set.mapToValues (n: v: "bspc config ${n} ${v}") apps.bspwm.config;
 
-    "bspc config border_width					0"
-    "bspc config window_gap						1"
-    "bspc config left_padding					0"
-    "bspc config right_padding				0"
-    "bspc config bottom_padding				0"
-    "bspc config top_padding					15"
-
-    "bspc config split_ratio          		0.50"
-    "bspc config automatic_scheme         longest_side"
-    "bspc config directional_focus_tightness low"
-
-    "bspc config focus_follows_pointer    true"
-    "bspc config pointer_follows_focus    false"
-    "bspc config pointer_follows_monitor  true"
-
-    # resize stuff
-    "bspc config pointer_modifier mod4"
-    "bspc config pointer_action1 move"
-    "bspc config pointer_action2 resize_corner"
-  ];
   apps.bspwm.bspwmrc = ''
     #!${pkgs.bash}/bin/bash
 
@@ -50,7 +33,7 @@ with s; {
     #####################
     echo -e "\\e[34m\\e[1m::\\e[37m Setting up environment variables...\\e[0m"
 
-    export EDITOR=nvim
+    export EDITOR=kak
     export BROWSER=firefox
     export TERMINAL=alacritty
     export SHELL=bash
@@ -131,12 +114,12 @@ with s; {
       args = [
         "-c"
         ''
-          for dep in $binDeps {
-  	     	  export PATH="$PATH:$dep/bin"
-          }
-          mkdir -p $out
-          echo $bspwmrc > $out/bspwmrc
-          chmod +x $out/bspwmrc
+                  for dep in $binDeps {
+          	     	  export PATH="$PATH:$dep/bin"
+                  }
+                  mkdir -p $out
+                  echo $bspwmrc > $out/bspwmrc
+                  chmod +x $out/bspwmrc
         ''
       ];
     };
