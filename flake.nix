@@ -17,11 +17,10 @@
       in rec {
         lib = nix-std.lib // (import ./lib.nix { inherit lib; });
         ysets.pheonix9001 = lib.y_ext (import ./yconfig.nix lib) {
-          inherit pkgs;
+          inherit pkgs system;
           deps = { inherit crane-lib; };
         };
         ysets.default = ysets.pheonix9001;
-        packages.default = (lib.Y ysets.default).dotfiles-drv;
+        packages = (lib.Y ysets.default).outputs;
       });
-
 }

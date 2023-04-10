@@ -1,0 +1,100 @@
+df | from tsv | get 'Use%'
+df | from tsv | get 'Use% '
+df | from tsv | get ' Use% '
+df | from tsv | get ' Use%'
+df | from tsv
+(df | from tsv).Filesystem
+(df | from tsv).filesystem
+(df | from tsv).
+(df | from tsv).1
+df | from --help
+df | from 
+wget https://youtube.com
+ls
+rm index.html
+curl https://youtube.com/
+curl https://www.youtube.com/
+curl https://www.youtube.com/ | nu xml
+curl https://www.youtube.com/ | fro xml
+curl https://www.youtube.com/ | from xml
+curl https://www.youtube.com/ | to xml
+curl https://www.youtube.com/ | from xml
+from --help
+df | from ssv
+df | from ssv | get Filesystem
+df | from ssv | get 1K-blocks
+df | grep sh
+df | grep shm
+df | grep shm | from ssv
+df | grep shm | cut
+cut --help
+$nu
+$nu.history-path = ~/.cache/nuhistory.txt
+str --help
+tbl
+table --help
+ansi
+ansi --help
+ansi red
+u
+ansi red; echo hello
+echo (ansi red)hello
+echo (ansi red) hello
+echo $'(ansi red) hello'
+echo $'(ansi red)hello'
+date --help
+date now | date format --help
+git status --help
+gs -s
+ls
+cd
+br
+broot
+broot --install
+broot --help
+br --help
+br --config
+broot --hlep
+broot --help
+kak ~/.config/broot/launcher/bash/br
+read
+open
+open --help
+broot --help
+broot --outcmd temp
+ls
+touch temp
+broot --outcmd temp
+ls
+e temp
+kak temp
+source temp
+str replace -h
+true && echo hello
+true and echo hello
+true; echo hello
+false; echo hello
+true || echo hello
+try false
+try { false };
+if
+if true {}
+if true { echo hello }
+rm
+rm --help
+cat ~/.bash_history
+cat ~/.bash_history | from ssv
+cat ~/.bash_history | list
+cat ~/.bash_history | parse --help
+cat ~/.bash_history | parse ""
+cat ~/.bash_history | parse "{}"
+cat ~/.bash_history | parse "{u}"
+break
+s
+ls
+cd programs/
+ls
+br
+ls
+opes result/config.json
+open result/config.json

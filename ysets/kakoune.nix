@@ -6,9 +6,7 @@ with s; {
   apps.kakoune.plugins = [ ];
 
   env.pkgs = l.list.optionals apps.kakoune.enabled [
-    (pkgs.kakoune.override {
-      plugins = apps.kakoune.plugins;
-    })
+    (pkgs.kakoune.override { plugins = apps.kakoune.plugins; })
     pkgs.rust-analyzer
     pkgs.rustfmt
   ];

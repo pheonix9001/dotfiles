@@ -1,6 +1,6 @@
 #!/bin/sh
 
-keyboards=""
+keyboards="@keyboards@"
 
 sel=$(echo "$keyboards" | xprompt "keyboard:" -i)
 

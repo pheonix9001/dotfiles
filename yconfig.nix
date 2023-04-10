@@ -1,15 +1,20 @@
 l:
 l.y_fold [
   (import ./ysets/core.nix l)
-  (import ./ysets/bspwm.nix l)
-  (import ./ysets/scripts.nix l)
   (import ./ysets/kakoune.nix l)
   (import ./ysets/lemonbar.nix l)
   (import ./ysets/misc.nix l)
+  (import ./scripts/yset.nix l)
+  (import ./config/bspwm/yset.nix l)
+  (import ./config/nushell/yset.nix l)
   (s: {
+	shells = {
+		nushell.enabled = true;
+		default = "nushell";
+	};
     apps = {
       bspwm.enabled = true;
-      fzf.enabled = true;
+      broot.enabled = true;
 
       kakoune.enabled = true;
       kakoune.plugins = with s.pkgs.kakounePlugins; [ kak-lsp kakboard ];

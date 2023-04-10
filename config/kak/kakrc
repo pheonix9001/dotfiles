@@ -1,7 +1,6 @@
 eval %sh{kak-lsp --kakoune -s %val{session}}
-kakboard-enable
 
-hook global WinSetOption filetype=(rust|javascript|typescript|c|cpp) %{
+hook global WinSetOption filetype=(rust|javascript|typescript|c|cpp|zig) %{
 	set global lsp_cmd "kak-lsp -s %val{session} -vvv --log /tmp/kak-lsp.log"
     lsp-enable-window
 	lsp-inlay-diagnostics-enable window

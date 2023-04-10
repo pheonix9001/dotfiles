@@ -17,6 +17,18 @@ with lib; rec {
     else
       y;
 
+  _if = bool: if bool then x: y: x else x: y: y;
+
+  # Return value only if a boolean is true
+  only_if = with builtins;
+    pred: v:
+    if typeOf v == "set" then
+      _if pred v { }
+    else if typeOf v == "list" then
+      _if pred v [ ]
+    else
+      x: y: null;
+
   # A yset is a set defined with the Y combinator. Thus it can refer to itself
   #
   # eg = s: {a = s.b + 12; b = 12;}
