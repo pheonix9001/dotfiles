@@ -1,12 +1,10 @@
 #!/bin/bash
 
-export PAGER="less"
 export PATH=$PATH:~/.local/bin
 
 export FZF_DEFAULT_OPTS="--height=70% --reverse --tiebreak=end,length,index --prompt=\"λ \""
 HISTFILE="~/.cache/bash/history"
 export PS1=" \e[36m\w\e[37;2m>\e[0m\n \e[32mλ \e[0m"
-export EDITOR="kak"
 export RUSTFLAGS="-C target-feature=-crt-static"
 
 # aliases

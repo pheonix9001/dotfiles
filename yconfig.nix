@@ -4,6 +4,7 @@ l.y_fold [
   (import ./ysets/kakoune.nix l)
   (import ./ysets/lemonbar.nix l)
   (import ./ysets/misc.nix l)
+  (import ./ysets/user.nix l)
   (import ./scripts/yset.nix l)
   (import ./config/bspwm/yset.nix l)
   (import ./config/nushell/yset.nix l)
@@ -11,6 +12,16 @@ l.y_fold [
     shells = {
       nushell.enabled = true;
       default = "nushell";
+    };
+    user.envvars = {
+      EDITOR = "kak";
+      BROWSER = "firefox";
+      TERMINAL = "alacritty";
+      SHELL = "bash";
+
+      PASSWORD_STORE_DIR = "~/.local/password-store";
+      LESSHISTFILE = "~/.cache/lesshst";
+      GNUPGHOME = "~/.local/share/gnupg";
     };
     apps = {
       bspwm.enabled = true;
