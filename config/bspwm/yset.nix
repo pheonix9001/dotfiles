@@ -9,94 +9,90 @@ with s; {
     l.only_if apps.bspwm.enabled [ bspwm sxhkd xprompt hsetroot ];
 
   apps.bspwm.bspwmrc = ''
-        #!${pkgs.bash}/bin/bash
+    #!${pkgs.bash}/bin/bash
 
-        mkdir -p ~/.cache/wm
-        echo > ~/.cache/wm/log
-        exec > ~/.cache/wm/log 2>&1
-        echo -e "Initialized bspwm log"
-        #########################################
-        # create lock so only one instance can exist
-        #########################################
-        test -e ~/.cache/wm/rc.lck && exit
-        touch ~/.cache/wm/rc.lck
+    mkdir -p ~/.cache/wm
+    echo > ~/.cache/wm/log
+    exec > ~/.cache/wm/log 2>&1
+    echo -e "Initialized bspwm log"
+    #########################################
+    # create lock so only one instance can exist
+    #########################################
+    test -e ~/.cache/wm/rc.lck && exit
+    touch ~/.cache/wm/rc.lck
 
-        #####################
-        # set up enviornment
-        #####################
-        echo -e "\\e[34m\\e[1m::\\e[37m Setting up environment variables...\\e[0m"
-        ${
-          builtins.concatStringsSep "\n"
-          (l.set.mapToValues (n: v: ''export ${n}="${v}"'') user.envvars)
-        }
+    #####################
+    # set up enviornment
+    #####################
+    echo -e "\\e[34m\\e[1m::\\e[37m Setting up environment variables...\\e[0m"
+    ${builtins.concatStringsSep "\n"
+    (l.set.mapToValues (n: v: ''export ${n}="${v}"'') user.envvars)}
 
-        # if $1 is greater than 1 that means this is not run for the first time
-        test $1 -gt 1 && (
-        echo -e "\\e[34m\\e[1m::\\e[37m killing duplicate processess..\\e[0m"
-        killall "picom" \
-          "sxhkd" \
-          "lemonbar" \
-          "controllemonbar" \
-          "dunst" \
-          "xcape" \
-          "pipewire" \
-          "pipewire-pulse" \
-          "wireplumber"
-        )
+    # if $1 is greater than 1 that means this is not run for the first time
+    test $1 -gt 1 && (
+    echo -e "\\e[34m\\e[1m::\\e[37m killing duplicate processess..\\e[0m"
+    killall "picom" \
+      "sxhkd" \
+      "lemonbar" \
+      "controllemonbar" \
+      "dunst" \
+      "xcape" \
+      "pipewire" \
+      "pipewire-pulse" \
+      "wireplumber"
+    )
 
-        # wallpaper
-        echo -e "\\e[34m\\e[1m::\\e[37m Setting wallpaper...\\e[0m"
-        hsetroot -solid '#2e3440' -fill ~/Pictures/wallpapers/fill.png -center ~/Pictures/wallpapers/center.png &
+    # wallpaper
+    echo -e "\\e[34m\\e[1m::\\e[37m Setting wallpaper...\\e[0m"
+    hsetroot -solid '#2e3440' -fill ~/Pictures/wallpapers/fill.png -center ~/Pictures/wallpapers/center.png &
 
-        echo -e "\\e[34m\\e[1m::\\e[37m Configuring X...\\e[0m"
-        xrandr -s 1366x768
-        xsetroot -cursor_name left_ptr
-        xset r rate 250 100
+    echo -e "\\e[34m\\e[1m::\\e[37m Configuring X...\\e[0m"
+    xrandr -s 1366x768
+    xsetroot -cursor_name left_ptr
+    xset r rate 250 100
 
-        # map keys
-        xcape -e Super_L=Escape
+    # map keys
+    xcape -e Super_L=Escape
 
-        # load xresources
-        echo -e "\\e[34m\\e[1m::\\e[37m Loading Xresources...\\e[0m"
-        xrdb ~/.config/Xresources/main # load Xresources
-        #####################
-        # daemons
-        #####################
-        echo -e "\\e[34m\\e[1m::\\e[37m Starting daemons...\\e[0m"
+    # load xresources
+    echo -e "\\e[34m\\e[1m::\\e[37m Loading Xresources...\\e[0m"
+    xrdb ~/.config/Xresources/main # load Xresources
+    #####################
+    # daemons
+    #####################
+    echo -e "\\e[34m\\e[1m::\\e[37m Starting daemons...\\e[0m"
 
-        SHELL=bash test $1 -gt 1 && (sxhkd &) || sxhkd -m 1 &
-        picom &
-        dunst &
+    SHELL=bash test $1 -gt 1 && (sxhkd &) || sxhkd -m 1 &
+    picom &
+    dunst &
 
-        ( controllemonbar | \
-        lemonbar -gx15 -f"Iosevka:pixelsize=13:antialias=true" -B#2e3440 -F#d8dee9 -U#88c0d0 -o2 ) &
+    ( controllemonbar | \
+    lemonbar -gx15 -f"Iosevka:pixelsize=13:antialias=true" -B#2e3440 -F#d8dee9 -U#88c0d0 -o2 ) &
 
-        pipewire &
-        pipewire-pulse &
-        wireplumber &
+    pipewire &
+    pipewire-pulse &
+    wireplumber &
 
 
-        # Startup
-        ${builtins.concatStringsSep "\n" user.wm.startup}
+    # Startup
+    ${builtins.concatStringsSep "\n" user.wm.startup}
 
-        echo -e "\\e[34m\\e[1m::\\e[37m Configuring bspwm...\\e[0m
-        bspc rule -a Notes state=floating sticky=on
-        bspc rule -a firefox:*:Picture-in-Picture state=floating sticky=on
-        bspc rule -a gimp state=tiling
-        bspc rule -a Zathura state=tiling
+    echo -e "\\e[34m\\e[1m::\\e[37m Configuring bspwm...\\e[0m
+    bspc rule -a Notes state=floating sticky=on
+    bspc rule -a firefox:*:Picture-in-Picture state=floating sticky=on
+    bspc rule -a gimp state=tiling
+    bspc rule -a Zathura state=tiling
 
-    	# Bspwm configuration
-        ${
-          builtins.concatStringsSep "\n"
-          (l.set.mapToValues (n: v: "bspc config ${n} ${v}") apps.bspwm.config)
-        }
+    # Bspwm configuration
+    ${builtins.concatStringsSep "\n"
+    (l.set.mapToValues (n: v: "bspc config ${n} ${v}") apps.bspwm.config)}
 
-        #####################
-        # finish
-        #####################
-        echo -e "\\e[34m\\e[1m::\\e[37m Finished\\e[0m"
+    #####################
+    # finish
+    #####################
+    echo -e "\\e[34m\\e[1m::\\e[37m Finished\\e[0m"
 
-        rm ~/.cache/wm/rc.lck # clean up lock
+    rm ~/.cache/wm/rc.lck # clean up lock
   '';
 
   env.syms = l.only_if apps.bspwm.enabled {

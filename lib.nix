@@ -10,24 +10,17 @@ with lib; rec {
   # Else pick y
   recMerge = with builtins;
     x: y:
-    if all isAttrs [ x y ] then
+    if isAttrs x && isAttrs y then
       zipAttrsWith (name: foldl' recMerge null) [ x y ]
-    else if all isList [ x y ] then
+    else if isList x && isList y then
       x ++ y
+    else if isNull y then
+      x
     else
       y;
 
-  _if = bool: if bool then x: y: x else x: y: y;
-
   # Return value only if a boolean is true
-  only_if = with builtins;
-    pred: v:
-    if typeOf v == "set" then
-      _if pred v { }
-    else if typeOf v == "list" then
-      _if pred v [ ]
-    else
-      x: y: null;
+  only_if = pred: v: if pred then v else null;
 
   # A yset is a set defined with the Y combinator. Thus it can refer to itself
   #
