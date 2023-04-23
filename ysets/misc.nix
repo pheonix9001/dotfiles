@@ -1,8 +1,8 @@
 l: s:
 with s; {
-  # Broot for fuzzy searching
+  doc."apps.broot.enabled" = "Broot for fuzzy searching";
   apps.broot.enabled = false;
-  # Fzf for fuzzy searching
+  doc."apps.fzf.enabled" = "Fzf for fuzzy searching";
   apps.fzf.enabled = false;
 
   env.pkgs = with pkgs;

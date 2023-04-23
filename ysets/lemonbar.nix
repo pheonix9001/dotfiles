@@ -1,8 +1,8 @@
 l: s:
 with s; {
-  # Lemonbar as status bar
+  doc."apps.lemonbar" = "Lemonbar as status bar";
   apps.lemonbar.enabled = false;
-  # The derivation of the lemonbar configuration
+  doc."apps.lemonbar.config" = "The derivation of the lemonbar configuration";
   apps.lemonbar.config = null;
 
   outputs = l.set.optional apps.lemonbar.enabled {

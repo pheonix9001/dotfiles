@@ -3,10 +3,10 @@
 ###############################
 
 # Switches keyboard
-alt + i
+super + a; super + i
 	~/.scripts/xprompt/keyboards
 
-alt + o
+super + a; super + o
 	setxkbmap -layout us -variant dvp
 	
 # terminal emulator

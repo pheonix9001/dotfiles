@@ -1,8 +1,10 @@
 l: s:
 with s; {
-  # Kakoune for text editing
+  doc."apps.kakoune" = "Kakoune for text editing";
+  doc."apps.kakoune.enabled" = "Enable kakoune";
   apps.kakoune.enabled = false;
-  # Plugins used by kakoune
+
+  doc."apps.kakoune.plugins" = "Plugins used by kakoune";
   apps.kakoune.plugins = [ ];
 
   env.pkgs = l.list.optionals apps.kakoune.enabled [

@@ -1,8 +1,8 @@
 l: s:
 with s; {
-  # Bspwm as window manager
+  doc."apps.bspwm.enabled" = "Bspwm as window manager";
   apps.bspwm.enabled = false;
-  # Bspwm config
+  doc."apps.bspwm.config" = "Bspwm config";
   apps.bspwm.config = { border_width = "0"; };
 
   env.pkgs = with pkgs;
@@ -77,7 +77,7 @@ with s; {
     # Startup
     ${builtins.concatStringsSep "\n" user.wm.startup}
 
-    echo -e "\\e[34m\\e[1m::\\e[37m Configuring bspwm...\\e[0m
+    echo -e "\\e[34m\\e[1m::\\e[37m Configuring bspwm...\\e[0m"
     bspc rule -a Notes state=floating sticky=on
     bspc rule -a firefox:*:Picture-in-Picture state=floating sticky=on
     bspc rule -a gimp state=tiling

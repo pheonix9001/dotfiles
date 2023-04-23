@@ -12,24 +12,24 @@ let
   listToShortStr = list:
     let longstr = concatStringsSep " " (map (v: toString v) list);
     in if stringLength longstr <= 80 then
-      "[${longstr}]"
+      "${longstr}"
     else
-      "[${substring 0 80 longstr}...]";
+      "${substring 0 80 longstr}...";
 
   genDocElem = { name, value, docstr }:
     if typeOf value == "set" then ''
       # ${name}
-      elements: ${listToShortStr (attrNames value)}
+      elements: {${listToShortStr (attrNames value)}}
       ${docstr}
     '' else if typeOf value == "list" then ''
       # ${name}: list ${
         if length value == 0 then "" else typeOf (elemAt value 0)
       }
-      value: ${listToShortStr value}
+      value: [${listToShortStr value}]
       ${docstr}
     '' else ''
       # ${name}: ${typeOf value}
-      value: ${value}
+      value: ${toString value}
       ${docstr}
     '';
   genDocs = doc: cfg:
