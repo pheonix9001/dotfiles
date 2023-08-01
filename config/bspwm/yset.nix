@@ -53,6 +53,7 @@ with s; {
 
     # map keys
     xcape -e Super_L=Escape
+    setxkbmap -option caps:super
 
     # load xresources
     echo -e "\\e[34m\\e[1m::\\e[37m Loading Xresources...\\e[0m"
@@ -72,7 +73,6 @@ with s; {
     pipewire &
     pipewire-pulse &
     wireplumber &
-
 
     # Startup
     ${builtins.concatStringsSep "\n" user.wm.startup}

@@ -32,7 +32,7 @@ l.y_fold [
         right_padding = "0";
         bottom_padding = "0";
         top_padding = "15";
-        split_ratio = "0.30";
+        split_ratio = "0.50";
         automatic_scheme = "longest_side";
         directional_focus_tightness = "low";
         focus_follows_pointer = "true";
