@@ -108,12 +108,12 @@ with s; {
       args = [
         "-c"
         ''
-                  for dep in $binDeps {
-          	     	  export PATH="$PATH:$dep/bin"
-                  }
-                  mkdir -p $out
-                  echo $bspwmrc > $out/bspwmrc
-                  chmod +x $out/bspwmrc
+               for dep in $binDeps {
+          	    export PATH="$PATH:$dep/bin"
+               }
+               mkdir -p $out
+               echo $bspwmrc > $out/bspwmrc
+               chmod +x $out/bspwmrc
         ''
       ];
     };

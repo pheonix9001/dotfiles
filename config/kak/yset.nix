@@ -13,5 +13,5 @@ with s; {
     pkgs.rustfmt
   ];
 
-  env.syms."~/.config/kak" = ../config/kak;
+  env.syms."~/.config/kak" = ./.;
 }

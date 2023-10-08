@@ -1,10 +1,10 @@
 l:
 l.y_fold [
   (import ./ysets/core.nix l)
-  (import ./ysets/kakoune.nix l)
-  (import ./ysets/lemonbar.nix l)
   (import ./ysets/misc.nix l)
   (import ./ysets/user.nix l)
+  (import ./config/kak/yset.nix l)
+  (import ./config/lemonbar/yset.nix l)
   (import ./scripts/yset.nix l)
   (import ./config/bspwm/yset.nix l)
   (import ./config/nushell/yset.nix l)
@@ -72,6 +72,7 @@ l.y_fold [
         imagemagick
         sxiv
         lxappearance
+        newsboat
       ];
     env.syms = {
       "~/.config/X11" = ./config/X11;
