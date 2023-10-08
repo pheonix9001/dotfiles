@@ -9,7 +9,7 @@ with s; {
     l.only_if apps.bspwm.enabled [ bspwm sxhkd xprompt hsetroot ];
 
   apps.bspwm.bspwmrc = ''
-    #!${pkgs.bash}/bin/bash
+    #!${pkgs.oil}/bin/oil
 
     mkdir -p ~/.cache/wm
     echo > ~/.cache/wm/log

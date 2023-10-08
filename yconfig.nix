@@ -3,9 +3,10 @@ l.y_fold [
   (import ./ysets/core.nix l)
   (import ./ysets/misc.nix l)
   (import ./ysets/user.nix l)
+  (import ./scripts/yset.nix l)
   (import ./config/kak/yset.nix l)
   (import ./config/lemonbar/yset.nix l)
-  (import ./scripts/yset.nix l)
+  (import ./config/newsboat/yset.nix l)
   (import ./config/bspwm/yset.nix l)
   (import ./config/nushell/yset.nix l)
   (s: {
@@ -58,6 +59,8 @@ l.y_fold [
             cargoToml = ./config/lemonbar/Cargo.toml;
           };
         };
+
+       newsboat.enabled = true;
     };
 
     env.pkgs = with s.pkgs;
@@ -72,14 +75,12 @@ l.y_fold [
         imagemagick
         sxiv
         lxappearance
-        newsboat
       ];
     env.syms = {
       "~/.config/X11" = ./config/X11;
       "~/.config/Xresources" = ./config/Xresources;
       "~/.config/alacritty" = ./config/alacritty;
       "~/.config/neofetch" = ./config/neofetch;
-      "~/.config/newsboat" = ./config/newsboat;
       "~/.config/picom" = ./config/picom;
       "~/.bashrc" = ./config/bash/bashrc;
     };
