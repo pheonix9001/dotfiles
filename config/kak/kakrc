@@ -11,8 +11,6 @@ hook global WinSetOption filetype=(scheme) %{
 	map global user s ":repl-send-text<ret>" -docstring "Send text to the repl"
 }
 
-# Options
-set-option current tabstop 4
-set-option current indentwidth 0
+set-option current indentwidth 2
 
 addhl global/ show-matching

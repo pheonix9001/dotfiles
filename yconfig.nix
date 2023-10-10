@@ -9,10 +9,12 @@ l.y_fold [
   (import ./config/newsboat/yset.nix l)
   (import ./config/bspwm/yset.nix l)
   (import ./config/nushell/yset.nix l)
+  (import ./config/oils/yset.nix l)
   (s: {
     shells = {
-      nushell.enabled = true;
-      default = "nushell";
+      nushell.enabled = false;
+      oil.enabled = true;
+      default = "oil";
     };
     user.envvars = {
       EDITOR = "kak";
