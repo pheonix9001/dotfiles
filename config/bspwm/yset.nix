@@ -28,7 +28,7 @@ with s; {
     #####################
     echo $'\e[34m\e[1m::\e[37m Setting up environment variables...\e[0m'
     ${builtins.concatStringsSep "\n"
-    (l.set.mapToValues (n: v: ''export ${n}="${v}"'') user.envvars)}
+    (l.set.mapToValues (n: v: ''export ${n}=${v}'') user.envvars)}
     export SHELL=${shells.oil.path}
 
     # Means this is not run for the first time
